@@ -282,22 +282,13 @@ function throttle(func, limit) {
 // ==================
 
 console.log('%c' + `
-        ___
-       /   \\
-      /  o  \\
-     /   |   \\
-    /    |    \\
-   |     |     |
-   |    / \\    |
-   |   /   \\   |
-    \\ /     \\ /
-     |       |
-      \\     /
-       \\   /
-        \\_/
-         |
-         |
-`, 'font-size: 12px; color: #CD853F; font-family: monospace;');
+⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣤⣄⣀⣀⡀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⠶
+⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀
+⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀
+⢀⣠⠞⠋⠉⠛⠻⠿⣿⣿⣿⠿⠟⠋⠀⠀⠀⠀⠀
+⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+`, 'font-size: 16px; color: #CD853F;');
 
 console.log('%c        Rudo tu', 'font-size: 18px; color: #8B4513;');
 console.log('%c       rudo tam', 'font-size: 18px; color: #8B4513;');
