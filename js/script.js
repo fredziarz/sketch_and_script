@@ -281,10 +281,27 @@ function throttle(func, limit) {
 // Console Easter Egg
 // ==================
 
-console.log('%cHello there!', 'font-size: 24px; font-weight: bold;');
-console.log('%cInterested in how this site was built?', 'font-size: 14px;');
-console.log('%cCheck out the source code on GitHub: https://github.com/yourusername/portfolio', 'font-size: 12px; color: #8B7E74;');
-console.log('%cBuilt with care using vanilla JavaScript, HTML, and CSS', 'font-size: 12px;');
+console.log('%c' + `
+    🍂                    🍁
+        🍂       🍁           🍂
+  🍁         🍂        🍁
+       🍂                  🍁
+`, 'font-size: 16px;');
+
+console.log('%cRudo tu.', 'font-size: 20px; font-weight: bold; color: #D2691E;');
+console.log('%crudo tam.', 'font-size: 18px; font-style: italic; color: #CD853F;');
+console.log('%cRudo tu i tam.', 'font-size: 20px; font-weight: bold; color: #8B4513;');
+
+console.log('%c' + `
+       🍂                  🍁
+  🍁         🍂        🍁
+        🍂       🍁           🍂
+    🍁                    🍂
+`, 'font-size: 16px;');
+
+console.log('%c✨ Sketch & Script Portfolio', 'font-size: 16px; font-weight: bold;');
+console.log('%cBuilt with care using vanilla JavaScript, HTML, and CSS', 'font-size: 12px; color: #666;');
+console.log('%c🔗 GitHub: https://github.com/fredziarz', 'font-size: 12px; color: #64FFDA;');
 
 // ==================
 // Scroll Indicator Fade
