@@ -282,26 +282,31 @@ function throttle(func, limit) {
 // ==================
 
 console.log('%c' + `
-    🍂                    🍁
-        🍂       🍁           🍂
-  🍁         🍂        🍁
-       🍂                  🍁
-`, 'font-size: 16px;');
+        ___
+       /   \\
+      /  o  \\
+     /   |   \\
+    /    |    \\
+   |     |     |
+   |    / \\    |
+   |   /   \\   |
+    \\ /     \\ /
+     |       |
+      \\     /
+       \\   /
+        \\_/
+         |
+         |
+`, 'font-size: 12px; color: #CD853F; font-family: monospace;');
 
-console.log('%c          Rudo tu', 'font-size: 20px; font-weight: bold; color: #D2691E;');
-console.log('%c          rudo tam', 'font-size: 18px; font-style: italic; color: #CD853F;');
-console.log('%c      Rudo tu i tam', 'font-size: 20px; font-weight: bold; color: #8B4513;');
+console.log('%c        Rudo tu', 'font-size: 18px; color: #8B4513;');
+console.log('%c       rudo tam', 'font-size: 18px; color: #8B4513;');
+console.log('%c    Rudo tu i tam', 'font-size: 18px; color: #8B4513;');
 
-console.log('%c' + `
-       🍂                  🍁
-  🍁         🍂        🍁
-        🍂       🍁           🍂
-    🍁                    🍂
-`, 'font-size: 16px;');
-
-console.log('%c✨ Sketch & Script Portfolio', 'font-size: 16px; font-weight: bold;');
-console.log('%cBuilt with care using vanilla JavaScript, HTML, and CSS', 'font-size: 12px; color: #666;');
-console.log('%c🔗 GitHub: https://github.com/fredziarz', 'font-size: 12px; color: #64FFDA;');
+console.log('%c', 'font-size: 12px;');
+console.log('%c    Sketch & Script Portfolio', 'font-size: 14px; font-weight: bold;');
+console.log('%c    Built with vanilla JavaScript, HTML & CSS', 'font-size: 11px; color: #666;');
+console.log('%c    GitHub: https://github.com/fredziarz', 'font-size: 11px; color: #64FFDA;');
 
 // ==================
 // Scroll Indicator Fade
