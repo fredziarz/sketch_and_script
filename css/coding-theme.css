@@ -56,6 +56,24 @@
     background-color: var(--color-text-primary);
 }
 
+/* Mobile Menu - Dark Background */
+@media (max-width: 768px) {
+    .coding-theme .nav-menu {
+        background-color: rgba(26, 26, 26, 0.98);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .coding-theme .nav-link {
+        color: var(--color-text-secondary);
+    }
+    
+    .coding-theme .nav-link:hover {
+        background-color: var(--color-bg-alt);
+        color: var(--color-accent);
+    }
+}
+
 /* Typography Overrides */
 .coding-theme body {
     font-family: var(--font-body);
