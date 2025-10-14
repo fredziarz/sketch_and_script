@@ -288,9 +288,9 @@ console.log('%c' + `
        🍂                  🍁
 `, 'font-size: 16px;');
 
-console.log('%cRudo tu.', 'font-size: 20px; font-weight: bold; color: #D2691E;');
-console.log('%crudo tam.', 'font-size: 18px; font-style: italic; color: #CD853F;');
-console.log('%cRudo tu i tam.', 'font-size: 20px; font-weight: bold; color: #8B4513;');
+console.log('%c          Rudo tu', 'font-size: 20px; font-weight: bold; color: #D2691E;');
+console.log('%c          rudo tam', 'font-size: 18px; font-style: italic; color: #CD853F;');
+console.log('%c      Rudo tu i tam', 'font-size: 20px; font-weight: bold; color: #8B4513;');
 
 console.log('%c' + `
        🍂                  🍁
