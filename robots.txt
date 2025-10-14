@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /templates/
+Disallow: /docs/
+
+Sitemap: https://sketchandscript.pl/sitemap.xml
+

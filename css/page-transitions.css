@@ -1,0 +1,515 @@
+/**
+ * Page Transitions & Animations
+ * Creates fluid, smooth transitions for a super soft flow
+ */
+
+/* =============================================================================
+   SMOOTH SCROLLING
+   ============================================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Disable smooth scroll when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* =============================================================================
+   PAGE TRANSITIONS (Fallback for all browsers)
+   ============================================================================= */
+
+body {
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Page loaded - fade in */
+body.page-loaded {
+    opacity: 1;
+}
+
+/* Page transitioning out - fade out */
+body.page-transitioning-out {
+    opacity: 0;
+}
+
+/* =============================================================================
+   VIEW TRANSITIONS API (Modern Browsers)
+   ============================================================================= */
+
+/* Root transition for page navigation */
+::view-transition-old(root) {
+    animation: fadeOut 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+::view-transition-new(root) {
+    animation: fadeIn 0.4s cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* =============================================================================
+   HERO ANIMATIONS
+   ============================================================================= */
+
+/* Hero elements start invisible */
+.hero-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Split hero sides */
+.hero-side {
+    opacity: 0;
+    animation: splitHeroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes splitHeroFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =============================================================================
+   SCROLL ANIMATIONS
+   ============================================================================= */
+
+/* Elements ready to animate */
+.animate-ready {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Elements animate in when visible */
+.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger animations for grid items */
+.projects-grid .animate-ready,
+.games-grid .animate-ready,
+.skills-grid .animate-ready,
+.tech-grid .animate-ready {
+    transition-delay: calc(var(--animation-order, 0) * 0.1s);
+}
+
+/* Set animation order based on position */
+.project-card:nth-child(1),
+.game-card:nth-child(1),
+.skill-card:nth-child(1) {
+    --animation-order: 1;
+}
+
+.project-card:nth-child(2),
+.game-card:nth-child(2),
+.skill-card:nth-child(2) {
+    --animation-order: 2;
+}
+
+.project-card:nth-child(3),
+.game-card:nth-child(3),
+.skill-card:nth-child(3) {
+    --animation-order: 3;
+}
+
+.project-card:nth-child(4),
+.game-card:nth-child(4),
+.skill-card:nth-child(4) {
+    --animation-order: 4;
+}
+
+.project-card:nth-child(5),
+.game-card:nth-child(5),
+.skill-card:nth-child(5) {
+    --animation-order: 5;
+}
+
+.project-card:nth-child(6),
+.game-card:nth-child(6),
+.skill-card:nth-child(6) {
+    --animation-order: 6;
+}
+
+/* =============================================================================
+   HOVER TRANSITIONS
+   ============================================================================= */
+
+/* Smooth all hover effects */
+a,
+button,
+.btn,
+.project-card,
+.game-card,
+.skill-card,
+.tech-card,
+.filter-btn,
+.hero-side {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Image hover effects */
+.project-image img,
+.game-image img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================================================
+   NAVIGATION TRANSITIONS
+   ============================================================================= */
+
+/* Header on scroll */
+.header {
+    transition: background-color 0.3s ease,
+                box-shadow 0.3s ease,
+                padding 0.3s ease;
+}
+
+/* Mobile menu */
+.nav-menu {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+}
+
+.nav-menu.active {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease;
+}
+
+/* =============================================================================
+   FILTER TRANSITIONS
+   ============================================================================= */
+
+/* Filter buttons */
+.filter-btn {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    transform: scale(1.05);
+}
+
+/* Projects filtering */
+.project-card,
+.game-card {
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.4s;
+}
+
+.project-card.hidden,
+.game-card.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+    visibility: hidden;
+}
+
+/* =============================================================================
+   SECTION TRANSITIONS
+   ============================================================================= */
+
+/* Section headers fade in */
+.section-header {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-header.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =============================================================================
+   FORM TRANSITIONS
+   ============================================================================= */
+
+/* Form inputs */
+.form-input,
+.form-textarea {
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    transform: translateY(-2px);
+}
+
+/* =============================================================================
+   BUTTON TRANSITIONS
+   ============================================================================= */
+
+/* All buttons */
+.btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button hover effect */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* =============================================================================
+   LOADING STATES
+   ============================================================================= */
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.skeleton {
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 0px,
+        #e0e0e0 40px,
+        #f0f0f0 80px
+    );
+    background-size: 200px 100%;
+}
+
+/* =============================================================================
+   PAGE-SPECIFIC ANIMATIONS
+   ============================================================================= */
+
+/* About section */
+.about-section .section-title {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.about-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+.about-cta {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+}
+
+/* Contact section */
+.contact-section .section-title {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.contact-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.contact-form {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+/* =============================================================================
+   KEYFRAME ANIMATIONS
+   ============================================================================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =============================================================================
+   REDUCED MOTION
+   ============================================================================= */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    body {
+        opacity: 1;
+    }
+    
+    .hero-animate,
+    .animate-ready {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* =============================================================================
+   MOBILE OPTIMIZATIONS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    /* Faster animations on mobile */
+    body {
+        transition-duration: 0.3s;
+    }
+    
+    .animate-ready {
+        transition-duration: 0.4s;
+    }
+    
+    /* Reduce stagger delay on mobile */
+    .projects-grid .animate-ready,
+    .games-grid .animate-ready,
+    .skills-grid .animate-ready {
+        transition-delay: calc(var(--animation-order, 0) * 0.05s);
+    }
+}
+
+/* =============================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================================================= */
+
+/* Use GPU acceleration for transforms */
+.hero-side,
+.project-card,
+.game-card,
+.animate-ready,
+.btn {
+    will-change: transform, opacity;
+}
+
+/* Remove will-change after animation */
+.animate-in {
+    will-change: auto;
+}
+
+/* =============================================================================
+   ACCESSIBILITY
+   ============================================================================= */
+
+/* Focus indicators with smooth transitions */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+    transition: outline-offset 0.2s ease;
+}
+
+/* =============================================================================
+   CUSTOM EASINGS
+   ============================================================================= */
+
+:root {
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+    --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+

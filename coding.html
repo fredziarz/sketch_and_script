@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QA Engineering & Development Portfolio - Sketch & Script">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="alternate icon" href="images/favicon.svg">
+    
+    <link rel="canonical" href="https://sketchandscript.pl/coding.html">
+    
+    <title>QA & Development | Sketch & Script</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/coding-theme.css">
+    <link rel="stylesheet" href="css/project-slider.css">
+    <link rel="stylesheet" href="css/page-transitions.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9ZNFG075D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-R9ZNFG075D');
+    </script>
+</head>
+<body class="coding-theme">
+    <!-- Skip Navigation for Keyboard Users -->
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo-icon.svg" alt="" class="logo-icon">
+                <span class="logo-text">Sketch & Script</span>
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="architecture.html" class="nav-link">Architecture</a>
+                <a href="coding.html" class="nav-link active">QA & Coding</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#contact" class="nav-link nav-cta">Contact</a>
+            </div>
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-hero-title">QA & Development</h1>
+            <p class="page-hero-subtitle">
+                Building quality through code, automation, and systematic thinking
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            
+            <!-- Filter -->
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="qa">QA/Testing</button>
+                <button class="filter-btn" data-filter="development">Development</button>
+                <button class="filter-btn" data-filter="games">Games</button>
+            </div>
+            
+            <!-- Projects Slider -->
+            <div class="slider-hint" id="coding-slider-hint">
+                <span>Scroll to explore more projects</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <div class="projects-slider-wrapper">
+                <button class="slider-nav slider-nav-prev" aria-label="Previous projects">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <div class="projects-slider">
+                    <div class="projects-track">
+                
+                <!-- PROJECT TEMPLATE - Copy this block to add new projects -->
+                <article class="project-card" data-category="qa">
+                    <div class="project-info">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Selenium</span>
+                            <span class="tech-tag">CI/CD</span>
+                        </div>
+                        <h3 class="project-title">E-Commerce Test Automation</h3>
+                        <p class="project-excerpt">
+                            Built comprehensive automation framework reducing manual testing time by 70%. 
+                            Led team of 4 QA engineers.
+                        </p>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/ecommerce-test-framework" target="_blank" class="project-link" rel="noopener noreferrer">View Code →</a>
+                        </div>
+                    </div>
+                </article>
+                <!-- END PROJECT TEMPLATE -->
+
+                <!-- PROJECT 2 -->
+                <article class="project-card" data-category="games">
+                    <div class="project-info">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Unity</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">WebGL</span>
+                        </div>
+                        <h3 class="project-title">Pixel Platformer Game</h3>
+                        <p class="project-excerpt">
+                            Challenging platformer with procedurally generated levels. Featured on itch.io 
+                            with 2,500+ plays.
+                        </p>
+                        <div class="project-links">
+                            <a href="projects/coding-project-game-1.html" class="project-link">View Details →</a>
+                            <a href="https://github.com/yourusername/pixel-platformer" target="_blank" class="project-link" rel="noopener noreferrer">View Code →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 3 -->
+                <article class="project-card" data-category="qa">
+                    <div class="project-info">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Postman</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">REST</span>
+                        </div>
+                        <h3 class="project-title">API Testing Framework</h3>
+                        <p class="project-excerpt">
+                            Comprehensive API testing for FinTech startup, ensuring security and reliability 
+                            of financial transactions.
+                        </p>
+                        <div class="project-links">
+                            <a href="projects/coding-project-1.html" class="project-link">View Details →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 4 -->
+                <article class="project-card" data-category="development">
+                    <div class="project-info">
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">CLI</span>
+                            <span class="tech-tag">Open Source</span>
+                        </div>
+                        <h3 class="project-title">Test Data Generator Tool</h3>
+                        <p class="project-excerpt">
+                            Command-line tool for generating realistic test data, reducing test environment 
+                            setup time from hours to minutes.
+                        </p>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/test-data-generator" target="_blank" class="project-link" rel="noopener noreferrer">View Code →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ADD MORE PROJECTS HERE -->
+                <!-- Just copy the PROJECT TEMPLATE block above and paste here -->
+                
+                    </div>
+                </div>
+                <button class="slider-nav slider-nav-next" aria-label="Next projects">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Portfolio Section -->
+    <section id="games" class="section">
+        <div class="container">
+            <h2 class="section-title">Game Portfolio</h2>
+            <p class="section-description">
+                Independent games developed with Unity and Godot, focusing on tight gameplay and interesting mechanics.
+            </p>
+            
+            <div class="games-grid">
+                
+                <!-- GAME TEMPLATE - Copy this block to add new games -->
+                <article class="game-card">
+                    <div class="game-image">
+                        <!-- Replace 'placeholder-game-1.jpg' with your game screenshot or GIF -->
+                        <img src="images/games/placeholder-game-1.jpg" alt="Pixel Platformer gameplay" loading="lazy">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Pixel Platformer</h3>
+                        <div class="game-meta">
+                            <span class="game-engine">Unity</span>
+                            <span class="game-genre">Platformer</span>
+                        </div>
+                        <p class="game-description">
+                            Challenging pixel-art platformer with procedurally generated levels, 
+                            tight controls, and retro aesthetic.
+                        </p>
+                        <div class="game-features">
+                            <span>Procedural generation</span>
+                            <span>10+ enemies</span>
+                            <span>Online leaderboard</span>
+                        </div>
+                        <div class="game-links">
+                            <a href="projects/coding-project-game-1.html" class="btn btn-secondary">View Details</a>
+                            <a href="https://github.com/yourusername/pixel-platformer" target="_blank" class="project-link" rel="noopener noreferrer">View Code →</a>
+                        </div>
+                    </div>
+                </article>
+                <!-- END GAME TEMPLATE -->
+
+                <!-- GAME 2 -->
+                <article class="game-card">
+                    <div class="game-image">
+                        <!-- Replace 'placeholder-game-2.jpg' with your game screenshot or GIF -->
+                        <img src="images/games/placeholder-game-2.jpg" alt="Space Survivors gameplay" loading="lazy">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Space Survivors</h3>
+                        <div class="game-meta">
+                            <span class="game-engine">Godot</span>
+                            <span class="game-genre">Roguelite Shooter</span>
+                        </div>
+                        <p class="game-description">
+                            Fast-paced top-down shooter where you fight endless waves of aliens and 
+                            build powerful synergistic upgrades.
+                        </p>
+                        <div class="game-features">
+                            <span>50+ upgrades</span>
+                            <span>3 ships</span>
+                            <span>Endless waves</span>
+                        </div>
+                        <div class="game-links">
+                            <a href="https://github.com/yourusername/space-shooter" target="_blank" class="btn btn-secondary" rel="noopener noreferrer">View Code</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ADD MORE GAMES HERE -->
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Let's Build Something Together</h2>
+                <p>Looking for QA expertise or development skills? Get in touch to discuss your project.</p>
+                <a href="index.html#contact" class="btn btn-primary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Sketch & Script</h3>
+                    <p>Architecture & Interiors<br>QA & Development</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Architecture</h4>
+                        <a href="architecture.html#portfolio">Portfolio</a>
+                        <a href="architecture.html#workflow">My Workflow</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>QA & Development</h4>
+                        <a href="#projects">Projects</a>
+                        <a href="#games">Game Portfolio</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        <a href="https://github.com" target="_blank">GitHub</a>
+                        <a href="https://itch.io" target="_blank">itch.io</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sketch & Script | Michał Wicherek</p>
+                <p>Built with passion | Hosted on GitHub Pages</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/coding-script.js"></script>
+    <script src="js/project-slider.js"></script>
+    <script src="js/keyboard-accessibility.js"></script>
+    <script src="js/page-transitions.js"></script>
+</body>
+</html>
+

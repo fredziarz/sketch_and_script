@@ -1,0 +1,352 @@
+/* ===================================
+   Project Slider - Horizontal Scrolling Gallery
+   For Architecture & Coding Pages
+   =================================== */
+
+/* Slider Wrapper with Navigation */
+.projects-slider-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 3rem;
+}
+
+/* Scroll Hint Text */
+.slider-hint {
+    text-align: center;
+    font-size: 0.875rem;
+    color: rgba(139, 126, 116, 0.7);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.slider-hint svg {
+    width: 20px;
+    height: 20px;
+    animation: slideHint 2s ease-in-out infinite;
+}
+
+@keyframes slideHint {
+    0%, 100% {
+        transform: translateX(0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateX(8px);
+        opacity: 1;
+    }
+}
+
+.slider-hint.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Slider Container */
+.projects-slider {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 126, 116, 0.2) transparent;
+    padding: 1rem 0 2rem;
+    margin: 0 -1rem; /* Offset container padding */
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Elegant scrollbar for Chrome, Safari and Opera */
+.projects-slider::-webkit-scrollbar {
+    height: 6px;
+}
+
+.projects-slider::-webkit-scrollbar-track {
+    background: rgba(139, 126, 116, 0.05);
+    border-radius: 10px;
+    margin: 0 1rem;
+}
+
+.projects-slider::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, rgba(139, 126, 116, 0.3), rgba(139, 126, 116, 0.4));
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.projects-slider::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, rgba(139, 126, 116, 0.5), rgba(139, 126, 116, 0.6));
+    box-shadow: 0 2px 4px rgba(139, 126, 116, 0.2);
+}
+
+/* Projects Track - Horizontal Flex Container */
+.projects-track {
+    display: flex;
+    gap: 2rem;
+    min-width: min-content;
+}
+
+/* Project Card in Slider */
+.projects-track .project-card {
+    flex: 0 0 auto;
+    width: 340px;
+    scroll-snap-align: start;
+}
+
+/* Navigation Arrows - Elegant Design */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%);
+    border: none;
+    border-radius: 12px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+    color: #8B7E74;
+    box-shadow: 0 4px 20px rgba(139, 126, 116, 0.15),
+                0 1px 3px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.slider-nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(139, 126, 116, 0.3), rgba(139, 126, 116, 0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.slider-nav:hover {
+    background: linear-gradient(135deg, #8B7E74 0%, #A89A8F 100%);
+    color: #FFFFFF;
+    transform: translateY(-50%) translateX(0) scale(1.05);
+    box-shadow: 0 8px 28px rgba(139, 126, 116, 0.25),
+                0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.slider-nav:hover::before {
+    opacity: 0;
+}
+
+.slider-nav:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
+.slider-nav:disabled {
+    opacity: 0;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.9);
+}
+
+.slider-nav-prev {
+    left: -28px;
+}
+
+.slider-nav-next {
+    right: -28px;
+}
+
+/* Elegant Arrow Icons */
+.slider-nav svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.slider-nav:hover svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Smooth Scroll Snap */
+.projects-slider {
+    scroll-snap-type: x mandatory;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .projects-slider-wrapper {
+        margin-top: 2rem;
+    }
+    
+    /* Hide navigation arrows on mobile (touch scrolling) */
+    .slider-nav {
+        display: none;
+    }
+    
+    /* Mobile hint styling */
+    .slider-hint {
+        font-size: 0.8125rem;
+        margin-bottom: 1rem;
+    }
+    
+    .slider-hint svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    @keyframes slideHint {
+        0%, 100% {
+            transform: translateX(0);
+            opacity: 0.6;
+        }
+        50% {
+            transform: translateX(6px);
+            opacity: 1;
+        }
+    }
+    
+    /* One card at a time on mobile */
+    .projects-track .project-card {
+        width: calc(100vw - 3rem);
+        max-width: 400px;
+    }
+    
+    .projects-track {
+        gap: 1.5rem;
+    }
+    
+    /* Enhanced snap scrolling for mobile */
+    .projects-slider {
+        scroll-snap-type: x mandatory;
+        scroll-padding: 0 1.5rem;
+    }
+    
+    .projects-track .project-card {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+    
+    /* Better touch scrolling indicator */
+    .projects-slider {
+        scrollbar-width: none; /* Firefox */
+    }
+    
+    .projects-slider::-webkit-scrollbar {
+        display: none; /* Chrome, Safari */
+    }
+    
+    /* Add scroll indicator on mobile */
+    .projects-slider::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 4px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(139, 126, 116, 0.3) 20%, 
+            rgba(139, 126, 116, 0.3) 80%, 
+            transparent
+        );
+        border-radius: 2px;
+        pointer-events: none;
+    }
+}
+
+@media (max-width: 480px) {
+    /* One card fills viewport on small phones */
+    .projects-track .project-card {
+        width: calc(100vw - 2.5rem);
+        max-width: 100%;
+    }
+    
+    .projects-track {
+        gap: 1rem;
+    }
+    
+    .projects-slider {
+        scroll-padding: 0 1.25rem;
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .slider-nav-prev {
+        left: -16px;
+    }
+    
+    .slider-nav-next {
+        right: -16px;
+    }
+    
+    .slider-nav {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+    .projects-track .project-card {
+        width: 380px;
+    }
+}
+
+/* Smooth Fade Animation for Navigation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.projects-slider-wrapper {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Focus Styles for Accessibility */
+.slider-nav:focus {
+    outline: 2px solid #8B7E74;
+    outline-offset: 2px;
+}
+
+.slider-nav:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .projects-slider {
+        scroll-behavior: auto;
+    }
+    
+    .slider-nav {
+        transition: none;
+    }
+    
+    .projects-slider-wrapper {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .slider-nav {
+        border-width: 2px;
+        border-color: currentColor;
+    }
+}
+
