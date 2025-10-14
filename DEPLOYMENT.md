@@ -4,7 +4,7 @@ Quick guide to deploy your portfolio to GitHub Pages with custom domain.
 
 ## Prerequisites
 
-- GitHub repo: https://github.com/fredziarz/sketch_and_script
+- GitHub repo: https://github.com/fredziarz
 - Domain: sketchandscript.pl (purchased)
 - Access to domain DNS settings
 

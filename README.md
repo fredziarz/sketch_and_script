@@ -183,7 +183,7 @@ git push
 - 📧 Email: michalwicherek@gmail.com
 - 📍 Location: 95-083 Wrząca, Poland
 - 💼 LinkedIn: [linkedin.com/in/michal-wicherek](https://linkedin.com/in/michal-wicherek)
-- 💻 GitHub: [github.com/fredziarz](https://github.com/fredziarz)
+- 💻 GitHub: [@fredziarz](https://github.com/fredziarz)
 
 ---
 
@@ -198,7 +198,7 @@ This portfolio can serve as a template for others. Feel free to explore the code
 - Organizing a portfolio site structure
 - Deploying to GitHub Pages with custom domain
 
-**Repository:** [github.com/fredziarz/sketch_and_script](https://github.com/fredziarz/sketch_and_script)
+**Repository:** [github.com/fredziarz](https://github.com/fredziarz)
 
 ---
 
