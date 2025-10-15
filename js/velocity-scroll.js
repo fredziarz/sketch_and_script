@@ -54,13 +54,16 @@
                 isScrolling = true;
             }, { passive: true });
 
-            // Touch end - apply physics
+            // Touch end - apply physics (ALWAYS snap)
             slider.addEventListener('touchend', (e) => {
-                if (!isScrolling) return;
-
-                const totalTime = Date.now() - touchStartTime;
-                const totalDistance = lastTouchX - touchStartX;
                 const avgVelocity = Math.abs(velocity);
+
+                // If user just tapped or very minimal movement
+                if (!isScrolling || avgVelocity < 0.01) {
+                    console.log('Minimal movement, snapping to nearest card');
+                    applyGentleSnap(slider);
+                    return;
+                }
 
                 console.log(`Swipe velocity: ${avgVelocity.toFixed(3)} px/ms`);
 
@@ -68,9 +71,28 @@
                     // GENTLE SWIPE - Soft, steady snap
                     applyGentleSnap(slider);
                 } else {
-                    // VIGOROUS SWIPE - Wheel of Fortune momentum
+                    // VIGOROUS SWIPE - Wheel of Fortune momentum (ends with snap)
                     applyMomentumScroll(slider, velocity);
                 }
+            }, { passive: true });
+
+            // Also snap after mouse/touch scroll stops (for non-swipe scrolling)
+            let scrollTimeout;
+            slider.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    // Snap to nearest card after scrolling stops
+                    const scrollLeft = slider.scrollLeft;
+                    const cardWidth = getCardWidth(slider);
+                    const currentIndex = Math.round(scrollLeft / cardWidth);
+                    const targetScroll = currentIndex * cardWidth;
+                    
+                    // Only snap if not already perfectly aligned
+                    if (Math.abs(scrollLeft - targetScroll) > 1) {
+                        console.log('Scroll stopped, snapping to nearest card');
+                        applyGentleSnap(slider);
+                    }
+                }, 150); // Snap 150ms after scroll stops
             }, { passive: true });
 
             // Apply gentle snap to nearest card
@@ -106,22 +128,26 @@
                     // Apply scroll
                     slider.scrollLeft -= scrollDelta;
 
-                    // Check bounds
+                    // Check bounds and snap if hit
                     const maxScroll = slider.scrollWidth - slider.clientWidth;
                     if (slider.scrollLeft <= 0) {
                         slider.scrollLeft = 0;
-                        currentVelocity = 0;
+                        console.log('Hit left boundary, snapping');
+                        applyGentleSnap(slider);
+                        return;
                     } else if (slider.scrollLeft >= maxScroll) {
                         slider.scrollLeft = maxScroll;
-                        currentVelocity = 0;
+                        console.log('Hit right boundary, snapping');
+                        applyGentleSnap(slider);
+                        return;
                     }
 
                     // Continue if velocity is still significant
                     if (Math.abs(currentVelocity) > MIN_VELOCITY) {
                         momentumRAF = requestAnimationFrame(animate);
                     } else {
-                        // Final gentle snap when momentum stops
-                        console.log('Momentum stopped, final snap');
+                        // ALWAYS snap when momentum stops
+                        console.log('Momentum stopped, snapping to nearest card');
                         applyGentleSnap(slider);
                     }
                 };
