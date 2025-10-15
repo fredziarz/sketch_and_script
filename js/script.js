@@ -90,69 +90,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Contact Form
 // ==================
 
+// Contact Form with Web3Forms
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-        
-        // Basic validation
-        if (!data.name || !data.email || !data.service || !data.message) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(data.email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
-        
-        // Show loading state
-        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const formData = new FormData(this);
+        const submitButton = this.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
-        submitButton.textContent = 'Sending...';
-        submitButton.disabled = true;
         
-        // Send to your email using Web3Forms (simple, free alternative)
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                access_key: 'YOUR_WEB3FORMS_ACCESS_KEY',
-                name: data.name,
-                email: data.email,
-                subject: `New Contact from Sketch & Script - ${data.service}`,
-                message: `Service Interest: ${data.service}\n\nMessage:\n${data.message}`,
-                from_name: 'Sketch & Script Contact Form',
-                to_email: 'michalwicherek@gmail.com'
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
+        try {
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
                 alert('✅ Thank you for your message! I\'ll get back to you soon.');
-                contactForm.reset();
+                this.reset();
             } else {
-                alert('⚠️ Oops! There was a problem. Please try again or email directly: michalwicherek@gmail.com');
+                alert('⚠️ Failed to send message. Please try again or email: michalwicherek@gmail.com');
             }
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Error:', error);
-            alert('⚠️ Connection error. Please email directly: michalwicherek@gmail.com');
+            alert('⚠️ An error occurred. Please email directly: michalwicherek@gmail.com');
+        } finally {
             submitButton.textContent = originalText;
             submitButton.disabled = false;
-        });
+        }
     });
 }
 
