@@ -44,25 +44,36 @@
                 
                 // Show hints after delay (stagger slightly for visual effect)
                 const showTimer = setTimeout(() => {
-                    if (!hasUserScrolled(container)) {
-                        console.log(`Swipe hints: Showing hints on card ${index + 1}`);
-                        hints.classList.add('show');
-                    }
+                    console.log(`Swipe hints: Showing hints on card ${index + 1}`);
+                    hints.classList.add('show');
                 }, 1800 + (index * 50)); // Slight stagger
                 
-                // Hide hints on user interaction
+                // Hide hints on ANY user interaction with the container
                 const hideHints = () => {
                     hints.classList.remove('show');
-                    clearTimeout(showTimer);
                 };
                 
-                container.addEventListener('scroll', hideHints, { once: true });
-                container.addEventListener('touchstart', hideHints, { once: true });
+                // Hide on scroll or touch (but don't use 'once' so it works continuously)
+                container.addEventListener('scroll', hideHints);
+                container.addEventListener('touchstart', hideHints);
                 
-                // Auto-hide after display time
-                setTimeout(() => {
-                    hints.classList.remove('show');
-                }, 5800 + (index * 50));
+                // Show hints again when card comes into view and user stops scrolling
+                let scrollTimeout;
+                container.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        // Check if this card is in viewport
+                        const cardRect = card.getBoundingClientRect();
+                        const containerRect = container.getBoundingClientRect();
+                        const isVisible = cardRect.left < containerRect.right && cardRect.right > containerRect.left;
+                        
+                        if (isVisible) {
+                            hints.classList.add('show');
+                            // Auto-hide after 3 seconds
+                            setTimeout(() => hints.classList.remove('show'), 3000);
+                        }
+                    }, 800); // Show after user stops scrolling for 800ms
+                });
             });
             
             return; // Skip the old single-hint code below
