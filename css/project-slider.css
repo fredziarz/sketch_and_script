@@ -53,34 +53,16 @@
     overflow-y: hidden;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(139, 126, 116, 0.2) transparent;
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
     padding: 1rem 0 2rem;
     margin: 0 -1rem; /* Offset container padding */
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
-/* Elegant scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar for Chrome, Safari and Opera */
 .projects-slider::-webkit-scrollbar {
-    height: 6px;
-}
-
-.projects-slider::-webkit-scrollbar-track {
-    background: rgba(139, 126, 116, 0.05);
-    border-radius: 10px;
-    margin: 0 1rem;
-}
-
-.projects-slider::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, rgba(139, 126, 116, 0.3), rgba(139, 126, 116, 0.4));
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.projects-slider::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(90deg, rgba(139, 126, 116, 0.5), rgba(139, 126, 116, 0.6));
-    box-shadow: 0 2px 4px rgba(139, 126, 116, 0.2);
+    display: none;
 }
 
 /* Projects Track - Horizontal Flex Container */
@@ -235,14 +217,7 @@
         scroll-snap-stop: normal;
     }
     
-    /* Better touch scrolling indicator */
-    .projects-slider {
-        scrollbar-width: none; /* Firefox */
-    }
-    
-    .projects-slider::-webkit-scrollbar {
-        display: none; /* Chrome, Safari */
-    }
+    /* Scrollbar already hidden globally */
     
     /* Add scroll indicator on mobile */
     .projects-slider::after {
