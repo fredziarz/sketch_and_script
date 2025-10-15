@@ -268,12 +268,14 @@ button {
 .hero {
     margin-top: 69px;
     min-height: calc(100vh - 69px);
+    min-height: calc(100dvh - 69px); /* Dynamic viewport height for browser chrome */
     position: relative;
 }
 
 .hero-split {
     display: flex;
     height: calc(100vh - 69px);
+    height: calc(100dvh - 69px); /* Adjusts for browser UI chrome */
 }
 
 .hero-side {
@@ -887,12 +889,16 @@ select:focus-visible {
     .hero-split {
         flex-direction: column;
         height: calc(100vh - 69px);
+        height: calc(100dvh - 69px); /* Adjusts for mobile browser chrome */
     }
     
     .hero-side {
         min-height: calc((100vh - 69px) / 2);
+        min-height: calc((100dvh - 69px) / 2);
         max-height: calc((100vh - 69px) / 2);
+        max-height: calc((100dvh - 69px) / 2);
         height: calc((100vh - 69px) / 2);
+        height: calc((100dvh - 69px) / 2);
         flex: 1 1 50%;
     }
     
