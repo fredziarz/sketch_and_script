@@ -176,9 +176,9 @@
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* Smooth Scroll Snap */
+/* Smooth Scroll Snap - Allow both directions */
 .projects-slider {
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity; /* Changed from mandatory to proximity for smoother bidirectional scrolling */
 }
 
 /* Mobile Adjustments */
@@ -224,15 +224,15 @@
         gap: 1.5rem;
     }
     
-    /* Enhanced snap scrolling for mobile */
+    /* Enhanced snap scrolling for mobile - bidirectional */
     .projects-slider {
-        scroll-snap-type: x mandatory;
+        scroll-snap-type: x proximity; /* Allow free scrolling in both directions */
         scroll-padding: 0 1.5rem;
     }
     
     .projects-track .project-card {
         scroll-snap-align: center;
-        scroll-snap-stop: always;
+        scroll-snap-stop: normal; /* Changed from always to normal for smoother scrolling */
     }
     
     /* Better touch scrolling indicator */
