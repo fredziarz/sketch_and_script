@@ -13,14 +13,23 @@
     document.addEventListener('DOMContentLoaded', initSwipeHints);
     
     function initSwipeHints() {
-        if (!isMobile()) return;
+        if (!isMobile()) {
+            console.log('Swipe hints: Not mobile, skipping');
+            return;
+        }
         
         // Find all scrollable containers
         const containers = document.querySelectorAll('.projects-slider, .projects-grid, .related-projects-grid');
+        console.log(`Swipe hints: Found ${containers.length} containers`);
         
         containers.forEach(container => {
             // Check if content is scrollable
-            if (!isScrollable(container)) return;
+            if (!isScrollable(container)) {
+                console.log('Swipe hints: Container not scrollable, skipping');
+                return;
+            }
+            
+            console.log('Swipe hints: Creating hints for scrollable container');
             
             // Create and inject hint arrows
             const hints = createHintArrows();
@@ -31,7 +40,10 @@
             // Show hints after delay
             const showTimer = setTimeout(() => {
                 if (!hasUserScrolled(container)) {
+                    console.log('Swipe hints: Showing hints');
                     hints.classList.add('show');
+                } else {
+                    console.log('Swipe hints: User already scrolled, not showing');
                 }
             }, 1800); // 1.8 seconds
             
