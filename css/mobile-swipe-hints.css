@@ -5,7 +5,7 @@
 
 .swipe-hints {
     position: absolute;
-    top: -50px; /* Above the cards */
+    top: -10px; /* Just above the cards, below filter buttons */
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
@@ -15,13 +15,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    padding: 12px 20px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 50px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    gap: 12px;
+    /* No background, just text and arrows */
 }
 
 .swipe-hints.show {
@@ -33,8 +28,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(139, 126, 116, 0.8); /* Default neutral color */
     flex-shrink: 0;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.5)); /* Subtle shadow for readability */
 }
 
 .swipe-hint svg {
@@ -44,11 +40,12 @@
 
 .swipe-hint-text {
     font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(139, 126, 116, 0.8); /* Default neutral color */
     font-weight: 500;
     letter-spacing: 0.02em;
     white-space: nowrap;
     flex-shrink: 0;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5); /* Subtle shadow for readability */
 }
 
 .swipe-hint-left {
@@ -80,25 +77,19 @@
 }
 
 /* Light theme adjustment */
-.architecture-theme .swipe-hints {
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
 .architecture-theme .swipe-hint,
 .architecture-theme .swipe-hint-text {
-    color: rgba(44, 44, 44, 0.9);
+    color: rgba(139, 126, 116, 0.7);
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+    filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.8));
 }
 
 /* Dark theme */
-.coding-theme .swipe-hints {
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
 .coding-theme .swipe-hint,
 .coding-theme .swipe-hint-text {
-    color: rgba(232, 232, 232, 0.9);
+    color: rgba(232, 232, 232, 0.7);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
 }
 
 /* Hide on desktop */
@@ -111,8 +102,7 @@
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
     .swipe-hints {
-        padding: 10px 16px;
-        gap: 12px;
+        gap: 10px;
     }
     
     .swipe-hint-text {
@@ -123,8 +113,8 @@
 /* Extra small screens */
 @media (max-width: 480px) {
     .swipe-hints {
-        padding: 8px 14px;
-        gap: 10px;
+        gap: 8px;
+        top: -8px; /* Closer to cards on small screens */
     }
     
     .swipe-hint-text {
