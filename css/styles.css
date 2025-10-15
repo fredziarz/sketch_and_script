@@ -826,7 +826,7 @@ select:focus-visible {
     
     .nav-menu {
         position: fixed;
-        top: 60px;
+        top: 69px; /* Below nav bar (60px + 9px) */
         left: 0;
         right: 0;
         flex-direction: column;
@@ -841,16 +841,16 @@ select:focus-visible {
         visibility: hidden;
         transition: all 0.3s ease;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        z-index: 100;
+        z-index: 999; /* Just below nav bar (1000) */
     }
     
     .nav-menu.active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
-        background-color: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
     }
     
     .nav-link {
