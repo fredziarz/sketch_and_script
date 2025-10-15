@@ -2,7 +2,7 @@
     'use strict';
 
     const VELOCITY_THRESHOLD = 0.5; // Below this = gentle, above = vigorous
-    const GENTLE_SCROLL_DURATION = 400; // ms for gentle snap
+    const RUBBER_BAND_DURATION = 300; // ms for rubber band snap (was 400)
     const MOMENTUM_FRICTION = 0.95; // Friction for "Wheel of Fortune" effect
     const MIN_VELOCITY = 0.1; // Stop when velocity is very low
 
@@ -95,16 +95,16 @@
                 }, 150); // Snap 150ms after scroll stops
             }, { passive: true });
 
-            // Apply gentle snap to nearest card
+            // Apply rubber band snap to nearest card
             function applyGentleSnap(slider) {
-                console.log('Applying gentle snap...');
+                console.log('Applying rubber band snap...');
                 
                 const scrollLeft = slider.scrollLeft;
                 const cardWidth = getCardWidth(slider);
                 const currentIndex = Math.round(scrollLeft / cardWidth);
                 const targetScroll = currentIndex * cardWidth;
 
-                smoothScrollTo(slider, targetScroll, GENTLE_SCROLL_DURATION);
+                smoothScrollTo(slider, targetScroll, RUBBER_BAND_DURATION);
             }
 
             // Apply momentum scroll with gradual deceleration
@@ -164,21 +164,37 @@
                 return cardWidth + gap;
             }
 
-            // Helper: Smooth scroll to target
+            // Helper: Smooth scroll to target with rubber band (spring) easing
             function smoothScrollTo(element, target, duration) {
                 const start = element.scrollLeft;
                 const distance = target - start;
                 const startTime = Date.now();
 
-                const easeOutCubic = (t) => {
-                    return 1 - Math.pow(1 - t, 3);
+                // Rubber band / spring easing function
+                const easeOutElastic = (t) => {
+                    const c4 = (2 * Math.PI) / 3;
+                    
+                    if (t === 0) return 0;
+                    if (t === 1) return 1;
+                    
+                    // Elastic spring effect - like a rubber band
+                    return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+                };
+
+                // Alternative: Softer spring (less bouncy)
+                const easeOutBack = (t) => {
+                    const c1 = 1.70158;
+                    const c3 = c1 + 1;
+                    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
                 };
 
                 const animate = () => {
                     const currentTime = Date.now();
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    const easedProgress = easeOutCubic(progress);
+                    
+                    // Use softer spring for more natural rubber band feel
+                    const easedProgress = easeOutBack(progress);
 
                     element.scrollLeft = start + (distance * easedProgress);
 
