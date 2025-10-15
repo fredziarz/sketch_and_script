@@ -290,9 +290,9 @@ console.log('%c' + `
 ⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 `, 'font-size: 16px; color: #CD853F;');
 
-console.log('%c        Rudo tu', 'font-size: 18px; color: #8B4513;');
-console.log('%c       rudo tam', 'font-size: 18px; color: #8B4513;');
-console.log('%c    Rudo tu i tam', 'font-size: 18px; color: #8B4513;');
+console.log('%c        Rudo tu,', 'font-size: 18px; color: #8B4513;');
+console.log('%c       rudo tam.', 'font-size: 18px; color: #8B4513;');
+console.log('%c    Rudo tu i tam.', 'font-size: 18px; color: #8B4513;');
 
 console.log('%c', 'font-size: 12px;');
 console.log('%c    Sketch & Script Portfolio', 'font-size: 14px; font-weight: bold;');
