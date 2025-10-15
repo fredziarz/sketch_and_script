@@ -196,6 +196,25 @@
     color: var(--color-bg);
 }
 
+/* Mobile Menu - Light Background with Transparency */
+@media (max-width: 768px) {
+    .architecture-theme .nav-menu {
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .architecture-theme .nav-link {
+        color: var(--color-text-primary);
+    }
+    
+    .architecture-theme .nav-link:hover {
+        background-color: var(--color-bg-alt);
+        color: var(--color-accent);
+    }
+}
+
 /* Projects Grid */
 .projects-grid {
     display: grid;
