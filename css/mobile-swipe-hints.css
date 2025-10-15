@@ -1,0 +1,137 @@
+/* ===================================
+   Mobile Swipe Hints
+   Floating arrow indicators
+   =================================== */
+
+.swipe-hints {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.swipe-hints.show {
+    opacity: 1;
+}
+
+.swipe-hint {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.swipe-hint-left {
+    left: 8px;
+    animation-delay: 0s;
+}
+
+.swipe-hint-right {
+    right: 8px;
+    animation-delay: 0.3s;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* Bounce animation for the arrows */
+.swipe-hint-left svg {
+    animation: bounceLeft 2s ease-in-out infinite;
+}
+
+.swipe-hint-right svg {
+    animation: bounceRight 2s ease-in-out infinite;
+}
+
+@keyframes bounceLeft {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-4px);
+    }
+}
+
+@keyframes bounceRight {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(4px);
+    }
+}
+
+/* Light theme adjustment */
+.architecture-theme .swipe-hint {
+    background: rgba(255, 255, 255, 0.9);
+    color: #2C2C2C;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark theme - already styled correctly */
+.coding-theme .swipe-hint {
+    background: rgba(0, 0, 0, 0.7);
+    color: #E8E8E8;
+}
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+    .swipe-hints {
+        display: none !important;
+    }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .swipe-hint {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .swipe-hint svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .swipe-hint {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .swipe-hint-left {
+        left: 4px;
+    }
+    
+    .swipe-hint-right {
+        right: 4px;
+    }
+}
+
