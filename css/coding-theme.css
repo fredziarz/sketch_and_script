@@ -60,15 +60,15 @@
 @media (max-width: 768px) {
     .coding-theme .nav-menu {
         background-color: rgba(26, 26, 26, 0.95);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border-bottom: 1px solid var(--color-border);
     }
     
     .coding-theme .nav-menu.active {
         background-color: rgba(26, 26, 26, 0.95) !important;
-        backdrop-filter: blur(10px) !important;
-        -webkit-backdrop-filter: blur(10px) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
     }
     
     .coding-theme .nav-link {
