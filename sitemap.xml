@@ -2,60 +2,60 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Homepage -->
     <url>
-        <loc>https://sketchandscript.pl/</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
     
     <!-- Main Pages -->
     <url>
-        <loc>https://sketchandscript.pl/architecture.html</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/architecture.html</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     
     <url>
-        <loc>https://sketchandscript.pl/coding.html</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/coding.html</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     
     <!-- Architecture Projects -->
     <url>
-        <loc>https://sketchandscript.pl/projects/architecture-project-1.html</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/projects/architecture-project-1.html</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://sketchandscript.pl/projects/architecture-project-2.html</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/projects/architecture-project-2.html</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://sketchandscript.pl/projects/architecture-project-3.html</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/projects/architecture-project-3.html</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <!-- Coding Projects -->
     <url>
-        <loc>https://sketchandscript.pl/projects/coding-project-1.html</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/projects/coding-project-1.html</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://sketchandscript.pl/projects/coding-project-game-1.html</loc>
-        <lastmod>2025-10-14</lastmod>
+        <loc>https://www.sketchandscript.pl/projects/coding-project-game-1.html</loc>
+        <lastmod>2025-10-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
