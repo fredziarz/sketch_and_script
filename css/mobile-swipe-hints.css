@@ -59,26 +59,7 @@
     animation: bounceRight 2s ease-in-out infinite;
 }
 
-/* Pulse animation */
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-}
-
 /* Bounce animation for the arrows */
-.swipe-hint-left svg {
-    animation: bounceLeft 2s ease-in-out infinite;
-}
-
-.swipe-hint-right svg {
-    animation: bounceRight 2s ease-in-out infinite;
-}
 
 @keyframes bounceLeft {
     0%, 100% {
@@ -99,16 +80,25 @@
 }
 
 /* Light theme adjustment */
-.architecture-theme .swipe-hint {
-    background: rgba(255, 255, 255, 0.5);
-    color: rgba(44, 44, 44, 0.7);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.architecture-theme .swipe-hints {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.architecture-theme .swipe-hint,
+.architecture-theme .swipe-hint-text {
+    color: rgba(44, 44, 44, 0.9);
 }
 
 /* Dark theme */
-.coding-theme .swipe-hint {
-    background: rgba(0, 0, 0, 0.4);
-    color: rgba(232, 232, 232, 0.8);
+.coding-theme .swipe-hints {
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.coding-theme .swipe-hint,
+.coding-theme .swipe-hint-text {
+    color: rgba(232, 232, 232, 0.9);
 }
 
 /* Hide on desktop */
@@ -120,30 +110,30 @@
 
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
-    .swipe-hint {
-        width: 40px;
-        height: 40px;
+    .swipe-hints {
+        padding: 10px 16px;
+        gap: 12px;
     }
     
-    .swipe-hint svg {
-        width: 20px;
-        height: 20px;
+    .swipe-hint-text {
+        font-size: 0.8125rem;
     }
 }
 
 /* Extra small screens */
 @media (max-width: 480px) {
-    .swipe-hint {
-        width: 36px;
-        height: 36px;
+    .swipe-hints {
+        padding: 8px 14px;
+        gap: 10px;
     }
     
-    .swipe-hint-left {
-        left: 4px;
+    .swipe-hint-text {
+        font-size: 0.75rem;
     }
     
-    .swipe-hint-right {
-        right: 4px;
+    .swipe-hint svg {
+        width: 16px;
+        height: 16px;
     }
 }
 
