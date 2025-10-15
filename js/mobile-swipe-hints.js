@@ -29,85 +29,58 @@
                 return;
             }
             
-            console.log('Swipe hints: Creating hints for scrollable container');
+            console.log('Swipe hints: Creating ONE hint for gallery');
             
-            // Find all project cards within this container
-            const projectCards = container.querySelectorAll('.project-card');
-            console.log(`Swipe hints: Found ${projectCards.length} project cards`);
-            
-            // Add hints to each project card
-            projectCards.forEach((card, index) => {
-                // Create unique hints for this card
-                const hints = createHintArrows();
-                card.style.position = 'relative';
-                card.appendChild(hints);
-                
-                // Show hints after delay (stagger slightly for visual effect)
-                const showTimer = setTimeout(() => {
-                    console.log(`Swipe hints: Showing hints on card ${index + 1}`);
-                    hints.classList.add('show');
-                }, 1800 + (index * 50)); // Slight stagger
-                
-                // Hide hints on ANY user interaction with the container
-                const hideHints = () => {
-                    hints.classList.remove('show');
-                };
-                
-                // Hide on scroll or touch (but don't use 'once' so it works continuously)
-                container.addEventListener('scroll', hideHints);
-                container.addEventListener('touchstart', hideHints);
-                
-                // Show hints again when card comes into view and user stops scrolling
-                let scrollTimeout;
-                container.addEventListener('scroll', () => {
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        // Check if this card is in viewport
-                        const cardRect = card.getBoundingClientRect();
-                        const containerRect = container.getBoundingClientRect();
-                        const isVisible = cardRect.left < containerRect.right && cardRect.right > containerRect.left;
-                        
-                        if (isVisible) {
-                            hints.classList.add('show');
-                            // Auto-hide after 3 seconds
-                            setTimeout(() => hints.classList.remove('show'), 3000);
-                        }
-                    }, 800); // Show after user stops scrolling for 800ms
-                });
-            });
-            
-            return; // Skip the old single-hint code below
-            
-            // OLD CODE (keeping for reference, won't execute)
-            const hints = createHintArrows();
+            // Get the wrapper (parent container)
             const wrapper = container.closest('.projects-slider-wrapper') || container.parentElement;
+            
+            // Remove existing hints to prevent duplicates
+            const existingHints = wrapper.querySelector('.swipe-hints');
+            if (existingHints) existingHints.remove();
+            
+            // Create ONE hint for the entire gallery
+            const hints = createHintArrows();
             wrapper.style.position = 'relative';
-            wrapper.appendChild(hints);
+            wrapper.insertBefore(hints, wrapper.firstChild); // Insert at top of wrapper
+            
+            let showTimer;
+            let hideTimer;
             
             // Show hints after delay
-            const showTimer = setTimeout(() => {
+            showTimer = setTimeout(() => {
                 if (!hasUserScrolled(container)) {
-                    console.log('Swipe hints: Showing hints');
+                    console.log('Swipe hints: Showing hint');
                     hints.classList.add('show');
-                } else {
-                    console.log('Swipe hints: User already scrolled, not showing');
+                    
+                    // Auto-hide after 4 seconds
+                    hideTimer = setTimeout(() => {
+                        hints.classList.remove('show');
+                    }, 4000);
                 }
-            }, 1800); // 1.8 seconds
+            }, 1800);
             
             // Hide hints on user interaction
             const hideHints = () => {
                 hints.classList.remove('show');
                 clearTimeout(showTimer);
+                clearTimeout(hideTimer);
             };
             
-            // Listen for scroll/touch events
             container.addEventListener('scroll', hideHints, { once: true });
             container.addEventListener('touchstart', hideHints, { once: true });
             
-            // Auto-hide after 4 seconds if shown
-            setTimeout(() => {
+            // Show hints again after user stops scrolling
+            let scrollTimeout;
+            container.addEventListener('scroll', () => {
                 hints.classList.remove('show');
-            }, 5800); // 1.8s delay + 4s display
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    console.log('Swipe hints: Showing hint after scroll stop');
+                    hints.classList.add('show');
+                    // Auto-hide after 3 seconds
+                    setTimeout(() => hints.classList.remove('show'), 3000);
+                }, 800); // Show after user stops scrolling for 800ms
+            });
         });
     }
     
