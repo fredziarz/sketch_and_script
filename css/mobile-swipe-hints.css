@@ -127,3 +127,15 @@
     }
 }
 
+/* Respect user's motion preferences - WCAG 2.2 Compliance */
+@media (prefers-reduced-motion: reduce) {
+    .swipe-hint-left,
+    .swipe-hint-right {
+        animation: none; /* Disable bouncing animations */
+    }
+    
+    .swipe-hints {
+        transition: none; /* Disable opacity transition */
+    }
+}
+

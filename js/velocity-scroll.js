@@ -6,10 +6,19 @@
     const MOMENTUM_FRICTION = 0.95; // Friction for "Wheel of Fortune" effect
     const MIN_VELOCITY = 0.1; // Stop when velocity is very low
 
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Initialize on DOM ready
     document.addEventListener('DOMContentLoaded', initVelocityScroll);
 
     function initVelocityScroll() {
+        // Skip velocity scrolling if user prefers reduced motion
+        if (prefersReducedMotion) {
+            console.log('Velocity scroll: User prefers reduced motion, using default scroll behavior');
+            return;
+        }
+
         const sliders = document.querySelectorAll('.projects-slider');
         console.log(`Velocity scroll: Found ${sliders.length} sliders`);
 
