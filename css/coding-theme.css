@@ -58,14 +58,18 @@
 
 /* Mobile Menu - Dark Background with Blur */
 @media (max-width: 768px) {
+    body.coding-theme .nav-menu,
     .coding-theme .nav-menu {
-        background-color: rgba(26, 26, 26, 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background-color: rgba(26, 26, 26, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
         border-bottom: 1px solid var(--color-border);
     }
     
-    .coding-theme .nav-menu.active {
+    body.coding-theme .nav-menu.active,
+    body.coding-theme #nav-menu.active,
+    .coding-theme .nav-menu.active,
+    .coding-theme #nav-menu.active {
         background-color: rgba(26, 26, 26, 0.95) !important;
         backdrop-filter: blur(20px) !important;
         -webkit-backdrop-filter: blur(20px) !important;
