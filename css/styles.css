@@ -315,7 +315,7 @@ button {
     right: -5%;
     bottom: -5%;
     background-image: url('../images/hero-architecture.jpg');
-    background-size: cover;
+    background-size: 110% auto;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     z-index: 0;
@@ -352,7 +352,7 @@ button {
     right: -5%;
     bottom: -5%;
     background-image: url('../images/hero-coding.jpg');
-    background-size: cover;
+    background-size: 110% auto;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     z-index: 0;
