@@ -5,14 +5,17 @@
 
 .swipe-hints {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
     right: 0;
-    transform: translateY(-50%);
+    bottom: 0;
     pointer-events: none;
-    z-index: 10;
+    z-index: 50;
     opacity: 0;
     transition: opacity 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .swipe-hints.show {
@@ -20,12 +23,10 @@
 }
 
 .swipe-hint {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    position: relative;
     width: 48px;
     height: 48px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-radius: 50%;
@@ -33,17 +34,18 @@
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
 }
 
 .swipe-hint-left {
-    left: 8px;
+    margin-left: 8px;
     animation-delay: 0s;
 }
 
 .swipe-hint-right {
-    right: 8px;
+    margin-right: 8px;
     animation-delay: 0.3s;
 }
 
