@@ -302,6 +302,7 @@ button {
         url('../images/hero-architecture.jpg');
     background-size: 110%;
     background-position: center;
+    background-repeat: no-repeat;
     background-blend-mode: normal;
     animation: slowDriftLeft 25s ease-in-out infinite alternate;
 }
@@ -312,6 +313,7 @@ button {
         url('../images/hero-coding.jpg');
     background-size: 110%;
     background-position: center;
+    background-repeat: no-repeat;
     background-blend-mode: normal;
     color: var(--color-white);
     animation: slowDriftRight 30s ease-in-out infinite alternate;
