@@ -119,35 +119,37 @@ if (contactForm) {
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
         
-        // Send to Formspree
-        const formAction = contactForm.getAttribute('action');
-        
-        fetch(formAction, {
+        // Send to your email using Web3Forms (simple, free alternative)
+        fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            body: formData,
             headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                access_key: 'YOUR_WEB3FORMS_ACCESS_KEY',
+                name: data.name,
+                email: data.email,
+                subject: `New Contact from Sketch & Script - ${data.service}`,
+                message: `Service Interest: ${data.service}\n\nMessage:\n${data.message}`,
+                from_name: 'Sketch & Script Contact Form',
+                to_email: 'michalwicherek@gmail.com'
+            })
         })
-        .then(response => {
-            if (response.ok) {
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
                 alert('✅ Thank you for your message! I\'ll get back to you soon.');
                 contactForm.reset();
             } else {
-                return response.json().then(data => {
-                    if (data.errors) {
-                        alert('⚠️ Error: ' + data.errors.map(error => error.message).join(', '));
-                    } else {
-                        alert('⚠️ Oops! There was a problem. Please try again or email directly: michalwicherek@gmail.com');
-                    }
-                });
+                alert('⚠️ Oops! There was a problem. Please try again or email directly: michalwicherek@gmail.com');
             }
             submitButton.textContent = originalText;
             submitButton.disabled = false;
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('⚠️ Connection error. Please try again or email directly: michalwicherek@gmail.com');
+            alert('⚠️ Connection error. Please email directly: michalwicherek@gmail.com');
             submitButton.textContent = originalText;
             submitButton.disabled = false;
         });
