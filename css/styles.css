@@ -286,6 +286,7 @@ button {
     transition: flex var(--transition-slow);
     text-decoration: none;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .hero-side:hover {
