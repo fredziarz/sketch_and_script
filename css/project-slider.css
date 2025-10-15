@@ -176,9 +176,9 @@
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* Smooth Scroll Snap - Allow both directions */
+/* Smooth Scroll Snap - Disabled for custom velocity physics */
 .projects-slider {
-    scroll-snap-type: x proximity; /* Changed from mandatory to proximity for smoother bidirectional scrolling */
+    scroll-snap-type: none; /* Disabled to allow custom velocity-based scrolling */
 }
 
 /* Mobile Adjustments */
@@ -224,15 +224,15 @@
         gap: 1.5rem;
     }
     
-    /* Enhanced snap scrolling for mobile - bidirectional */
+    /* Custom velocity-based scrolling (no snap) */
     .projects-slider {
-        scroll-snap-type: x proximity; /* Allow free scrolling in both directions */
+        scroll-snap-type: none; /* Disabled for custom physics */
         scroll-padding: 0 1.5rem;
     }
     
     .projects-track .project-card {
-        scroll-snap-align: center;
-        scroll-snap-stop: normal; /* Changed from always to normal for smoother scrolling */
+        scroll-snap-align: none; /* Handled by velocity-scroll.js */
+        scroll-snap-stop: normal;
     }
     
     /* Better touch scrolling indicator */
