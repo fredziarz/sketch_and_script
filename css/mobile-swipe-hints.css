@@ -5,10 +5,10 @@
 
 .swipe-hints {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
     pointer-events: none;
     z-index: 50;
     opacity: 0;
@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 12px;
 }
 
 .swipe-hints.show {
@@ -24,8 +25,8 @@
 
 .swipe-hint {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -37,6 +38,11 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     animation: pulse 2s ease-in-out infinite;
     flex-shrink: 0;
+}
+
+.swipe-hint svg {
+    width: 18px;
+    height: 18px;
 }
 
 .swipe-hint-left {
