@@ -31,7 +31,43 @@
             
             console.log('Swipe hints: Creating hints for scrollable container');
             
-            // Create and inject hint arrows
+            // Find all project cards within this container
+            const projectCards = container.querySelectorAll('.project-card');
+            console.log(`Swipe hints: Found ${projectCards.length} project cards`);
+            
+            // Add hints to each project card
+            projectCards.forEach((card, index) => {
+                // Create unique hints for this card
+                const hints = createHintArrows();
+                card.style.position = 'relative';
+                card.appendChild(hints);
+                
+                // Show hints after delay (stagger slightly for visual effect)
+                const showTimer = setTimeout(() => {
+                    if (!hasUserScrolled(container)) {
+                        console.log(`Swipe hints: Showing hints on card ${index + 1}`);
+                        hints.classList.add('show');
+                    }
+                }, 1800 + (index * 50)); // Slight stagger
+                
+                // Hide hints on user interaction
+                const hideHints = () => {
+                    hints.classList.remove('show');
+                    clearTimeout(showTimer);
+                };
+                
+                container.addEventListener('scroll', hideHints, { once: true });
+                container.addEventListener('touchstart', hideHints, { once: true });
+                
+                // Auto-hide after display time
+                setTimeout(() => {
+                    hints.classList.remove('show');
+                }, 5800 + (index * 50));
+            });
+            
+            return; // Skip the old single-hint code below
+            
+            // OLD CODE (keeping for reference, won't execute)
             const hints = createHintArrows();
             const wrapper = container.closest('.projects-slider-wrapper') || container.parentElement;
             wrapper.style.position = 'relative';

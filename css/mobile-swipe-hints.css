@@ -19,22 +19,22 @@
 }
 
 .swipe-hints.show {
-    opacity: 1;
+    opacity: 0.6;
 }
 
 .swipe-hint {
     position: relative;
-    width: 48px;
-    height: 48px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     animation: pulse 2s ease-in-out infinite;
     flex-shrink: 0;
 }
@@ -90,15 +90,15 @@
 
 /* Light theme adjustment */
 .architecture-theme .swipe-hint {
-    background: rgba(255, 255, 255, 0.9);
-    color: #2C2C2C;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.5);
+    color: rgba(44, 44, 44, 0.7);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Dark theme - already styled correctly */
+/* Dark theme */
 .coding-theme .swipe-hint {
-    background: rgba(0, 0, 0, 0.7);
-    color: #E8E8E8;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(232, 232, 232, 0.8);
 }
 
 /* Hide on desktop */
