@@ -113,32 +113,16 @@ if (contactForm) {
             return;
         }
         
-        // TODO: Replace with your actual form handling
-        // Options:
-        // 1. Formspree: https://formspree.io/
-        // 2. Netlify Forms: https://www.netlify.com/products/forms/
-        // 3. EmailJS: https://www.emailjs.com/
-        // 4. Custom backend API
-        
-        console.log('Form data:', data);
-        
-        // Simulate form submission
+        // Show loading state
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
         
-        // Simulate API call
-        setTimeout(() => {
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            contactForm.reset();
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 1500);
+        // Send to Formspree
+        const formAction = contactForm.getAttribute('action');
         
-        // Example Formspree integration (uncomment and add your Formspree endpoint):
-        /*
-        fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        fetch(formAction, {
             method: 'POST',
             body: formData,
             headers: {
@@ -147,21 +131,26 @@ if (contactForm) {
         })
         .then(response => {
             if (response.ok) {
-                alert('Thank you for your message! I\'ll get back to you soon.');
+                alert('✅ Thank you for your message! I\'ll get back to you soon.');
                 contactForm.reset();
             } else {
-                alert('Oops! There was a problem sending your message. Please try again.');
+                return response.json().then(data => {
+                    if (data.errors) {
+                        alert('⚠️ Error: ' + data.errors.map(error => error.message).join(', '));
+                    } else {
+                        alert('⚠️ Oops! There was a problem. Please try again or email directly: michalwicherek@gmail.com');
+                    }
+                });
             }
             submitButton.textContent = originalText;
             submitButton.disabled = false;
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Oops! There was a problem sending your message. Please try again.');
+            alert('⚠️ Connection error. Please try again or email directly: michalwicherek@gmail.com');
             submitButton.textContent = originalText;
             submitButton.disabled = false;
         });
-        */
     });
 }
 
