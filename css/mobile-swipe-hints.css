@@ -8,35 +8,32 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
     pointer-events: none;
     z-index: 50;
     opacity: 0;
     transition: opacity 0.4s ease;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
+    justify-content: center;
+    gap: 16px;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .swipe-hints.show {
-    opacity: 0.6;
+    opacity: 0.9;
 }
 
 .swipe-hint {
     position: relative;
-    width: 32px;
-    height: 32px;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    animation: pulse 2s ease-in-out infinite;
+    color: rgba(255, 255, 255, 0.9);
     flex-shrink: 0;
 }
 
@@ -45,14 +42,21 @@
     height: 18px;
 }
 
+.swipe-hint-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 .swipe-hint-left {
-    margin-left: 8px;
-    animation-delay: 0s;
+    animation: bounceLeft 2s ease-in-out infinite;
 }
 
 .swipe-hint-right {
-    margin-right: 8px;
-    animation-delay: 0.3s;
+    animation: bounceRight 2s ease-in-out infinite;
 }
 
 /* Pulse animation */
