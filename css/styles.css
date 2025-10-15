@@ -300,10 +300,24 @@ button {
     background-image: 
         linear-gradient(135deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.70) 100%),
         url('../images/hero-architecture.jpg');
-    background-size: 110%;
-    background-position: center;
+    background-size: cover;
+    background-position: 50% 50%;
     background-repeat: no-repeat;
     background-blend-mode: normal;
+}
+
+.architecture-side::before {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    right: -5%;
+    bottom: -5%;
+    background-image: url('../images/hero-architecture.jpg');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    z-index: 0;
     animation: slowDriftLeft 25s ease-in-out infinite alternate;
 }
 
@@ -311,11 +325,25 @@ button {
     background-image: 
         linear-gradient(135deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.70) 100%),
         url('../images/hero-coding.jpg');
-    background-size: 110%;
-    background-position: center;
+    background-size: cover;
+    background-position: 50% 50%;
     background-repeat: no-repeat;
     background-blend-mode: normal;
     color: var(--color-white);
+}
+
+.qa-side::before {
+    content: '';
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    right: -5%;
+    bottom: -5%;
+    background-image: url('../images/hero-coding.jpg');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    z-index: 0;
     animation: slowDriftRight 30s ease-in-out infinite alternate;
 }
 
