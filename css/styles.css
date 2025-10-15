@@ -320,6 +320,11 @@ button {
     background-repeat: no-repeat;
     z-index: 0;
     animation: slowDriftLeft 25s ease-in-out infinite alternate;
+    transition: transform 0.8s ease-out;
+}
+
+.architecture-side:hover::before {
+    transform: scale(1.05);
 }
 
 .architecture-side::after {
@@ -357,6 +362,11 @@ button {
     background-repeat: no-repeat;
     z-index: 0;
     animation: slowDriftRight 30s ease-in-out infinite alternate;
+    transition: transform 0.8s ease-out;
+}
+
+.qa-side:hover::before {
+    transform: scale(1.05);
 }
 
 .qa-side::after {
