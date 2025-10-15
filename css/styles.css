@@ -1058,3 +1058,47 @@ select:focus-visible {
         margin-bottom: 1.25rem;
     }
 }
+
+/* ============================================
+   HERO ANIMATIONS
+   ============================================ */
+
+/* Subtle organic background movement */
+@keyframes slowDriftLeft {
+    0% {
+        background-position: 50% 50%;
+    }
+    25% {
+        background-position: 45% 48%;
+    }
+    50% {
+        background-position: 48% 52%;
+    }
+    75% {
+        background-position: 52% 49%;
+    }
+    100% {
+        background-position: 50% 51%;
+    }
+}
+
+@keyframes slowDriftRight {
+    0% {
+        background-position: 50% 50%;
+    }
+    20% {
+        background-position: 52% 48%;
+    }
+    40% {
+        background-position: 48% 52%;
+    }
+    60% {
+        background-position: 53% 49%;
+    }
+    80% {
+        background-position: 47% 51%;
+    }
+    100% {
+        background-position: 50% 50%;
+    }
+}
