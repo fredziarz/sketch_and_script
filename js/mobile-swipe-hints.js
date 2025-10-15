@@ -16,7 +16,7 @@
         if (!isMobile()) return;
         
         // Find all scrollable containers
-        const containers = document.querySelectorAll('.projects-grid, .related-projects-grid');
+        const containers = document.querySelectorAll('.projects-slider, .projects-grid, .related-projects-grid');
         
         containers.forEach(container => {
             // Check if content is scrollable
@@ -24,8 +24,9 @@
             
             // Create and inject hint arrows
             const hints = createHintArrows();
-            container.parentElement.style.position = 'relative';
-            container.parentElement.appendChild(hints);
+            const wrapper = container.closest('.projects-slider-wrapper') || container.parentElement;
+            wrapper.style.position = 'relative';
+            wrapper.appendChild(hints);
             
             // Show hints after delay
             const showTimer = setTimeout(() => {
