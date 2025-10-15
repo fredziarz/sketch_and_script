@@ -148,8 +148,6 @@ sketch_and_script/
 
 This portfolio is deployed on **GitHub Pages** with a custom domain.
 
-**For deployment instructions:** See [`DEPLOYMENT.md`](DEPLOYMENT.md)
-
 **To update content:**
 ```bash
 # Make your changes
@@ -168,8 +166,6 @@ git push
 | File | Purpose |
 |------|---------|
 | [`README.md`](README.md) | This file - project overview |
-| [`DEPLOYMENT.md`](DEPLOYMENT.md) | How to deploy to GitHub Pages |
-| [`GIT_SETUP.md`](GIT_SETUP.md) | Git configuration and authentication |
 | [`PROJECT_MANAGEMENT_GUIDE.md`](PROJECT_MANAGEMENT_GUIDE.md) | Adding/managing content |
 | [`FINAL_SUMMARY.md`](FINAL_SUMMARY.md) | Technical implementation details |
 | [`WCAG_2.2_COMPLIANCE.md`](WCAG_2.2_COMPLIANCE.md) | Accessibility compliance report |
