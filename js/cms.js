@@ -387,8 +387,13 @@ class CMS {
     }
 
     setupEventListeners() {
-        // View Website button
-        document.getElementById('viewWebsiteBtn')?.addEventListener('click', () => {
+        // View Dev Site button - opens local development server
+        document.getElementById('viewDevBtn')?.addEventListener('click', () => {
+            window.open('http://localhost:8000?highlight=new', '_blank');
+        });
+        
+        // View Live Site button - opens production website
+        document.getElementById('viewLiveBtn')?.addEventListener('click', () => {
             window.open('https://www.sketchandscript.pl', '_blank');
         });
         
