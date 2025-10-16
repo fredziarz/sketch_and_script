@@ -19,23 +19,6 @@ Thumbs.db
 *.tmp
 .cache/
 
-# Local Testing
-.pytest_cache/
+# CMS specific
 __pycache__/
 *.pyc
-
-# Private Documentation (keep on local machine only)
-/docs-private/
-*-PRIVATE.md
-.env
-.env.local
-
-# Personal notes and drafts
-/notes/
-TODO.md
-NOTES.md
-
-# Keep these committed
-!starter-template/
-!starter-template/**/*
-

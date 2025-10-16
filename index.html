@@ -3,252 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional architecture, interior design, and QA engineering portfolio by Michał Wicherek. Residential & commercial design, software testing, game development. Poland.">
-    <meta name="author" content="Michał Wicherek">
-    <meta name="keywords" content="architecture, interior design, QA engineering, quality assurance, software testing, game development, portfolio, Michał Wicherek, architect Poland, interior designer, space planning, residential design, commercial design, test automation, manual testing, automated testing, web development, mobile app testing, API testing, performance testing, game dev, Unity, Unreal Engine, architect Wrząca, designer Poland, QA tester, software engineer, full stack developer, UI/UX design, 3D visualization, architectural rendering, home design, office design, restaurant design, test frameworks, Selenium, Cypress, pytest, quality engineer, building design, renovation, remodeling, Polish architect, Polish developer">
+    <title>Sketch & Script CMS | Content Management System</title>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <link rel="alternate icon" href="images/favicon.svg">
-    
-    <meta property="og:title" content="Sketch & Script | Architecture & QA Engineering Portfolio">
-    <meta property="og:description" content="Professional architecture, interior design, and QA engineering portfolio by Michał Wicherek. Residential & commercial design, software testing, game development.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.sketchandscript.pl">
-    
-    <link rel="canonical" href="https://www.sketchandscript.pl/">
-    
-    <title>Sketch & Script | Architecture & QA Engineering</title>
-    
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/page-transitions.css">
-    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9ZNFG075D"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-R9ZNFG075D');
-    </script>
+    <link rel="stylesheet" href="css/cms.css">
 </head>
 <body>
-    <!-- Skip Navigation for Keyboard Users -->
-    <a href="#main-content" class="skip-nav">Skip to main content</a>
-    
-    <!-- Navigation -->
-    <nav class="nav" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <img src="images/logo-icon.svg" alt="" class="logo-icon">
-                <span class="logo-text">Sketch & Script</span>
-            </a>
-            
-            <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="architecture.html" class="nav-link">Architecture</a>
-                <a href="coding.html" class="nav-link">QA & Coding</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link nav-cta">Contact</a>
+    <!-- Header -->
+    <header class="cms-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="cms-logo">Sketch & Script <span>CMS</span></h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="viewWebsiteBtn">
+                        <span>View Website</span>
+                        <span class="icon">↗</span>
+                    </button>
+                </div>
             </div>
-            
-            
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
-    </nav>
+    </header>
 
     <!-- Main Content -->
-    <main id="main-content">
-    <!-- Hero Section - Split Screen -->
-    <section class="hero" id="home">
-        <div class="hero-split">
-            <!-- Left: Architecture -->
-            <a href="architecture.html" class="hero-side architecture-side">
-                <div class="hero-content">
-                    <span class="hero-label">Architecture & Interiors</span>
-                    <h1 class="hero-title">Transforming spaces into experiences</h1>
-                    <p class="hero-description">
-                        Creating functional, beautiful spaces that reflect who you are and how you live, 
-                        blending aesthetics with purpose.
-                    </p>
-                    <span class="btn btn-primary">View Portfolio</span>
-                </div>
-                <div class="hero-overlay"></div>
-            </a>
-            
-            <!-- Right: QA & Development -->
-            <a href="coding.html" class="hero-side qa-side">
-                <div class="hero-content">
-                    <span class="hero-label">QA & Development</span>
-                    <h1 class="hero-title">Building quality through code</h1>
-                    <p class="hero-description">
-                        Quality engineer and developer crafting robust solutions and delightful games. 
-                        Passionate about code that works.
-                    </p>
-                    <span class="btn btn-primary">Explore Projects</span>
-                </div>
-                <div class="hero-overlay"></div>
-            </a>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-            <span>Scroll to explore</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section" id="about">
+    <main class="cms-main">
         <div class="container">
-            <div class="about-content">
-                <h2 class="section-title">Two Passions, One Purpose</h2>
-                
-                <p class="about-text">
-                    I've always been drawn to creating things—whether it's a perfectly balanced room layout 
-                    or an elegantly architected codebase. To most people, interior design and software 
-                    development seem worlds apart. To me, they're two sides of the same coin: both require 
-                    creative problem-solving, attention to detail, and a deep understanding of how people 
-                    interact with their environment.
-                </p>
-                
-                <p class="about-text">
-                    By day, I ensure software works flawlessly through systematic testing and quality engineering. 
-                    By evening, I design spaces where life works beautifully. This unique combination allows me 
-                    to bring systematic thinking to design and creative vision to code.
-                </p>
-                <div class="about-cta">
-                    <a href="architecture.html" class="btn btn-secondary">Architecture Portfolio</a>
-                    <a href="coding.html" class="btn btn-secondary">QA & Development</a>
+            <div class="cms-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="cms-sidebar">
+                    <nav class="sidebar-nav">
+                        <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                            <span class="icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="#projects" class="nav-item" data-view="projects">
+                            <span class="icon">📁</span>
+                            <span>All Projects</span>
+                        </a>
+                        <a href="#new-architecture" class="nav-item" data-view="new-architecture">
+                            <span class="icon">🏛️</span>
+                            <span>New Architecture Project</span>
+                        </a>
+                        <a href="#new-coding" class="nav-item" data-view="new-coding">
+                            <span class="icon">💻</span>
+                            <span>New Coding Project</span>
+                        </a>
+                        <a href="#new-game" class="nav-item" data-view="new-game">
+                            <span class="icon">🎮</span>
+                            <span>New Game Project</span>
+                        </a>
+                        <a href="#media" class="nav-item" data-view="media">
+                            <span class="icon">🖼️</span>
+                            <span>Media Library</span>
+                        </a>
+                        <a href="#settings" class="nav-item" data-view="settings">
+                            <span class="icon">⚙️</span>
+                            <span>Settings</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Content Area -->
+                <div class="cms-content">
+                    <!-- Dashboard View -->
+                    <div class="cms-view active" id="dashboard-view">
+                        <div class="view-header">
+                            <h2>Dashboard</h2>
+                            <p>Welcome to your content management system</p>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">🏛️</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="archCount">0</div>
+                                    <div class="stat-label">Architecture Projects</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">💻</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="codingCount">0</div>
+                                    <div class="stat-label">Coding Projects</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🎮</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="gameCount">0</div>
+                                    <div class="stat-label">Game Projects</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🖼️</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="mediaCount">0</div>
+                                    <div class="stat-label">Media Files</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent-projects">
+                            <h3>Recent Projects</h3>
+                            <div id="recentProjectsList" class="projects-list">
+                                <div class="empty-state">
+                                    <p>No projects yet. Create your first project!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All Projects View -->
+                    <div class="cms-view" id="projects-view">
+                        <div class="view-header">
+                            <h2>All Projects</h2>
+                            <div class="view-actions">
+                                <div class="filter-group">
+                                    <label>Filter:</label>
+                                    <select id="projectFilter" class="filter-select">
+                                        <option value="all">All Projects</option>
+                                        <option value="architecture">Architecture</option>
+                                        <option value="coding">Coding</option>
+                                        <option value="game">Games</option>
+                                    </select>
+                                </div>
+                                <input type="search" id="projectSearch" placeholder="Search projects..." class="search-input">
+                            </div>
+                        </div>
+                        <div id="allProjectsList" class="projects-grid">
+                            <div class="empty-state">
+                                <p>No projects found.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Architecture Project View -->
+                    <div class="cms-view" id="new-architecture-view">
+                        <div class="view-header">
+                            <h2>New Architecture Project</h2>
+                            <p>Create a new architecture or interior design project</p>
+                        </div>
+                        <form id="architectureForm" class="project-form"></form>
+                    </div>
+
+                    <!-- New Coding Project View -->
+                    <div class="cms-view" id="new-coding-view">
+                        <div class="view-header">
+                            <h2>New Coding Project</h2>
+                            <p>Create a new QA or development project</p>
+                        </div>
+                        <form id="codingForm" class="project-form"></form>
+                    </div>
+
+                    <!-- New Game Project View -->
+                    <div class="cms-view" id="new-game-view">
+                        <div class="view-header">
+                            <h2>New Game Project</h2>
+                            <p>Create a new game development project</p>
+                        </div>
+                        <form id="gameForm" class="project-form"></form>
+                    </div>
+
+                    <!-- Media Library View -->
+                    <div class="cms-view" id="media-view">
+                        <div class="view-header">
+                            <h2>Media Library</h2>
+                            <div class="view-actions">
+                                <button class="btn btn-primary" id="uploadMediaBtn">
+                                    <span>Upload Files</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="mediaGrid" class="media-grid">
+                            <div class="empty-state">
+                                <p>No media files yet.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings View -->
+                    <div class="cms-view" id="settings-view">
+                        <div class="view-header">
+                            <h2>Settings</h2>
+                            <p>Manage your CMS preferences</p>
+                        </div>
+                        <div class="settings-content">
+                            <div class="setting-group">
+                                <h3>Data Management</h3>
+                                <button class="btn btn-secondary" id="exportDataBtn">Export All Data (JSON)</button>
+                                <button class="btn btn-secondary" id="importDataBtn">Import Data</button>
+                                <button class="btn btn-danger" id="clearDataBtn">Clear All Data</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2 class="section-title">Let's Work Together</h2>
-                    <p class="contact-text">
-                        Whether you need architectural vision or technical excellence, I'm here to help. 
-                        Get in touch to discuss your project.
-                    </p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <strong>Email</strong>
-                            <a href="mailto:michalwicherek@gmail.com">michalwicherek@gmail.com</a>
-                        </div>
-                        <div class="contact-item">
-                            <strong>Location</strong>
-                            <a href="https://maps.google.com/?q=95-083+Wrząca,+Poland" target="_blank" rel="noopener">95-083 Wrząca, Poland</a>
-                        </div>
-                        <div class="contact-item">
-                            <strong>Availability</strong>
-                            <span>Currently accepting new projects</span>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/michal-wicherek" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
-                        <a href="https://github.com/fredziarz" target="_blank" rel="noopener" class="social-link">GitHub</a>
-                        <a href="https://itch.io/profile/michalwicherek" target="_blank" rel="noopener" class="social-link">itch.io</a>
-                    </div>
-                </div>
-                
-                <form class="contact-form" id="contact-form">
-                    <!-- Web3Forms Access Key -->
-                    <input type="hidden" name="access_key" value="ae12a595-8257-41ef-98ce-29746a0dedd3">
-                    <input type="hidden" name="subject" value="New Contact from Sketch & Script">
-                    <input type="hidden" name="from_name" value="Sketch & Script Contact Form">
-                    
-                    <div class="form-group">
-                        <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="service">I'm interested in *</label>
-                        <select id="service" name="service" required>
-                            <option value="">Select a service</option>
-                            <option value="architecture">Architecture/Interior Design</option>
-                            <option value="qa">QA/Testing Services</option>
-                            <option value="development">Development</option>
-                            <option value="games">Game Development</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>Sketch & Script</h3>
-                    <p>Architecture & Interiors<br>QA & Development</p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Architecture</h4>
-                        <a href="architecture.html#portfolio">Portfolio</a>
-                        <a href="architecture.html#workflow">My Workflow</a>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>QA & Development</h4>
-                        <a href="coding.html#projects">Projects</a>
-                        <a href="coding.html#games">Game Portfolio</a>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Connect</h4>
-                        <a href="https://linkedin.com/in/michal-wicherek" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/fredziarz" target="_blank">GitHub</a>
-                        <a href="https://itch.io/profile/michalwicherek" target="_blank">itch.io</a>
-                    </div>
-                </div>
+    <!-- Modal for file upload -->
+    <div class="modal" id="fileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Media</h3>
+                <button class="modal-close">&times;</button>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Sketch & Script | Michał Wicherek</p>
-                <p>Built with passion | Hosted on GitHub Pages</p>
+            <div class="modal-body">
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" multiple accept="image/*,.zip,.html,.js,.css">
+                    <div class="upload-prompt">
+                        <span class="upload-icon">📁</span>
+                        <p>Drag & drop files here or click to browse</p>
+                        <small>Supported: Images, ZIP, HTML, JS, CSS</small>
+                    </div>
+                </div>
+                <div id="uploadPreview" class="upload-preview"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelUploadBtn">Cancel</button>
+                <button class="btn btn-primary" id="confirmUploadBtn">Upload Files</button>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <script src="js/script.js"></script>
-    <script src="js/keyboard-accessibility.js"></script>
-    <script src="js/page-transitions.js"></script>
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="js/cms.js" type="module"></script>
 </body>
 </html>
+
