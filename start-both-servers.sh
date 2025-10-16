@@ -53,3 +53,4 @@ else
     echo "❌ Error: Failed to start one or both servers"
     exit 1
 fi
+
