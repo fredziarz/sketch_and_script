@@ -71,6 +71,8 @@ Building quality through code. Projects featuring:
 
 ## 🚀 For Developers - CMS Workflow
 
+> **📖 Complete Guide:** See [CMS_GUIDE.md](CMS_GUIDE.md) for detailed step-by-step instructions
+
 ### Quick Start
 
 **Start Development Environment:**
