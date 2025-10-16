@@ -4,14 +4,17 @@ Portfolio website showcasing architecture and coding projects.
 
 ## Quick Start
 
-**Local Development:**
+**Start:**
 ```bash
 ./start-both-servers.sh
 ```
-
-Opens:
 - CMS: http://localhost:8080
-- Dev Site: http://localhost:8000
+- Dev: http://localhost:8000
+
+**Stop:**
+```bash
+./stop-servers.sh
+```
 
 **Deploy:**
 ```bash
@@ -22,23 +25,20 @@ Opens:
 
 ```
 sketchAndScript/              # Website (dev branch)
-├── index.html               # Homepage
-├── architecture.html        # Architecture projects
-├── coding.html              # Coding projects
-├── css/                     # Styles
-├── js/                      # Scripts
-├── images/                  # Media
-├── projects/                # Project pages
-└── templates/               # Project templates
+├── start-both-servers.sh    # Start CMS + Dev
+├── stop-servers.sh          # Stop servers
+├── publish.sh               # Deploy to production
+└── README.md                # This file
 
-sketchAndScript-cms/         # CMS (cms branch - separate directory)
-└── index.html               # Manage projects here
+sketchAndScript-cms/         # CMS (cms branch)
+└── index.html               # Manage projects
 ```
 
 ## Workflow
 
-1. **Add Project:** Open CMS → Create → Fill form → Save
-2. **Preview:** CMS → Click "Dev Site" button → See changes
-3. **Publish:** Run `./publish.sh` when ready
+1. **Start** → `./start-both-servers.sh`
+2. **Create** → Open CMS, add projects
+3. **Preview** → Click "Dev Site" button
+4. **Deploy** → `./publish.sh`
 
 That's it!

@@ -1,30 +1,46 @@
 #!/bin/bash
 
-# Start CMS and Dev Site together
+# Kill any existing servers on these ports
+echo "🧹 Cleaning up old servers..."
+lsof -ti:8080,8000 2>/dev/null | xargs -r kill -9 2>/dev/null
+sleep 1
+
 echo "🚀 Starting servers..."
 
-# CMS on port 8080
-gnome-terminal --title="CMS (localhost:8080)" -- bash -c "cd /home/michal/Documents/sketchAndScript-cms && python3 -m http.server 8080; exec bash" 2>/dev/null || {
-    echo "Terminal 1: CMS"
-    echo "cd /home/michal/Documents/sketchAndScript-cms && python3 -m http.server 8080 &"
-    cd /home/michal/Documents/sketchAndScript-cms && python3 -m http.server 8080 &
-}
+# Start CMS in background
+cd /home/michal/Documents/sketchAndScript-cms
+python3 -m http.server 8080 > /dev/null 2>&1 &
+CMS_PID=$!
 
-sleep 1
+# Start Dev Site in background
+cd /home/michal/Documents/sketchAndScript
+python3 -m http.server 8000 > /dev/null 2>&1 &
+DEV_PID=$!
 
-# Dev Site on port 8000
-gnome-terminal --title="Dev Site (localhost:8000)" -- bash -c "cd /home/michal/Documents/sketchAndScript && python3 -m http.server 8000; exec bash" 2>/dev/null || {
-    echo "Terminal 2: Dev Site"
-    echo "cd /home/michal/Documents/sketchAndScript && python3 -m http.server 8000 &"
-    cd /home/michal/Documents/sketchAndScript && python3 -m http.server 8000 &
-}
+sleep 2
 
-sleep 1
+# Check if they're running
+if kill -0 $CMS_PID 2>/dev/null && kill -0 $DEV_PID 2>/dev/null; then
+    echo "
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ Both servers running!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-echo "
-✅ Servers running:
-   📂 CMS:      http://localhost:8080
-   🌐 Dev Site: http://localhost:8000
+📂 CMS:      http://localhost:8080
+🌐 Dev Site: http://localhost:8000
 
-Press Ctrl+C to stop background servers
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 Open CMS and click 'Dev Site' to preview!
+
+To stop servers:
+  pkill -f 'python3 -m http.server'
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 "
+    # Save PIDs for easy cleanup
+    echo "$CMS_PID $DEV_PID" > /tmp/sketchandscript_servers.pid
+else
+    echo "❌ Error: Failed to start one or both servers"
+    exit 1
+fi
