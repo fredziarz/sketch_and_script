@@ -31,15 +31,24 @@ if kill -0 $CMS_PID 2>/dev/null && kill -0 $DEV_PID 2>/dev/null; then
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-💡 Open CMS and click 'Dev Site' to preview!
+🌐 Opening in browser...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 To stop servers:
-  pkill -f 'python3 -m http.server'
+  ./stop-servers.sh
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 "
     # Save PIDs for easy cleanup
     echo "$CMS_PID $DEV_PID" > /tmp/sketchandscript_servers.pid
+    
+    # Open both URLs in default browser
+    sleep 1
+    xdg-open "http://localhost:8080" 2>/dev/null &
+    sleep 1
+    xdg-open "http://localhost:8000" 2>/dev/null &
+    
 else
     echo "❌ Error: Failed to start one or both servers"
     exit 1
