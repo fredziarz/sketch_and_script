@@ -36,7 +36,7 @@ if kill -0 $CMS_PID 2>/dev/null && kill -0 $DEV_PID 2>/dev/null; then
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 To stop servers:
-  ./stop-servers.sh
+  ./stop-servers.sh  (or: pkill -f 'python3 -m http.server')
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 "
