@@ -389,7 +389,7 @@ class CMS {
     setupEventListeners() {
         // View Website button
         document.getElementById('viewWebsiteBtn')?.addEventListener('click', () => {
-            window.open('../index.html', '_blank');
+            window.open('https://www.sketchandscript.pl', '_blank');
         });
         
         // Upload Media button
