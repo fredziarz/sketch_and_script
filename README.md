@@ -1,15 +1,79 @@
 # Sketch & Script
 
-Portfolio website: architecture and coding projects.
+> **Where architecture meets code, and design intersects with logic**
 
-**Live:** [www.sketchandscript.pl](https://www.sketchandscript.pl)
+A professional portfolio showcasing two complementary disciplines: architectural design and software quality engineering.
+
+**🌐 Live at:** [www.sketchandscript.pl](https://www.sketchandscript.pl)
 
 ---
 
-## Quick Start
+## 🎯 About This Project
 
-### Start Development Environment
+Most people see architecture and software development as completely separate worlds. This portfolio challenges that notion. Both fields require:
 
+- **Creative problem-solving** - Whether designing a functional living space or debugging complex code
+- **Attention to detail** - From precise measurements to pixel-perfect interfaces
+- **User-centric thinking** - Understanding how people interact with spaces and software
+- **Systematic approach** - Balancing aesthetics with functionality
+
+**Sketch & Script** represents the intersection of these disciplines, demonstrating how systematic thinking enhances design, and creative vision enriches technical work.
+
+---
+
+## 📐 What You'll Find Here
+
+### **Architecture & Interior Design**
+Transforming spaces into experiences. Projects showcasing:
+- Residential and commercial design
+- Space planning and optimization
+- Interior styling and aesthetics
+- Functional, beautiful environments
+
+### **QA Engineering & Development**
+Building quality through code. Projects featuring:
+- Quality assurance and systematic testing
+- Web application development
+- Game development (coding meets creativity)
+- Robust, user-friendly software solutions
+
+---
+
+## 🎨 Design Philosophy
+
+**Split Personality**
+- **Light theme** for architecture - open, airy, minimalist
+- **Dark theme** for coding - focused, technical, modern
+- Seamless transitions between both worlds
+
+**Accessibility First**
+- Fully keyboard navigable (WCAG 2.2 Level AA compliant)
+- Thoughtful UX that works for everyone
+- Responsive design for all devices
+
+**Performance Matters**
+- Pure HTML/CSS/JavaScript - no bloated frameworks
+- Fast loading times
+- Optimized for both user experience and search engines
+
+---
+
+## 📱 Features
+
+- ✅ **Split homepage** - Choose your path: Architecture or Code
+- ✅ **Project galleries** - Detailed case studies with images
+- ✅ **Smooth animations** - Professional page transitions
+- ✅ **Mobile responsive** - Perfect on phones, tablets, desktops
+- ✅ **Keyboard shortcuts** - Alt+A (Architecture), Alt+C (Coding)
+- ✅ **SEO optimized** - Proper meta tags, sitemap, robots.txt
+
+---
+
+## 🚀 For Developers - CMS Workflow
+
+### Quick Start
+
+**Start Development Environment:**
 ```bash
 ./start-both-servers.sh
 ```
@@ -18,8 +82,7 @@ Opens automatically:
 - **CMS** → http://localhost:8080 (manage content)
 - **Dev Site** → http://localhost:8000 (preview changes)
 
-### Stop Servers
-
+**Stop Servers:**
 ```bash
 ./stop-servers.sh
 ```
@@ -29,12 +92,10 @@ Opens automatically:
 ## Adding New Projects
 
 ### 1. Open CMS
-
 Visit http://localhost:8080 (after running `./start-both-servers.sh`)
 
 ### 2. Create Project
-
-Click **"New Project"** button, then choose type:
+Click **"New Project"** button, choose type:
 - **Architecture** - Building/interior design projects
 - **Coding** - Web apps, QA projects
 - **Game** - Interactive games and demos
@@ -58,32 +119,26 @@ Click **"New Project"** button, then choose type:
 - Click **"Add Image"**
 - Select file from computer
 - Add caption (optional)
-- Images are converted to base64 and saved
+- Images converted to base64 automatically
 
 **Files/Code:**
-- For coding projects: upload source files, demos
-- For games: include playable files or links
+- Upload source files, demos, or playable files
 - Add descriptions for each file
 
-### 5. Generate HTML
+### 5. Generate & Save
 
-Click **"Generate HTML"** button at bottom
-
-The CMS creates a complete project page in the correct format.
-
-### 6. Copy HTML File
-
-1. Click **"Download HTML"** (or copy from preview)
-2. Save as `projects/[type]-project-[number].html`
+1. Click **"Generate HTML"** button
+2. Click **"Download HTML"**
+3. Save as `projects/[type]-project-[number].html`
    - Architecture: `architecture-project-10.html`
    - Coding: `coding-project-3.html`
    - Game: `coding-project-game-2.html`
 
-### 7. Preview Changes
+### 6. Preview
 
-Click **"Dev Site"** button in CMS header to preview locally at http://localhost:8000
+Click **"Dev Site"** button in CMS to preview at http://localhost:8000
 
-### 8. Deploy
+### 7. Deploy
 
 When ready to publish:
 ```bash
@@ -92,60 +147,39 @@ When ready to publish:
 
 ---
 
-## CMS Features
-
-### Projects List
-- View all saved projects
-- Edit existing projects
-- Delete projects
-- Search and filter
-
-### Data Storage
-- Projects saved in browser LocalStorage
-- Automatic save on changes
-- Export data for backup
-
-### Preview Buttons
-- **🔧 Dev Site** - Local preview on port 8000
-- **🌐 Live Site** - Production website
-
-### Templates
-Each project type has optimized template:
-- Architecture: Image gallery focus, light theme
-- Coding: Technical details, code samples, dark theme
-- Games: Embedded playables, screenshots
-
----
-
-## Project Structure
+## 📊 Project Structure
 
 ```
-sketchAndScript/              # Main website (dev branch)
+sketchAndScript/              # Main website
 ├── start-both-servers.sh    # Start CMS + Dev
 ├── stop-servers.sh          # Stop servers
 ├── publish.sh               # Deploy to production
-├── index.html               # Homepage
+├── index.html               # Split homepage
 ├── architecture.html        # Architecture portfolio
 ├── coding.html              # Coding portfolio
 ├── projects/                # Individual project pages
-│   ├── architecture-project-1.html
-│   ├── coding-project-1.html
-│   └── coding-project-game-1.html
-├── css/                     # Styles
-├── js/                      # Scripts
-└── images/                  # Media files
+│   ├── architecture-project-*.html
+│   └── coding-project-*.html
+├── css/                     # Theming & responsive design
+│   ├── styles.css           # Core styles
+│   ├── architecture-theme.css  # Light theme
+│   ├── coding-theme.css     # Dark theme
+│   └── project-slider.css   # Image galleries
+├── js/                      # Interactive functionality
+│   ├── script.js
+│   ├── keyboard-accessibility.js
+│   └── page-transitions.js
+└── images/                  # Media organized by category
 
-sketchAndScript-cms/         # CMS (cms branch)
+sketchAndScript-cms/         # CMS (separate branch)
 ├── index.html               # CMS interface
-├── js/                      # CMS logic
-│   ├── cms.js
-│   └── modules/             # Data, forms, templates
+├── js/                      # CMS logic & modules
 └── css/                     # CMS styles
 ```
 
 ---
 
-## Workflow Summary
+## 🔄 Workflow Summary
 
 ```
 1. ./start-both-servers.sh     ← Start everything
@@ -160,32 +194,17 @@ sketchAndScript-cms/         # CMS (cms branch)
 
 ---
 
-## Deployment
+## 🛠️ Built With
 
-### Automatic Deploy
-
-```bash
-./publish.sh
-```
-
-This script:
-1. Commits changes to dev branch
-2. Merges to main branch
-3. Pushes to GitHub
-4. GitHub Pages deploys automatically (2-3 minutes)
-
-### Manual Deploy
-
-```bash
-git add .
-git commit -m "Add new project"
-git push origin dev
-# Merge to main and push
-```
+- **Pure HTML5/CSS3/JavaScript** - No dependencies, no build process
+- **PT Sans typography** - Clean, professional, readable
+- **GitHub Pages** - Free, reliable hosting
+- **Custom domain** - Professional presence
+- **Browser-based CMS** - LocalStorage, no database needed
 
 ---
 
-## Tips
+## 💡 Tips & Best Practices
 
 ### Adding Images
 - Use high-quality images (1920px width recommended)
@@ -209,7 +228,7 @@ git push origin dev
 
 ---
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
 **CMS not loading?**
 - Run `./start-both-servers.sh` from main directory
@@ -229,23 +248,59 @@ git push origin dev
 
 ---
 
-## Tech Stack
+## ⌨️ Keyboard Navigation
 
-- **Frontend:** Pure HTML/CSS/JavaScript
-- **CMS:** Browser-based, LocalStorage
-- **Hosting:** GitHub Pages
-- **Domain:** Custom DNS (sketchandscript.pl)
-- **Dev Server:** Python http.server
+Because good UX means **everyone** can navigate efficiently:
+
+| Shortcut | Action |
+|----------|--------|
+| `Alt + H` | Go to homepage |
+| `Alt + A` | Architecture portfolio |
+| `Alt + C` | QA & Coding portfolio |
+| `Tab` | Navigate through links |
+| `Enter/Space` | Activate buttons |
+| `Escape` | Close menus |
 
 ---
 
-## Contact
+## 🌟 Philosophy in Practice
+
+This portfolio embodies a simple truth: **the best work happens at the intersection of disciplines**.
+
+- Architecture teaches **spatial thinking** that improves UI/UX design
+- Coding teaches **systematic approaches** that optimize design workflows
+- Design thinking brings **creativity** to technical problem-solving
+- Engineering rigor ensures **quality** in creative projects
+
+Whether designing a room or debugging code, the principles remain the same: understand the user, solve real problems, and deliver quality work.
+
+---
+
+## 📞 Contact
 
 **Michał Wicherek**
-- 🌐 [www.sketchandscript.pl](https://www.sketchandscript.pl)
-- 📧 michalwicherek@gmail.com
+- 🌐 Website: [www.sketchandscript.pl](https://www.sketchandscript.pl)
+- 📧 Email: michalwicherek@gmail.com
+- 💼 LinkedIn: [linkedin.com/in/michal-wicherek](https://linkedin.com/in/michal-wicherek)
 - 💻 GitHub: [@fredziarz](https://github.com/fredziarz)
 
 ---
 
-**Simple. Powerful. Elegant.** ✨
+## 🎓 For Developers
+
+This portfolio can serve as a template for others. Key learnings:
+- Building accessible websites without frameworks
+- Implementing dual themes (light/dark)
+- Creating smooth page transitions
+- Browser-based CMS with LocalStorage
+- Deploying to GitHub Pages with custom domain
+
+**Repository:** [github.com/fredziarz/sketch_and_script](https://github.com/fredziarz/sketch_and_script)
+
+---
+
+**Built with passion. Crafted with precision. Deployed with confidence.** ✨
+
+---
+
+*This portfolio showcases professional work in architecture, interior design, QA engineering, and game development. All projects represent real work and genuine expertise in both creative and technical domains.*
