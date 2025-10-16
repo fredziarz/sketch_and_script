@@ -535,5 +535,42 @@ git checkout cms
 
 ---
 
+## 🔧 Preview Buttons & Highlighting
+
+### Two Preview Buttons
+
+**🔧 Dev Site** - Opens local dev site with new content highlighted  
+**🌐 Live Site** - Opens your production website
+
+### Enable New Content Highlighting (Optional)
+
+Makes new projects stand out with elegant effects: pulsing glow, "NEW ✨" badge, auto-scroll.
+
+**Quick Setup:**
+```bash
+# Switch to dev branch
+git checkout dev
+
+# Copy the highlight script
+git checkout cms -- highlight-new.js
+mv highlight-new.js js/
+
+# Add to HTML files (before </body>)
+<script src="js/highlight-new.js"></script>
+
+# Commit
+git add js/highlight-new.js *.html
+git commit -m "Add new content highlighting"
+```
+
+**Optional:** Mark specific projects:
+```html
+<article class="project-card" data-new="true">
+```
+
+**Customization:** Edit `js/highlight-new.js` to change colors, badge text, or animations.
+
+---
+
 **Version 1.0** | October 2025 | Sketch & Script CMS  
 **Built with ❤️ for easy portfolio management**
