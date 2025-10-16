@@ -2,50 +2,50 @@
 
 Content management for your portfolio.
 
-## Usage
+## Start
 
-**Start (Automatic):**
 ```bash
-# From main directory:
 cd /home/michal/Documents/sketchAndScript
 ./start-both-servers.sh
 ```
 
-**Start (Manual):**
+Opens automatically:
+- CMS: http://localhost:8080
+- Dev Site: http://localhost:8000
+
+## Stop
+
 ```bash
-cd /home/michal/Documents/sketchAndScript-cms
-python3 -m http.server 8080
+cd /home/michal/Documents/sketchAndScript
+./stop-servers.sh
 ```
 
-Open: http://localhost:8080
+## Workflow
 
-## Features
-
-- **Create Projects** - Architecture, Coding, or Games
-- **Upload Media** - Images, files, code samples
-- **Add Tags** - Categorize your work
-- **Preview** - Click "Dev Site" to see changes locally
-- **Export** - Download HTML files for production
-
-## Quick Workflow
-
-1. Open CMS
-2. Click "New Project"
-3. Fill form, upload files
-4. Click "Generate HTML"
-5. Copy files to main site
-6. Click "Dev Site" to preview
-7. Run `publish.sh` to deploy
-
-## Data Storage
-
-Projects saved in browser LocalStorage. Export regularly to back up.
+1. Create project in CMS
+2. Upload files, add content
+3. Click "Dev Site" button → preview changes
+4. Click "Live Site" button → see production
 
 ## Buttons
 
-- **🔧 Dev Site** → http://localhost:8000 (local preview)
-- **🌐 Live Site** → https://www.sketchandscript.pl (production)
+- **🔧 Dev Site** → Local preview (port 8000)
+- **🌐 Live Site** → Production site
 
----
+## Features
 
-**Pro Tip:** Keep both servers running for seamless workflow!
+- Create Architecture/Coding/Game projects
+- Upload images and files
+- Add tags and descriptions
+- Export HTML for deployment
+- LocalStorage persistence
+
+## Deploy
+
+When ready to publish:
+```bash
+cd /home/michal/Documents/sketchAndScript
+./publish.sh
+```
+
+That's it!
