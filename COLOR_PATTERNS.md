@@ -9,10 +9,11 @@
 1. [Homepage (Base Theme)](#homepage-base-theme)
 2. [Architecture Theme (Light)](#architecture-theme-light)
 3. [Coding Theme (Dark)](#coding-theme-dark)
-4. [Status & State Colors](#status--state-colors)
-5. [Interactive States](#interactive-states)
-6. [Gradients](#gradients)
-7. [Color Usage Guidelines](#color-usage-guidelines)
+4. [Color Triads](#color-triads)
+5. [Status & State Colors](#status--state-colors)
+6. [Interactive States](#interactive-states)
+7. [Gradients](#gradients)
+8. [Color Usage Guidelines](#color-usage-guidelines)
 
 ---
 
@@ -110,6 +111,140 @@
 |-------|------|-------|
 | Nav Background | `rgba(26, 26, 26, 0.95)` | Dark transparent with blur |
 | Nav Border | `#333333` | Bottom border |
+
+---
+
+## Color Triads
+
+**Harmonious color combinations for each theme**
+
+### Homepage Triad
+
+**Primary color harmony for the base homepage**
+
+<table>
+<tr>
+<td align="center" width="33%">
+<div style="background: #2C2C2C; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto;"></div>
+<strong>Dark Base</strong><br>
+<code>#2C2C2C</code><br>
+rgb(44, 44, 44)<br>
+<em>Primary text, buttons</em>
+</td>
+<td align="center" width="33%">
+<div style="background: #8B7E74; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto;"></div>
+<strong>Neutral Accent</strong><br>
+<code>#8B7E74</code><br>
+rgb(139, 126, 116)<br>
+<em>Links, highlights</em>
+</td>
+<td align="center" width="33%">
+<div style="background: #FAFAFA; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto; border: 2px solid #E0E0E0;"></div>
+<strong>Light Base</strong><br>
+<code>#FAFAFA</code><br>
+rgb(250, 250, 250)<br>
+<em>Background, canvas</em>
+</td>
+</tr>
+</table>
+
+**Color relationship:** Neutral palette with warm-cool balance  
+**Best for:** Creating sophisticated, professional feel with subtle contrast
+
+---
+
+### Architecture Triad
+
+**Warm, earthy harmony for architecture theme**
+
+<table>
+<tr>
+<td align="center" width="33%">
+<div style="background: #B8936D; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto;"></div>
+<strong>Bronze/Gold</strong><br>
+<code>#B8936D</code><br>
+rgb(184, 147, 109)<br>
+<em>Primary accent</em>
+</td>
+<td align="center" width="33%">
+<div style="background: #FFFFFF; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto; border: 2px solid #E5E5E5;"></div>
+<strong>Pure White</strong><br>
+<code>#FFFFFF</code><br>
+rgb(255, 255, 255)<br>
+<em>Background, space</em>
+</td>
+<td align="center" width="33%">
+<div style="background: #606060; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto;"></div>
+<strong>Charcoal Gray</strong><br>
+<code>#606060</code><br>
+rgb(96, 96, 96)<br>
+<em>Secondary text</em>
+</td>
+</tr>
+</table>
+
+**Color relationship:** Light, airy palette with warm bronze accent  
+**Best for:** Clean, elegant architectural presentations with natural materials feel
+
+---
+
+### Coding Triad
+
+**Tech-inspired, high-contrast harmony for coding theme**
+
+<table>
+<tr>
+<td align="center" width="33%">
+<div style="background: #64FFDA; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto;"></div>
+<strong>Teal Accent</strong><br>
+<code>#64FFDA</code><br>
+rgb(100, 255, 218)<br>
+<em>Primary accent</em>
+</td>
+<td align="center" width="33%">
+<div style="background: #7B68EE; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto;"></div>
+<strong>Purple Accent</strong><br>
+<code>#7B68EE</code><br>
+rgb(123, 104, 238)<br>
+<em>Secondary accent</em>
+</td>
+<td align="center" width="33%">
+<div style="background: #1A1A1A; width: 100px; height: 100px; border-radius: 50%; margin: 0 auto; border: 2px solid #333333;"></div>
+<strong>Deep Black</strong><br>
+<code>#1A1A1A</code><br>
+rgb(26, 26, 26)<br>
+<em>Background, base</em>
+</td>
+</tr>
+</table>
+
+**Color relationship:** Dark base with vibrant neon accents (teal-purple complement)  
+**Best for:** Modern, tech-forward aesthetic with strong visual impact
+
+---
+
+### Using Triads Effectively
+
+**Homepage:**
+- Use dark base for text and solid elements
+- Apply accent sparingly for interaction points
+- Let light background create breathing room
+
+**Architecture:**
+- Bronze/gold for CTAs and important UI elements
+- White dominates for clean, spacious feel
+- Gray for supporting information without competing
+
+**Coding:**
+- Teal for primary actions and links
+- Purple for secondary features (games, special content)
+- Dark background for reduced eye strain and tech aesthetic
+
+**Pro Tips:**
+- 🎨 60-30-10 rule: 60% base, 30% secondary, 10% accent
+- 🔄 Rotate accents for variety without losing harmony
+- ⚖️ Balance warm and cool tones within each triad
+- 📊 Test combinations for accessibility (4.5:1 contrast minimum)
 
 ---
 
