@@ -85,14 +85,14 @@ export class FormBuilder {
                 
                 <div class="form-group">
                     <label class="form-label required">Featured Image Path</label>
-                    <input type="text" name="featuredImage" class="form-input" required placeholder="../images/architecture/project-main.jpg">
-                    <span class="form-help">Path to the main hero image (relative to projects folder)</span>
+                    <input type="text" name="featuredImage" class="form-input" data-image-input="single" required placeholder="../images/architecture/project-main.jpg">
+                    <span class="form-help">Path to the main hero image (or select from media library)</span>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Gallery Images (comma-separated paths)</label>
-                    <textarea name="galleryImages" class="form-textarea" placeholder="../images/architecture/img1.jpg, ../images/architecture/img2.jpg"></textarea>
-                    <span class="form-help">Separate each image path with a comma</span>
+                    <textarea name="galleryImages" class="form-textarea" data-image-input="multiple" placeholder="../images/architecture/img1.jpg, ../images/architecture/img2.jpg"></textarea>
+                    <span class="form-help">Separate each image path with a comma, or browse from media library</span>
                 </div>
                 
                 <div class="form-group">
@@ -275,7 +275,8 @@ Reporting - Comprehensive test reports"></textarea>
                 
                 <div class="form-group">
                     <label class="form-label">Screenshot Paths (comma-separated)</label>
-                    <textarea name="screenshots" class="form-textarea" placeholder="../images/coding/screenshot1.jpg, ../images/coding/screenshot2.jpg"></textarea>
+                    <textarea name="screenshots" class="form-textarea" data-image-input="multiple" placeholder="../images/coding/screenshot1.jpg, ../images/coding/screenshot2.jpg"></textarea>
+                    <span class="form-help">Or browse from media library</span>
                 </div>
                 
                 <div class="form-group">
@@ -427,13 +428,14 @@ Local multiplayer support"></textarea>
                 
                 <div class="form-group">
                     <label class="form-label required">Thumbnail Image</label>
-                    <input type="text" name="thumbnail" class="form-input" required placeholder="../images/games/game-thumbnail.jpg">
-                    <span class="form-help">Main image for the game card</span>
+                    <input type="text" name="thumbnail" class="form-input" data-image-input="single" required placeholder="../images/games/game-thumbnail.jpg">
+                    <span class="form-help">Main image for the game card (or select from media library)</span>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Screenshot Paths (comma-separated)</label>
-                    <textarea name="screenshots" class="form-textarea" placeholder="../images/games/screenshot1.jpg, ../images/games/screenshot2.jpg"></textarea>
+                    <textarea name="screenshots" class="form-textarea" data-image-input="multiple" placeholder="../images/games/screenshot1.jpg, ../images/games/screenshot2.jpg"></textarea>
+                    <span class="form-help">Or browse from media library</span>
                 </div>
                 
                 <div class="form-group">

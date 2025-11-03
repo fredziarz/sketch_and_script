@@ -7,6 +7,7 @@ import { FormBuilder } from './modules/form-builder.js';
 import { TemplateGenerator } from './modules/template-generator.js';
 import { MediaManager } from './modules/media-manager.js';
 import { UIManager } from './modules/ui-manager.js';
+import { ImagePicker } from './modules/image-picker.js';
 
 class CMS {
     constructor() {
@@ -15,6 +16,7 @@ class CMS {
         this.templates = new TemplateGenerator();
         this.media = new MediaManager(this.data);
         this.ui = new UIManager();
+        this.imagePicker = new ImagePicker(this.data);
         
         this.init();
     }
@@ -92,6 +94,22 @@ class CMS {
         
         // Attach form submit handlers
         this.attachFormHandlers();
+        
+        // Attach image picker browse buttons
+        this.attachImagePickers();
+    }
+
+    attachImagePickers() {
+        // Find all inputs with data-image-input attribute
+        const imageInputs = document.querySelectorAll('[data-image-input]');
+        
+        imageInputs.forEach(input => {
+            const inputType = input.getAttribute('data-image-input');
+            const isMultiple = inputType === 'multiple';
+            
+            // Add browse button using the ImagePicker static method
+            ImagePicker.addBrowseButton(input, this.imagePicker, isMultiple);
+        });
     }
 
     attachFormHandlers() {
