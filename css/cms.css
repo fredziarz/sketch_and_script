@@ -980,6 +980,19 @@ body {
     transform: scale(1.05);
 }
 
+/* Media selection feedback */
+.has-media-selection {
+    background: var(--gray-lightest);
+    border-color: var(--success);
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+.has-media-selection::placeholder {
+    color: var(--success);
+    font-weight: 500;
+}
+
 /* Responsive adjustments for image picker */
 @media (max-width: 768px) {
     .image-picker-grid {

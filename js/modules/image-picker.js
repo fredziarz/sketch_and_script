@@ -170,15 +170,33 @@ export class ImagePicker {
             return;
         }
         
-        // Insert into input field
+        // Insert media references instead of full base64 URLs to avoid performance issues
+        // Format: media://ID for single or media://ID1, media://ID2 for multiple
         if (this.multiSelect) {
             // For multiple images, join with comma and space
-            const urls = this.selectedImages.map(img => img.url).join(', ');
-            this.currentInputField.value = urls;
+            const refs = this.selectedImages.map(img => `media://${img.id}`).join(', ');
+            this.currentInputField.value = refs;
+            
+            // Store the actual data in a hidden attribute for later retrieval
+            this.currentInputField.setAttribute('data-media-urls', 
+                this.selectedImages.map(img => img.url).join('|||'));
+            
+            // Add visual feedback
+            const imageNames = this.selectedImages.map(img => img.name).join(', ');
+            this.currentInputField.setAttribute('placeholder', `✓ ${this.selectedImages.length} images selected: ${imageNames}`);
         } else {
             // For single image
-            this.currentInputField.value = this.selectedImages[0].url;
+            this.currentInputField.value = `media://${this.selectedImages[0].id}`;
+            
+            // Store the actual data in a hidden attribute
+            this.currentInputField.setAttribute('data-media-urls', this.selectedImages[0].url);
+            
+            // Add visual feedback
+            this.currentInputField.setAttribute('placeholder', `✓ Selected: ${this.selectedImages[0].name}`);
         }
+        
+        // Add a class for styling
+        this.currentInputField.classList.add('has-media-selection');
         
         // Trigger change event for any listeners
         this.currentInputField.dispatchEvent(new Event('change', { bubbles: true }));
