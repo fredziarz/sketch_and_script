@@ -95,24 +95,56 @@ cd /home/michal/Documents/sketchAndScript
 
 ## Add Media
 
-### Images
+### Upload to Media Library
 
-**Click "Add Image"**
-- **Formats:** JPG, PNG, WebP, GIF
-- **Recommended size:** 1920px width
-- **Max size:** 5MB per image
-- **Captions:** Add descriptions for accessibility
+**Step 1: Upload Images**
+1. Go to **Media Library** in the sidebar (🖼️)
+2. Click **"Upload Files"**
+3. Select images from your computer
+4. Wait for upload confirmation
 
-**Image Count Guidelines:**
+**Supported Formats:**
+- **Images:** JPG, PNG, WebP, GIF, SVG
+- **Max size:** 10MB per file
+- **Recommended:** 1920px width for project images
+
+### Using the Image Picker 🆕
+
+**When creating a new project**, you can now select images from your Media Library:
+
+**Step 1: In any image field, look for the 🖼️ button**
+- Featured Image Path → Single image picker
+- Gallery Images → Multiple image picker
+- Screenshots → Multiple image picker
+
+**Step 2: Click the 🖼️ button**
+- A modal opens showing all images from your Media Library
+- For **single selection** (Featured Image): Click any image to select it
+- For **multiple selection** (Gallery/Screenshots): Click multiple images to select them
+
+**Step 3: Click "Insert Selected"**
+- The image data will be automatically inserted into the form field
+- For multiple images, they're inserted as comma-separated values
+- You can still manually type paths if needed
+
+**Tips:**
+- Upload images to Media Library first before creating projects
+- Image data is stored as base64 (works offline)
+- You can mix uploaded images with file paths
+- Click 🖼️ button again to change selection
+
+### Manual Image Paths (Alternative)
+
+You can still manually enter image paths:
+```
+../images/architecture/project-main.jpg
+../images/coding/screenshot1.jpg, ../images/coding/screenshot2.jpg
+```
+
+### Image Count Guidelines
 - Architecture: 5-10 images
 - Coding: 3-6 screenshots
 - Games: 6-12 screenshots
-
-**Tips:**
-- First image = cover image
-- Drag to reorder
-- Use high-quality images
-- Add descriptive captions
 
 ### Files (Optional)
 
@@ -320,9 +352,14 @@ git commit -m "Add project: [Name]"
 ```
 
 ### Image Upload Fails
-- Check file size (max 5MB)
+- Check file size (max 10MB)
 - Try JPG format
 - Compress image first
+
+### Image Picker Shows No Images
+- Upload images to Media Library first
+- Refresh the project form page
+- Check that uploaded files are images (not other file types)
 
 ### Project Not in Portfolio
 - Did you add project card to HTML?
@@ -427,4 +464,5 @@ coding-project-game-[N].html
 
 ---
 
-**Last updated:** October 2025
+**Last updated:** November 2025
+**Version:** 2.0 - Added Image Picker feature
