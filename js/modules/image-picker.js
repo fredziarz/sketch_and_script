@@ -77,10 +77,13 @@ export class ImagePicker {
         this.multiSelect = multiSelect;
         this.selectedImages = [];
         
+        // Detect project type from form context
+        this.projectType = this.detectProjectType();
+        
         // Update info text
         const infoText = multiSelect 
-            ? 'Click on images to select multiple. Selected images will be inserted as comma-separated values.'
-            : 'Click on an image to select it';
+            ? 'Click on images to select multiple. File paths will be inserted as comma-separated values.'
+            : 'Click on an image to select it. The file path will be inserted.';
         document.getElementById('pickerInfoText').textContent = infoText;
         
         // Load images
@@ -88,6 +91,25 @@ export class ImagePicker {
         
         // Show modal
         this.modal.classList.add('active');
+    }
+
+    detectProjectType() {
+        // Try to detect from the form ID
+        const form = this.currentInputField?.closest('form');
+        if (form) {
+            const formId = form.id;
+            if (formId.includes('architecture')) return 'architecture';
+            if (formId.includes('game')) return 'games';
+            if (formId.includes('coding')) return 'coding';
+        }
+        
+        // Default to architecture
+        return 'architecture';
+    }
+
+    getImagePath(kebabName) {
+        const folder = this.projectType;
+        return `../images/${folder}/${kebabName}`;
     }
 
     closeModal() {
@@ -113,18 +135,21 @@ export class ImagePicker {
         grid.style.display = 'grid';
         emptyState.style.display = 'none';
         
-        grid.innerHTML = images.map(image => `
-            <div class="image-picker-item" data-image-id="${image.id}" data-image-url="${image.dataUrl}" data-image-name="${image.name}">
-                <img src="${image.dataUrl}" alt="${image.name}">
-                <div class="image-picker-item-info">
-                    <div class="image-name">${image.name}</div>
-                    <div class="image-size">${this.formatFileSize(image.size)}</div>
+        grid.innerHTML = images.map(image => {
+            const kebabName = image.kebabName || image.name;
+            return `
+                <div class="image-picker-item" data-image-id="${image.id}" data-kebab-name="${kebabName}" data-image-name="${image.name}">
+                    <img src="${image.dataUrl}" alt="${image.name}">
+                    <div class="image-picker-item-info">
+                        <div class="image-name">${kebabName}</div>
+                        <div class="image-size">${this.formatFileSize(image.size)}</div>
+                    </div>
+                    <div class="image-picker-item-overlay">
+                        <span class="check-icon">✓</span>
+                    </div>
                 </div>
-                <div class="image-picker-item-overlay">
-                    <span class="check-icon">✓</span>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
         
         // Attach click handlers
         this.attachImageClickHandlers();
@@ -136,7 +161,7 @@ export class ImagePicker {
         items.forEach(item => {
             item.addEventListener('click', () => {
                 const imageId = item.dataset.imageId;
-                const imageUrl = item.dataset.imageUrl;
+                const kebabName = item.dataset.kebabName;
                 const imageName = item.dataset.imageName;
                 
                 if (this.multiSelect) {
@@ -146,14 +171,14 @@ export class ImagePicker {
                         this.selectedImages.splice(index, 1);
                         item.classList.remove('selected');
                     } else {
-                        this.selectedImages.push({ id: imageId, url: imageUrl, name: imageName });
+                        this.selectedImages.push({ id: imageId, kebabName: kebabName, name: imageName });
                         item.classList.add('selected');
                     }
                 } else {
                     // Single select - deselect all others
                     items.forEach(i => i.classList.remove('selected'));
                     item.classList.add('selected');
-                    this.selectedImages = [{ id: imageId, url: imageUrl, name: imageName }];
+                    this.selectedImages = [{ id: imageId, kebabName: kebabName, name: imageName }];
                 }
             });
         });
@@ -170,29 +195,22 @@ export class ImagePicker {
             return;
         }
         
-        // Insert media references instead of full base64 URLs to avoid performance issues
-        // Format: media://ID for single or media://ID1, media://ID2 for multiple
+        // Insert kebab-case file paths
         if (this.multiSelect) {
             // For multiple images, join with comma and space
-            const refs = this.selectedImages.map(img => `media://${img.id}`).join(', ');
-            this.currentInputField.value = refs;
-            
-            // Store the actual data in a hidden attribute for later retrieval
-            this.currentInputField.setAttribute('data-media-urls', 
-                this.selectedImages.map(img => img.url).join('|||'));
+            const paths = this.selectedImages.map(img => this.getImagePath(img.kebabName)).join(', ');
+            this.currentInputField.value = paths;
             
             // Add visual feedback
-            const imageNames = this.selectedImages.map(img => img.name).join(', ');
+            const imageNames = this.selectedImages.map(img => img.kebabName).join(', ');
             this.currentInputField.setAttribute('placeholder', `✓ ${this.selectedImages.length} images selected: ${imageNames}`);
         } else {
             // For single image
-            this.currentInputField.value = `media://${this.selectedImages[0].id}`;
-            
-            // Store the actual data in a hidden attribute
-            this.currentInputField.setAttribute('data-media-urls', this.selectedImages[0].url);
+            const path = this.getImagePath(this.selectedImages[0].kebabName);
+            this.currentInputField.value = path;
             
             // Add visual feedback
-            this.currentInputField.setAttribute('placeholder', `✓ Selected: ${this.selectedImages[0].name}`);
+            this.currentInputField.setAttribute('placeholder', `✓ Selected: ${this.selectedImages[0].kebabName}`);
         }
         
         // Add a class for styling

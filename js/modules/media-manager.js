@@ -161,6 +161,18 @@ export class MediaManager {
         return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
     }
 
+    toKebabCase(str) {
+        return str
+            .replace(/\.[^/.]+$/, '') // Remove extension
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+            .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+    }
+
+    getFileExtension(filename) {
+        return filename.slice(filename.lastIndexOf('.'));
+    }
+
     async uploadFiles() {
         if (this.selectedFiles.length === 0) {
             alert('Please select files to upload');
@@ -175,9 +187,14 @@ export class MediaManager {
             
             await new Promise((resolve) => {
                 reader.onload = (e) => {
+                    const kebabName = this.toKebabCase(file.name);
+                    const extension = this.getFileExtension(file.name);
+                    const kebabFileName = kebabName + extension;
+                    
                     const mediaItem = {
                         id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
                         name: file.name,
+                        kebabName: kebabFileName,
                         type: file.type,
                         size: file.size,
                         dataUrl: e.target.result,
@@ -211,16 +228,22 @@ export class MediaManager {
         }
         
         mediaGrid.innerHTML = media.map(item => {
+            const kebabName = item.kebabName || item.name;
             if (item.type.startsWith('image/')) {
                 return `
                     <div class="media-item" data-media-id="${item.id}">
                         <img src="${item.dataUrl}" alt="${item.name}">
                         <div class="media-item-overlay">
-                            <div>${item.name}</div>
-                            <div>${this.formatFileSize(item.size)}</div>
-                            <button class="btn-icon" onclick="cms.media.deleteMedia('${item.id}')" title="Delete">
-                                🗑️
-                            </button>
+                            <div class="media-filename">${kebabName}</div>
+                            <div class="media-filesize">${this.formatFileSize(item.size)}</div>
+                            <div class="media-actions">
+                                <button class="btn-icon" onclick="cms.media.downloadMedia('${item.id}')" title="Download">
+                                    💾
+                                </button>
+                                <button class="btn-icon" onclick="cms.media.deleteMedia('${item.id}')" title="Delete">
+                                    🗑️
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -230,18 +253,36 @@ export class MediaManager {
                     <div class="media-item" data-media-id="${item.id}">
                         <div class="file-display">
                             <div class="file-icon-large">${icon}</div>
-                            <div>${item.name}</div>
+                            <div>${kebabName}</div>
                         </div>
                         <div class="media-item-overlay">
                             <div>${this.formatFileSize(item.size)}</div>
-                            <button class="btn-icon" onclick="cms.media.deleteMedia('${item.id}')" title="Delete">
-                                🗑️
-                            </button>
+                            <div class="media-actions">
+                                <button class="btn-icon" onclick="cms.media.downloadMedia('${item.id}')" title="Download">
+                                    💾
+                                </button>
+                                <button class="btn-icon" onclick="cms.media.deleteMedia('${item.id}')" title="Delete">
+                                    🗑️
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
             }
         }).join('');
+    }
+
+    downloadMedia(id) {
+        const media = this.data.getAllMedia().find(m => m.id === id);
+        if (!media) return;
+        
+        const kebabName = media.kebabName || media.name;
+        
+        // Create download link
+        const link = document.createElement('a');
+        link.href = media.dataUrl;
+        link.download = kebabName;
+        link.click();
     }
 
     deleteMedia(id) {

@@ -469,9 +469,6 @@ Local multiplayer support"></textarea>
             }
         }
         
-        // Resolve media:// references to actual data URLs
-        this.resolveMediaReferences(data);
-        
         // Process arrays (comma-separated values)
         if (data.galleryImages) {
             data.galleryImages = data.galleryImages.split(',').map(s => s.trim()).filter(s => s);
@@ -493,25 +490,6 @@ Local multiplayer support"></textarea>
         }
         
         return data;
-    }
-
-    resolveMediaReferences(data) {
-        // Helper to resolve media:// references to actual data URLs
-        const resolveField = (fieldName) => {
-            if (data[fieldName] && data[fieldName].includes('media://')) {
-                const input = document.querySelector(`[name="${fieldName}"]`);
-                if (input && input.hasAttribute('data-media-urls')) {
-                    const urls = input.getAttribute('data-media-urls');
-                    data[fieldName] = urls.replace(/\|\|\|/g, ', ');
-                }
-            }
-        };
-
-        // Resolve all image fields
-        resolveField('featuredImage');
-        resolveField('galleryImages');
-        resolveField('screenshots');
-        resolveField('thumbnail');
     }
 }
 

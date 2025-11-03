@@ -993,6 +993,26 @@ body {
     font-weight: 500;
 }
 
+/* Media Library Display */
+.media-filename {
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: var(--spacing-xs);
+    word-break: break-word;
+}
+
+.media-filesize {
+    font-size: 0.875rem;
+    color: var(--gray);
+    margin-bottom: var(--spacing-sm);
+}
+
+.media-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    justify-content: center;
+}
+
 /* Responsive adjustments for image picker */
 @media (max-width: 768px) {
     .image-picker-grid {
