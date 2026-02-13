@@ -1,6 +1,11 @@
 (function() {
     'use strict';
 
+    // DISABLED: Functionality moved to enhanced project-slider.js
+    // This file is kept for reference but is no longer active
+    console.log('velocity-scroll.js: Disabled (replaced by enhanced project-slider.js)');
+    return;
+
     const VELOCITY_THRESHOLD = 0.5; // Below this = gentle, above = vigorous
     const RUBBER_BAND_DURATION = 300; // ms for rubber band snap (was 400)
     const MOMENTUM_FRICTION = 0.95; // Friction for "Wheel of Fortune" effect

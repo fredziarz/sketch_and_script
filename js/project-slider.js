@@ -1,10 +1,32 @@
 /* ===================================
-   Project Slider Navigation
-   Horizontal Scrolling Gallery
+   Enhanced Project Slider
+   Infinite Carousel (Web) + Tinder-like Swipes (Mobile)
    =================================== */
 
 (function() {
     'use strict';
+    
+    // Configuration
+    const CONFIG = {
+        // Mobile Tinder-like swipe physics
+        mobile: {
+            velocityThreshold: 0.3,      // Threshold for momentum vs snap
+            momentumFriction: 0.92,      // Deceleration rate (Tinder-smooth)
+            minVelocity: 0.05,           // Stop threshold
+            snapDuration: 350,           // Snap animation duration
+            rubberBand: 0.4,             // Resistance at boundaries
+            swipeMultiplier: 1.2         // How responsive swipes feel
+        },
+        // Desktop infinite carousel
+        desktop: {
+            snapDuration: 400,
+            easingCurve: 'easeOutQuart'
+        }
+    };
+    
+    // Check if mobile device
+    const isMobile = () => window.innerWidth <= 768;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     // Initialize sliders on page load
     document.addEventListener('DOMContentLoaded', initializeSliders);
@@ -14,96 +36,343 @@
         
         sliders.forEach(sliderWrapper => {
             const slider = sliderWrapper.querySelector('.projects-slider');
+            const track = slider.querySelector('.projects-track');
             const prevBtn = sliderWrapper.querySelector('.slider-nav-prev');
             const nextBtn = sliderWrapper.querySelector('.slider-nav-next');
             
-            if (!slider || !prevBtn || !nextBtn) return;
+            if (!slider || !track || !prevBtn || !nextBtn) return;
             
-            // Get hint element (sibling of wrapper)
-            const hint = sliderWrapper.previousElementSibling;
-            const isHint = hint && hint.classList.contains('slider-hint');
+            // Setup infinite carousel for desktop
+            const cards = Array.from(track.querySelectorAll('.project-card:not(.clone)'));
+            const totalCards = cards.length;
             
-            // Hide hint after first interaction
-            const hideHint = () => {
-                if (isHint && !hint.classList.contains('hidden')) {
-                    hint.classList.add('hidden');
-                }
-            };
+            // Clone cards for infinite loop (only on desktop)
+            if (!isMobile() && totalCards > 0) {
+                setupInfiniteCarousel(track, cards);
+            }
             
-            // Calculate scroll amount (width of one card + gap)
-            const getScrollAmount = () => {
-                const card = slider.querySelector('.project-card');
-                if (!card) return 0;
+            // Slider state
+            let currentIndex = isMobile() ? 0 : totalCards; // Start at first real card on desktop
+            let isDragging = false;
+            let startX = 0;
+            let currentX = 0;
+            let lastX = 0;
+            let lastTime = 0;
+            let velocity = 0;
+            let momentumRAF = null;
+            
+            // Get card dimensions
+            const getCardWidth = () => {
+                const card = track.querySelector('.project-card');
+                if (!card) return 340;
                 const cardWidth = card.offsetWidth;
-                const gap = 32; // 2rem
+                const gap = parseInt(getComputedStyle(track).gap) || 32;
                 return cardWidth + gap;
             };
             
-            // Smooth scroll function
-            const smoothScroll = (element, target, duration = 300) => {
-                const start = element.scrollLeft;
-                const change = target - start;
-                const startTime = performance.now();
+            // Snap to nearest card
+            const snapToCard = (targetIndex = null, duration = CONFIG.mobile.snapDuration) => {
+                if (momentumRAF) {
+                    cancelAnimationFrame(momentumRAF);
+                    momentumRAF = null;
+                }
                 
-                const animateScroll = (currentTime) => {
-                    const elapsed = currentTime - startTime;
+                const cardWidth = getCardWidth();
+                const scrollLeft = slider.scrollLeft;
+                
+                if (targetIndex === null) {
+                    // Find nearest card
+                    targetIndex = Math.round(scrollLeft / cardWidth);
+                }
+                
+                const targetScroll = targetIndex * cardWidth;
+                
+                // Check boundaries on mobile
+                if (isMobile()) {
+                    const maxIndex = track.querySelectorAll('.project-card').length - 1;
+                    targetIndex = Math.max(0, Math.min(maxIndex, targetIndex));
+                }
+                
+                currentIndex = targetIndex;
+                smoothScrollTo(slider, targetIndex * cardWidth, duration);
+                
+                // Handle infinite loop wrapping on desktop
+                if (!isMobile()) {
+                    handleInfiniteLoop(slider, track, targetIndex, cardWidth);
+                }
+            };
+            
+            // Smooth scroll with easing
+            const smoothScrollTo = (element, target, duration) => {
+                const start = element.scrollLeft;
+                const distance = target - start;
+                const startTime = Date.now();
+                
+                // Easing functions
+                const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
+                const easeOutElastic = t => {
+                    if (t === 0 || t === 1) return t;
+                    const c4 = (2 * Math.PI) / 3;
+                    return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+                };
+                
+                const animate = () => {
+                    const elapsed = Date.now() - startTime;
                     const progress = Math.min(elapsed / duration, 1);
+                    const eased = easeOutQuart(progress);
                     
-                    // Easing function (ease-out)
-                    const easeOut = progress => 1 - Math.pow(1 - progress, 3);
-                    
-                    element.scrollLeft = start + (change * easeOut(progress));
+                    element.scrollLeft = start + (distance * eased);
                     
                     if (progress < 1) {
-                        requestAnimationFrame(animateScroll);
+                        requestAnimationFrame(animate);
                     }
                 };
                 
-                requestAnimationFrame(animateScroll);
+                requestAnimationFrame(animate);
             };
             
-            // Previous button click
+            // Setup infinite carousel (clone cards)
+            function setupInfiniteCarousel(track, originalCards) {
+                // Clone first and last sets for seamless loop
+                const cloneCount = Math.min(3, originalCards.length);
+                
+                // Clone last cards at start
+                for (let i = originalCards.length - cloneCount; i < originalCards.length; i++) {
+                    const clone = originalCards[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    clone.setAttribute('aria-hidden', 'true');
+                    track.insertBefore(clone, track.firstChild);
+                }
+                
+                // Clone first cards at end
+                for (let i = 0; i < cloneCount; i++) {
+                    const clone = originalCards[i].cloneNode(true);
+                    clone.classList.add('clone');
+                    clone.setAttribute('aria-hidden', 'true');
+                    track.appendChild(clone);
+                }
+                
+                // Position at first real card (after clones)
+                setTimeout(() => {
+                    const cardWidth = getCardWidth();
+                    slider.scrollLeft = cloneCount * cardWidth;
+                    currentIndex = cloneCount;
+                }, 10);
+            }
+            
+            // Handle infinite loop wrapping
+            function handleInfiniteLoop(slider, track, index, cardWidth) {
+                const allCards = track.querySelectorAll('.project-card');
+                const realCards = track.querySelectorAll('.project-card:not(.clone)');
+                const cloneCount = Math.floor((allCards.length - realCards.length) / 2);
+                
+                // Wrap to end if at start
+                if (index < cloneCount) {
+                    setTimeout(() => {
+                        slider.scrollLeft = (realCards.length + index) * cardWidth;
+                        currentIndex = realCards.length + index;
+                    }, 50);
+                }
+                // Wrap to start if at end
+                else if (index >= realCards.length + cloneCount) {
+                    setTimeout(() => {
+                        slider.scrollLeft = (index - realCards.length) * cardWidth;
+                        currentIndex = index - realCards.length;
+                    }, 50);
+                }
+            }
+            
+            // Navigation buttons
             prevBtn.addEventListener('click', () => {
-                hideHint();
-                const scrollAmount = getScrollAmount();
-                const targetScroll = Math.max(0, slider.scrollLeft - scrollAmount);
-                smoothScroll(slider, targetScroll);
+                snapToCard(currentIndex - 1);
             });
             
-            // Next button click
             nextBtn.addEventListener('click', () => {
-                hideHint();
-                const scrollAmount = getScrollAmount();
-                const maxScroll = slider.scrollWidth - slider.clientWidth;
-                const targetScroll = Math.min(maxScroll, slider.scrollLeft + scrollAmount);
-                smoothScroll(slider, targetScroll);
+                snapToCard(currentIndex + 1);
             });
             
-            // Update button states
+            // Update button states (always visible on desktop for infinite carousel)
             const updateButtons = () => {
-                const isAtStart = slider.scrollLeft <= 10;
-                const isAtEnd = slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 10);
-                
-                prevBtn.disabled = isAtStart;
-                nextBtn.disabled = isAtEnd;
-                
-                prevBtn.style.opacity = isAtStart ? '0.3' : '1';
-                nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+                if (isMobile()) {
+                    const isAtStart = currentIndex <= 0;
+                    const maxIndex = track.querySelectorAll('.project-card').length - 1;
+                    const isAtEnd = currentIndex >= maxIndex;
+                    
+                    prevBtn.style.opacity = isAtStart ? '0.3' : '1';
+                    nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+                    prevBtn.disabled = isAtStart;
+                    nextBtn.disabled = isAtEnd;
+                } else {
+                    // Always enabled for infinite carousel
+                    prevBtn.style.opacity = '1';
+                    nextBtn.style.opacity = '1';
+                    prevBtn.disabled = false;
+                    nextBtn.disabled = false;
+                }
             };
             
-            // Listen to scroll events
+            // Touch/Swipe handling - Tinder-like physics
+            let touchStartTime = 0;
+            
+            slider.addEventListener('touchstart', (e) => {
+                if (momentumRAF) {
+                    cancelAnimationFrame(momentumRAF);
+                    momentumRAF = null;
+                }
+                
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                lastX = startX;
+                currentX = startX;
+                touchStartTime = Date.now();
+                lastTime = touchStartTime;
+                velocity = 0;
+            }, { passive: true });
+            
+            slider.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                
+                currentX = e.touches[0].clientX;
+                const currentTime = Date.now();
+                const timeDelta = currentTime - lastTime;
+                
+                if (timeDelta > 0) {
+                    const distance = currentX - lastX;
+                    velocity = (distance / timeDelta) * CONFIG.mobile.swipeMultiplier;
+                }
+                
+                lastX = currentX;
+                lastTime = currentTime;
+            }, { passive: true });
+            
+            slider.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const swipeDistance = currentX - startX;
+                const absVelocity = Math.abs(velocity);
+                
+                // Determine behavior: snap vs momentum
+                if (absVelocity < CONFIG.mobile.velocityThreshold) {
+                    // Gentle swipe - snap to nearest
+                    snapToCard();
+                } else {
+                    // Fast swipe - apply momentum (Tinder-style)
+                    applyMomentum(slider, velocity);
+                }
+                
+                updateButtons();
+            }, { passive: true });
+            
+            // Momentum scrolling (Tinder-like smooth deceleration)
+            function applyMomentum(slider, initialVelocity) {
+                let currentVelocity = initialVelocity * 1000; // Convert to px/s
+                let lastFrameTime = Date.now();
+                
+                const animate = () => {
+                    const currentTime = Date.now();
+                    const deltaTime = (currentTime - lastFrameTime) / 1000;
+                    lastFrameTime = currentTime;
+                    
+                    // Apply friction
+                    currentVelocity *= CONFIG.mobile.momentumFriction;
+                    
+                    // Calculate scroll delta
+                    const scrollDelta = currentVelocity * deltaTime;
+                    slider.scrollLeft -= scrollDelta;
+                    
+                    // Check if should stop
+                    if (Math.abs(currentVelocity) < CONFIG.mobile.minVelocity * 1000) {
+                        snapToCard();
+                        return;
+                    }
+                    
+                    // Check boundaries on mobile
+                    if (isMobile()) {
+                        const maxScroll = slider.scrollWidth - slider.clientWidth;
+                        if (slider.scrollLeft <= 0 || slider.scrollLeft >= maxScroll) {
+                            snapToCard();
+                            return;
+                        }
+                    }
+                    
+                    momentumRAF = requestAnimationFrame(animate);
+                };
+                
+                momentumRAF = requestAnimationFrame(animate);
+            }
+            
+            // Mouse drag for desktop
+            slider.addEventListener('mousedown', (e) => {
+                if (e.button !== 0) return; // Left click only
+                isDragging = true;
+                startX = e.pageX;
+                lastX = startX;
+                slider.style.cursor = 'grabbing';
+                slider.style.userSelect = 'none';
+                e.preventDefault();
+            });
+            
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.pageX;
+                const walk = (lastX - x) * 2;
+                slider.scrollLeft += walk;
+                lastX = x;
+            });
+            
+            slider.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                slider.style.cursor = 'grab';
+                slider.style.userSelect = '';
+                snapToCard();
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                slider.style.cursor = 'grab';
+                slider.style.userSelect = '';
+            });
+            
+            // Mouse wheel scrolling on desktop - gentle snap after
+            if (!isMobile()) {
+                let wheelTimeout;
+                slider.addEventListener('wheel', (e) => {
+                    clearTimeout(wheelTimeout);
+                    // Snap after wheel scrolling stops
+                    wheelTimeout = setTimeout(() => {
+                        if (!isDragging) {
+                            snapToCard(null, 500); // Longer duration for wheel scroll
+                        }
+                    }, 250);
+                }, { passive: true });
+            }
+            
+            // Auto-snap after scroll stops (both mobile and desktop)
             let scrollTimeout;
-            let hasScrolled = false;
             slider.addEventListener('scroll', () => {
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(updateButtons, 50);
+                // Gentle snap timing - different for mobile vs desktop
+                const snapDelay = isMobile() ? 100 : 200;
+                const snapDuration = isMobile() ? CONFIG.mobile.snapDuration : 500;
                 
-                // Hide hint on first scroll
-                if (!hasScrolled) {
-                    hasScrolled = true;
-                    hideHint();
-                }
-            });
+                scrollTimeout = setTimeout(() => {
+                    if (!isDragging && !momentumRAF) {
+                        const cardWidth = getCardWidth();
+                        const scrollLeft = slider.scrollLeft;
+                        const currentCardIndex = Math.round(scrollLeft / cardWidth);
+                        const targetScroll = currentCardIndex * cardWidth;
+                        
+                        // Only snap if not already perfectly aligned
+                        if (Math.abs(scrollLeft - targetScroll) > 2) {
+                            snapToCard(null, snapDuration);
+                        }
+                    }
+                }, snapDelay);
+            }, { passive: true });
             
             // Keyboard navigation
             slider.addEventListener('keydown', (e) => {
@@ -116,85 +385,22 @@
                 }
             });
             
-            // Touch/Mouse drag scrolling
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            
-            slider.addEventListener('mousedown', (e) => {
-                // Only on non-touch devices
-                if (e.pointerType === 'touch') return;
-                
-                isDown = true;
-                slider.style.cursor = 'grabbing';
-                slider.style.userSelect = 'none';
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
-            
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.style.cursor = 'grab';
-            });
-            
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.style.cursor = 'grab';
-                slider.style.userSelect = '';
-            });
-            
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 1.5; // Scroll speed multiplier
-                slider.scrollLeft = scrollLeft - walk;
-            });
-            
-            // Set initial cursor
+            // Initialize
             slider.style.cursor = 'grab';
-            
-            // Initial button state
             updateButtons();
             
-            // Update on resize
+            // Handle resize
             let resizeTimeout;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(updateButtons, 100);
-            });
-            
-            // Update when filter changes (for filtered views)
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    setTimeout(() => {
-                        updateButtons();
-                        slider.scrollLeft = 0; // Reset scroll on filter
-                    }, 100);
-                });
+                resizeTimeout = setTimeout(() => {
+                    updateButtons();
+                    snapToCard(currentIndex, 0); // Instant snap on resize
+                }, 100);
             });
         });
     }
     
-    // Scroll to card by index (useful for deep linking)
-    window.scrollToProjectCard = function(sliderSelector, cardIndex) {
-        const sliderWrapper = document.querySelector(sliderSelector);
-        if (!sliderWrapper) return;
-        
-        const slider = sliderWrapper.querySelector('.projects-slider');
-        const cards = slider.querySelectorAll('.project-card');
-        
-        if (cards[cardIndex]) {
-            const card = cards[cardIndex];
-            const scrollAmount = card.offsetLeft - slider.offsetLeft;
-            slider.scrollTo({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-    };
-    
-    console.log('Project slider initialized');
+    console.log('Enhanced project slider initialized (Tinder + Wheel of Fortune)');
 })();
 
