@@ -20,12 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (filter === 'all' || category === filter) {
                     card.style.display = 'block';
-                    // Fade in animation
-                    card.style.opacity = '0';
-                    setTimeout(() => {
-                        card.style.transition = 'opacity 0.3s ease';
-                        card.style.opacity = '1';
-                    }, 10);
+                    // Remove any inline opacity/transition from previous filters
+                    card.style.opacity = '';
+                    card.style.transition = '';
                 } else {
                     card.style.display = 'none';
                 }

@@ -8,7 +8,7 @@
     position: relative;
     width: 100%;
     margin-top: 3rem;
-    perspective: 1200px; /* Enable 3D for Wheel of Fortune effect */
+    /* Removed 3D perspective - was causing visual artifacts */
 }
 
 /* Scroll Hint Text */
@@ -61,7 +61,8 @@
     padding-right: 1rem;
     scroll-snap-type: x proximity; /* Gentle snap for desktop */
     scroll-padding: 0 1rem;
-    transform-style: preserve-3d; /* Enable 3D transforms for cards */
+    /* Removed transform-style preserve-3d - was causing ghosting */
+    touch-action: pan-x; /* Enable horizontal touch scrolling on all devices */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -80,10 +81,12 @@
 .projects-track .project-card {
     flex: 0 0 auto;
     width: 340px;
-    scroll-snap-align: start; /* Snap to start for smooth carousel */
-    scroll-snap-stop: normal; /* Allow smooth scrolling past cards */
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Removed opacity transition - was causing translucent effect */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    /* Removed all transitions - preventing ghost overlaps */
+    backface-visibility: hidden; /* Prevent flickering */
+    -webkit-backface-visibility: hidden;
+    will-change: scroll-position; /* Optimize for scrolling */
 }
 
 /* Cloned cards for infinite carousel (desktop) */
@@ -225,6 +228,11 @@
         width: calc(100vw - 3rem);
         max-width: 400px;
         scroll-snap-align: center; /* Center snap for Tinder feel */
+        scroll-snap-stop: always; /* Force stop at each card */
+        backface-visibility: hidden; /* Prevent flickering during swipe */
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0); /* Force GPU acceleration, prevent ghosting */
+        -webkit-transform: translateZ(0);
     }
     
     .projects-track {
@@ -235,12 +243,6 @@
     .projects-slider {
         scroll-snap-type: x mandatory; /* Strong snap for card-by-card swipe */
         scroll-padding: 0 1.5rem;
-    }
-    
-    /* Stronger, faster snap on mobile */
-    .projects-track .project-card {
-        scroll-snap-align: center; /* Center snap for better mobile feel */
-        scroll-snap-stop: always; /* Force stop at each card */
     }
     
     /* Scrollbar already hidden globally */

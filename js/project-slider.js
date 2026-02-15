@@ -139,6 +139,8 @@
                     clone.setAttribute('aria-hidden', 'true');
                     clone.style.display = 'block'; // Ensure clones are always visible
                     clone.style.opacity = '1'; // Reset any filter fade effects
+                    clone.style.transition = 'none'; // No transitions on clones
+                    clone.style.backfaceVisibility = 'hidden'; // Prevent flickering
                     track.insertBefore(clone, track.firstChild);
                 }
                 
@@ -149,6 +151,8 @@
                     clone.setAttribute('aria-hidden', 'true');
                     clone.style.display = 'block'; // Ensure clones are always visible
                     clone.style.opacity = '1'; // Reset any filter fade effects
+                    clone.style.transition = 'none'; // No transitions on clones
+                    clone.style.backfaceVisibility = 'hidden'; // Prevent flickering
                     track.appendChild(clone);
                 }
                 
