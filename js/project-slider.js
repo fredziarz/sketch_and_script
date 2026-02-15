@@ -141,6 +141,8 @@
                     const clone = originalCards[i].cloneNode(true);
                     clone.classList.add('clone');
                     clone.setAttribute('aria-hidden', 'true');
+                    clone.style.display = 'block'; // Ensure clones are always visible
+                    clone.style.opacity = '1'; // Reset any filter fade effects
                     track.insertBefore(clone, track.firstChild);
                 }
                 
@@ -149,6 +151,8 @@
                     const clone = originalCards[i].cloneNode(true);
                     clone.classList.add('clone');
                     clone.setAttribute('aria-hidden', 'true');
+                    clone.style.display = 'block'; // Ensure clones are always visible
+                    clone.style.opacity = '1'; // Reset any filter fade effects
                     track.appendChild(clone);
                 }
                 
@@ -397,6 +401,36 @@
                     updateButtons();
                     snapToCard(currentIndex, 0); // Instant snap on resize
                 }, 100);
+            });
+            
+            // Rebuild carousel when filters change (for infinite loop on desktop)
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Give time for filter to apply (display changes)
+                    setTimeout(() => {
+                        if (!isMobile()) {
+                            // Remove old clones
+                            track.querySelectorAll('.project-card.clone').forEach(clone => {
+                                clone.remove();
+                            });
+                            
+                            // Get currently visible cards (after filter)
+                            const visibleCards = Array.from(track.querySelectorAll('.project-card:not(.clone)'))
+                                .filter(card => card.style.display !== 'none');
+                            
+                            // Rebuild infinite carousel with visible cards only
+                            if (visibleCards.length > 0) {
+                                setupInfiniteCarousel(track, visibleCards);
+                            }
+                        }
+                        
+                        // Reset scroll position
+                        slider.scrollLeft = 0;
+                        currentIndex = isMobile() ? 0 : Math.min(3, track.querySelectorAll('.project-card:not(.clone)').length);
+                        updateButtons();
+                    }, 50);
+                });
             });
         });
     }
