@@ -89,10 +89,7 @@
     will-change: scroll-position; /* Optimize for scrolling */
 }
 
-/* Cloned cards for infinite carousel (desktop) */
-.projects-track .project-card.clone {
-    pointer-events: none; /* Clones are for visual continuity only */
-}
+/* No clone card styling needed - using pure JS infinite scroll */
 
 @media (min-width: 769px) {
     /* Enable smooth infinite carousel on desktop */

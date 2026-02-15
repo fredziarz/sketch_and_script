@@ -42,17 +42,15 @@
             
             if (!slider || !track || !prevBtn || !nextBtn) return;
             
-            // Setup infinite carousel for BOTH mobile and desktop
+            // Setup - NO CLONES, pure JavaScript infinite loop
             const cards = Array.from(track.querySelectorAll('.project-card:not(.clone)'));
             const totalCards = cards.length;
             
-            // Clone cards for infinite loop (mobile AND desktop)
-            if (totalCards > 0) {
-                setupInfiniteCarousel(track, cards);
-            }
+            // Remove any existing clones from previous setup
+            track.querySelectorAll('.project-card.clone').forEach(clone => clone.remove());
             
-            // Slider state - start at first real card (after clones)
-            let currentIndex = totalCards; // Start at first real card (index 3 for 3 clones)
+            // Slider state - start at first card
+            let currentIndex = 0;
             let isDragging = false;
             let startX = 0;
             let currentX = 0;
@@ -127,72 +125,17 @@
                 requestAnimationFrame(animate);
             };
             
-            // Setup infinite carousel (clone cards)
-            function setupInfiniteCarousel(track, originalCards) {
-                // Clone first and last sets for seamless loop
-                const cloneCount = Math.min(3, originalCards.length);
-                
-                // Clone last cards at start
-                for (let i = originalCards.length - cloneCount; i < originalCards.length; i++) {
-                    const clone = originalCards[i].cloneNode(true);
-                    clone.classList.add('clone');
-                    clone.setAttribute('aria-hidden', 'true');
-                    clone.style.display = 'block'; // Ensure clones are always visible
-                    clone.style.opacity = '1'; // Reset any filter fade effects
-                    clone.style.transition = 'none'; // No transitions on clones
-                    clone.style.backfaceVisibility = 'hidden'; // Prevent flickering
-                    track.insertBefore(clone, track.firstChild);
-                }
-                
-                // Clone first cards at end
-                for (let i = 0; i < cloneCount; i++) {
-                    const clone = originalCards[i].cloneNode(true);
-                    clone.classList.add('clone');
-                    clone.setAttribute('aria-hidden', 'true');
-                    clone.style.display = 'block'; // Ensure clones are always visible
-                    clone.style.opacity = '1'; // Reset any filter fade effects
-                    clone.style.transition = 'none'; // No transitions on clones
-                    clone.style.backfaceVisibility = 'hidden'; // Prevent flickering
-                    track.appendChild(clone);
-                }
-                
-                // Position at first real card (after clones)
-                setTimeout(() => {
-                    const cardWidth = getCardWidth();
-                    slider.scrollLeft = cloneCount * cardWidth;
-                    currentIndex = cloneCount;
-                }, 10);
-            }
+            // No setupInfiniteCarousel needed - using pure JS approach
             
-            // Handle infinite loop wrapping
-            function handleInfiniteLoop(slider, track, index, cardWidth) {
-                const allCards = track.querySelectorAll('.project-card');
-                const realCards = track.querySelectorAll('.project-card:not(.clone)');
-                const cloneCount = Math.floor((allCards.length - realCards.length) / 2);
-                
-                // Wrap to end if at start
-                if (index < cloneCount) {
-                    setTimeout(() => {
-                        slider.scrollLeft = (realCards.length + index) * cardWidth;
-                        currentIndex = realCards.length + index;
-                    }, 50);
-                }
-                // Wrap to start if at end
-                else if (index >= realCards.length + cloneCount) {
-                    setTimeout(() => {
-                        slider.scrollLeft = (index - realCards.length) * cardWidth;
-                        currentIndex = index - realCards.length;
-                    }, 50);
-                }
-            }
-            
-            // Navigation buttons
+            // Navigation buttons - wrap around
             prevBtn.addEventListener('click', () => {
-                snapToCard(currentIndex - 1);
+                const newIndex = ((currentIndex - 1) % totalCards + totalCards) % totalCards;
+                snapToCard(newIndex);
             });
             
             nextBtn.addEventListener('click', () => {
-                snapToCard(currentIndex + 1);
+                const newIndex = (currentIndex + 1) % totalCards;
+                snapToCard(newIndex);
             });
             
             // Update button states (always enabled for infinite carousel on both mobile and desktop)
@@ -385,30 +328,14 @@
                 }, 100);
             });
             
-            // Rebuild carousel when filters change (for infinite loop on mobile and desktop)
+            // Rebuild when filters change
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Give time for filter to apply (display changes)
+                    // Reset scroll position after filter
                     setTimeout(() => {
-                        // Remove old clones
-                        track.querySelectorAll('.project-card.clone').forEach(clone => {
-                            clone.remove();
-                        });
-                        
-                        // Get currently visible cards (after filter)
-                        const visibleCards = Array.from(track.querySelectorAll('.project-card:not(.clone)'))
-                            .filter(card => card.style.display !== 'none');
-                        
-                        // Rebuild infinite carousel with visible cards for both mobile and desktop
-                        if (visibleCards.length > 0) {
-                            setupInfiniteCarousel(track, visibleCards);
-                        }
-                        
-                        // Reset scroll position to first real card (after clones)
-                        const cloneCount = Math.min(3, visibleCards.length);
-                        slider.scrollLeft = cloneCount * getCardWidth();
-                        currentIndex = cloneCount;
+                        slider.scrollLeft = 0;
+                        currentIndex = 0;
                         updateButtons();
                     }, 50);
                 });
