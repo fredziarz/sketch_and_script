@@ -13,7 +13,7 @@
             velocityThreshold: 0.3,      // Threshold for momentum vs snap
             momentumFriction: 0.92,      // Deceleration rate (Tinder-smooth)
             minVelocity: 0.05,           // Stop threshold
-            snapDuration: 350,           // Snap animation duration
+            snapDuration: 200,           // Snap animation duration (FASTER: was 350)
             rubberBand: 0.4,             // Resistance at boundaries
             swipeMultiplier: 1.2         // How responsive swipes feel
         },
@@ -42,17 +42,17 @@
             
             if (!slider || !track || !prevBtn || !nextBtn) return;
             
-            // Setup infinite carousel for desktop
+            // Setup infinite carousel for BOTH mobile and desktop
             const cards = Array.from(track.querySelectorAll('.project-card:not(.clone)'));
             const totalCards = cards.length;
             
-            // Clone cards for infinite loop (only on desktop)
-            if (!isMobile() && totalCards > 0) {
+            // Clone cards for infinite loop (mobile AND desktop)
+            if (totalCards > 0) {
                 setupInfiniteCarousel(track, cards);
             }
             
-            // Slider state
-            let currentIndex = isMobile() ? 0 : totalCards; // Start at first real card on desktop
+            // Slider state - start at first real card (after clones)
+            let currentIndex = totalCards; // Start at first real card (index 3 for 3 clones)
             let isDragging = false;
             let startX = 0;
             let currentX = 0;
@@ -87,19 +87,11 @@
                 
                 const targetScroll = targetIndex * cardWidth;
                 
-                // Check boundaries on mobile
-                if (isMobile()) {
-                    const maxIndex = track.querySelectorAll('.project-card').length - 1;
-                    targetIndex = Math.max(0, Math.min(maxIndex, targetIndex));
-                }
-                
                 currentIndex = targetIndex;
                 smoothScrollTo(slider, targetIndex * cardWidth, duration);
                 
-                // Handle infinite loop wrapping on desktop
-                if (!isMobile()) {
-                    handleInfiniteLoop(slider, track, targetIndex, cardWidth);
-                }
+                // Handle infinite loop wrapping (mobile AND desktop)
+                handleInfiniteLoop(slider, track, targetIndex, cardWidth);
             };
             
             // Smooth scroll with easing
@@ -110,6 +102,8 @@
                 
                 // Easing functions
                 const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
+                const easeOutCubic = t => 1 - Math.pow(1 - t, 3); // Faster, stronger
+                const easeOutCirc = t => Math.sqrt(1 - Math.pow(t - 1, 2)); // Very snappy
                 const easeOutElastic = t => {
                     if (t === 0 || t === 1) return t;
                     const c4 = (2 * Math.PI) / 3;
@@ -119,7 +113,9 @@
                 const animate = () => {
                     const elapsed = Date.now() - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    const eased = easeOutQuart(progress);
+                    // Use faster easing on mobile for snappier feel
+                    const easing = isMobile() ? easeOutCirc : easeOutQuart;
+                    const eased = easing(progress);
                     
                     element.scrollLeft = start + (distance * eased);
                     
@@ -195,24 +191,13 @@
                 snapToCard(currentIndex + 1);
             });
             
-            // Update button states (always visible on desktop for infinite carousel)
+            // Update button states (always enabled for infinite carousel on both mobile and desktop)
             const updateButtons = () => {
-                if (isMobile()) {
-                    const isAtStart = currentIndex <= 0;
-                    const maxIndex = track.querySelectorAll('.project-card').length - 1;
-                    const isAtEnd = currentIndex >= maxIndex;
-                    
-                    prevBtn.style.opacity = isAtStart ? '0.3' : '1';
-                    nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
-                    prevBtn.disabled = isAtStart;
-                    nextBtn.disabled = isAtEnd;
-                } else {
-                    // Always enabled for infinite carousel
-                    prevBtn.style.opacity = '1';
-                    nextBtn.style.opacity = '1';
-                    prevBtn.disabled = false;
-                    nextBtn.disabled = false;
-                }
+                // Always enabled for infinite carousel
+                prevBtn.style.opacity = isMobile() ? '0' : '1'; // Hide on mobile
+                nextBtn.style.opacity = isMobile() ? '0' : '1'; // Hide on mobile
+                prevBtn.disabled = false;
+                nextBtn.disabled = false;
             };
             
             // Touch/Swipe handling - Tinder-like physics
@@ -291,14 +276,7 @@
                         return;
                     }
                     
-                    // Check boundaries on mobile
-                    if (isMobile()) {
-                        const maxScroll = slider.scrollWidth - slider.clientWidth;
-                        if (slider.scrollLeft <= 0 || slider.scrollLeft >= maxScroll) {
-                            snapToCard();
-                            return;
-                        }
-                    }
+                    // No boundary check - infinite carousel on mobile now
                     
                     momentumRAF = requestAnimationFrame(animate);
                 };
@@ -360,7 +338,7 @@
             slider.addEventListener('scroll', () => {
                 clearTimeout(scrollTimeout);
                 // Gentle snap timing - different for mobile vs desktop
-                const snapDelay = isMobile() ? 100 : 200;
+                const snapDelay = isMobile() ? 50 : 200; // Faster on mobile (was 100)
                 const snapDuration = isMobile() ? CONFIG.mobile.snapDuration : 500;
                 
                 scrollTimeout = setTimeout(() => {
@@ -403,31 +381,30 @@
                 }, 100);
             });
             
-            // Rebuild carousel when filters change (for infinite loop on desktop)
+            // Rebuild carousel when filters change (for infinite loop on mobile and desktop)
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     // Give time for filter to apply (display changes)
                     setTimeout(() => {
-                        if (!isMobile()) {
-                            // Remove old clones
-                            track.querySelectorAll('.project-card.clone').forEach(clone => {
-                                clone.remove();
-                            });
-                            
-                            // Get currently visible cards (after filter)
-                            const visibleCards = Array.from(track.querySelectorAll('.project-card:not(.clone)'))
-                                .filter(card => card.style.display !== 'none');
-                            
-                            // Rebuild infinite carousel with visible cards only
-                            if (visibleCards.length > 0) {
-                                setupInfiniteCarousel(track, visibleCards);
-                            }
+                        // Remove old clones
+                        track.querySelectorAll('.project-card.clone').forEach(clone => {
+                            clone.remove();
+                        });
+                        
+                        // Get currently visible cards (after filter)
+                        const visibleCards = Array.from(track.querySelectorAll('.project-card:not(.clone)'))
+                            .filter(card => card.style.display !== 'none');
+                        
+                        // Rebuild infinite carousel with visible cards for both mobile and desktop
+                        if (visibleCards.length > 0) {
+                            setupInfiniteCarousel(track, visibleCards);
                         }
                         
-                        // Reset scroll position
-                        slider.scrollLeft = 0;
-                        currentIndex = isMobile() ? 0 : Math.min(3, track.querySelectorAll('.project-card:not(.clone)').length);
+                        // Reset scroll position to first real card (after clones)
+                        const cloneCount = Math.min(3, visibleCards.length);
+                        slider.scrollLeft = cloneCount * getCardWidth();
+                        currentIndex = cloneCount;
                         updateButtons();
                     }, 50);
                 });

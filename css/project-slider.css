@@ -82,8 +82,8 @@
     width: 340px;
     scroll-snap-align: start; /* Snap to start for smooth carousel */
     scroll-snap-stop: normal; /* Allow smooth scrolling past cards */
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                opacity 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Removed opacity transition - was causing translucent effect */
 }
 
 /* Cloned cards for infinite carousel (desktop) */
@@ -235,6 +235,12 @@
     .projects-slider {
         scroll-snap-type: x mandatory; /* Strong snap for card-by-card swipe */
         scroll-padding: 0 1.5rem;
+    }
+    
+    /* Stronger, faster snap on mobile */
+    .projects-track .project-card {
+        scroll-snap-align: center; /* Center snap for better mobile feel */
+        scroll-snap-stop: always; /* Force stop at each card */
     }
     
     /* Scrollbar already hidden globally */
