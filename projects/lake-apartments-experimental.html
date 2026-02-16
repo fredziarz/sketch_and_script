@@ -87,6 +87,71 @@
             transform: scale(1);
         }
         
+        /* Lightbox Navigation Buttons */
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #B8936D;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10000;
+            font-size: 1.5rem;
+            color: #B8936D;
+            user-select: none;
+        }
+        
+        .lightbox-nav:hover {
+            background: #B8936D;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .lightbox-nav.prev {
+            left: 2rem;
+        }
+        
+        .lightbox-nav.next {
+            right: 2rem;
+        }
+        
+        .lightbox-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: #2C2C2C;
+            border: 1px solid #B8936D;
+            z-index: 10000;
+        }
+        
+        @media (max-width: 768px) {
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.25rem;
+            }
+            
+            .lightbox-nav.prev {
+                left: 1rem;
+            }
+            
+            .lightbox-nav.next {
+                right: 1rem;
+            }
+        }
+        
         /* Hero section */
         .hero-image-section {
             position: relative;
@@ -405,7 +470,10 @@
 
     <!-- Lightbox Overlay -->
     <div class="lightbox-overlay" id="lightbox">
+        <div class="lightbox-nav prev" id="lightbox-prev">‹</div>
         <img src="" alt="" class="lightbox-image" id="lightbox-image">
+        <div class="lightbox-nav next" id="lightbox-next">›</div>
+        <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
     </div>
 
     <script src="../js/script.js"></script>
@@ -415,44 +483,114 @@
     <script>
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCounter = document.getElementById('lightbox-counter');
         const galleryImages = document.querySelectorAll('.image-large');
         const heroImage = document.querySelector('.hero-image');
         
-        // Add click event to all gallery images
-        galleryImages.forEach(img => {
-            img.addEventListener('click', (e) => {
-                e.stopPropagation();
-                lightboxImage.src = img.src;
-                lightboxImage.alt = img.alt;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
+        // Collect all images (hero + gallery)
+        const allImages = [];
+        if (heroImage) allImages.push(heroImage);
+        galleryImages.forEach(img => allImages.push(img));
         
-        // Add click event to hero image
-        if (heroImage) {
-            heroImage.addEventListener('click', (e) => {
-                e.stopPropagation();
-                lightboxImage.src = heroImage.src;
-                lightboxImage.alt = heroImage.alt;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
+        let currentIndex = 0;
+        
+        // Update lightbox image and counter
+        function updateLightbox(index) {
+            currentIndex = index;
+            const img = allImages[currentIndex];
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${allImages.length}`;
         }
         
-        // Close lightbox when clicking anywhere
-        lightbox.addEventListener('click', () => {
+        // Open lightbox
+        function openLightbox(index) {
+            updateLightbox(index);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close lightbox
+        function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
+        }
+        
+        // Navigate to next image
+        function nextImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex + 1) % allImages.length;
+            updateLightbox(currentIndex);
+        }
+        
+        // Navigate to previous image
+        function prevImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+            updateLightbox(currentIndex);
+        }
+        
+        // Add click event to all images
+        allImages.forEach((img, index) => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openLightbox(index);
+            });
         });
         
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
+        // Navigation button events
+        lightboxPrev.addEventListener('click', prevImage);
+        lightboxNext.addEventListener('click', nextImage);
+        
+        // Close lightbox when clicking on overlay background
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
             }
         });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+        });
+        
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next image
+                    nextImage();
+                } else {
+                    // Swipe right - previous image
+                    prevImage();
+                }
+            }
+        }
     </script>
 </body>
 </html>
