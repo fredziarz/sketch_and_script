@@ -4,6 +4,11 @@
 
 export class TemplateGenerator {
     generateArchitectureProject(data) {
+        // Use GitHub URLs if available, otherwise fall back to provided paths
+        const imageUrls = data.imageUrls || [];
+        const featuredImage = imageUrls[0] || data.featuredImage || '../images/architecture/placeholder.jpg';
+        const galleryImages = imageUrls.slice(1) || data.galleryImages || [];
+        
         const {
             title = 'Untitled Project',
             subtitle = '',
@@ -13,8 +18,6 @@ export class TemplateGenerator {
             year = '',
             area = '',
             duration = '',
-            featuredImage = '../images/architecture/placeholder.jpg',
-            galleryImages = [],
             galleryCaptions = [],
             metaDescription = title
         } = data;
@@ -221,6 +224,10 @@ export class TemplateGenerator {
     }
 
     generateCodingProject(data) {
+        // Use GitHub URLs if available
+        const imageUrls = data.imageUrls || [];
+        const screenshots = imageUrls || data.screenshots || [];
+        
         const {
             title = 'Untitled Project',
             subtitle = '',
@@ -238,7 +245,6 @@ export class TemplateGenerator {
             codeLanguage = '',
             codeFilename = '',
             codeSample = '',
-            screenshots = [],
             screenshotCaptions = [],
             metaDescription = title
         } = data;
@@ -515,6 +521,11 @@ export class TemplateGenerator {
     }
 
     generateGameProject(data) {
+        // Use GitHub URLs if available
+        const imageUrls = data.imageUrls || [];
+        const thumbnail = imageUrls[0] || data.thumbnail || '../images/games/placeholder.jpg';
+        const screenshots = imageUrls || data.screenshots || [];
+        
         const {
             title = 'Untitled Game',
             subtitle = '',
@@ -529,8 +540,6 @@ export class TemplateGenerator {
             playUrl = '',
             githubUrl = '',
             features = [],
-            thumbnail = '../images/games/placeholder.jpg',
-            screenshots = [],
             screenshotCaptions = [],
             videoUrl = '',
             metaDescription = title
