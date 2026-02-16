@@ -68,7 +68,10 @@ export class GitHubManager {
                 const existingFile = await this.getFileContent(path);
                 sha = existingFile.sha;
             } catch (e) {
-                // File doesn't exist, that's fine
+                // File doesn't exist (404), that's fine - we'll create it
+                if (e.message !== 'NOT_FOUND') {
+                    console.warn('Error checking existing file:', e.message);
+                }
             }
 
             // Create or update file
@@ -129,7 +132,12 @@ export class GitHubManager {
         });
 
         if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
+            // 404 is expected when file doesn't exist yet
+            if (response.status === 404) {
+                throw new Error('NOT_FOUND');
+            }
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `GitHub API error: ${response.status}`);
         }
 
         return await response.json();
@@ -160,7 +168,15 @@ export class GitHubManager {
         });
 
         if (!response.ok) {
-            const error = await response.json();
+            const error = await response.json().catch(() => ({}));
+            
+            // Provide specific error messages
+            if (response.status === 403) {
+                throw new Error('Permission denied. Your GitHub token needs "repo" scope with write access. Go to Settings > Developer settings > Personal access tokens and create a new token with "repo" permissions.');
+            } else if (response.status === 404) {
+                throw new Error(`Repository ${this.settings.owner}/${this.settings.repo} not found or you don't have access to it.`);
+            }
+            
             throw new Error(error.message || `GitHub API error: ${response.status}`);
         }
 
@@ -203,27 +219,53 @@ export class GitHubManager {
         }
 
         try {
-            const url = `https://api.github.com/repos/${this.settings.owner}/${this.settings.repo}`;
-            const response = await fetch(url, {
+            // Test 1: Check if we can read the repository
+            const repoUrl = `https://api.github.com/repos/${this.settings.owner}/${this.settings.repo}`;
+            const repoResponse = await fetch(repoUrl, {
                 headers: {
                     'Authorization': `token ${this.settings.token}`,
                     'Accept': 'application/vnd.github.v3+json'
                 }
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                return {
-                    success: true,
-                    message: `Connected to ${data.full_name}`,
-                    repo: data
-                };
-            } else {
+            if (!repoResponse.ok) {
+                if (repoResponse.status === 404) {
+                    return {
+                        success: false,
+                        message: `Repository ${this.settings.owner}/${this.settings.repo} not found or you don't have access to it.`
+                    };
+                } else if (repoResponse.status === 401) {
+                    return {
+                        success: false,
+                        message: 'Invalid token. Please check your Personal Access Token.'
+                    };
+                }
                 return {
                     success: false,
-                    message: `Connection failed: ${response.status}`
+                    message: `Connection failed: ${repoResponse.status}`
                 };
             }
+
+            const repoData = await repoResponse.json();
+            
+            // Test 2: Check token scopes/permissions
+            const scopes = repoResponse.headers.get('X-OAuth-Scopes') || '';
+            const hasRepoScope = scopes.includes('repo') || scopes.includes('public_repo');
+            
+            if (!hasRepoScope) {
+                return {
+                    success: false,
+                    message: `Token lacks required permissions. Current scopes: [${scopes}]. You need "repo" scope for private repos or "public_repo" for public repos.`,
+                    repo: repoData
+                };
+            }
+            
+            return {
+                success: true,
+                message: `✅ Connected to ${repoData.full_name}`,
+                details: `Token has scopes: ${scopes}`,
+                repo: repoData
+            };
         } catch (error) {
             return {
                 success: false,

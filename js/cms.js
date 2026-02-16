@@ -617,12 +617,16 @@ class CMS {
         if (result.success) {
             statusDiv.style.borderLeft = '3px solid var(--success)';
             statusDiv.style.color = 'var(--success)';
-            statusDiv.textContent = `✅ ${result.message}`;
+            let message = result.message;
+            if (result.details) {
+                message += `<br><small style="color: var(--text-secondary);">${result.details}</small>`;
+            }
+            statusDiv.innerHTML = message;
             this.ui.showToast('✅ GitHub connection successful!');
         } else {
             statusDiv.style.borderLeft = '3px solid var(--danger)';
             statusDiv.style.color = 'var(--danger)';
-            statusDiv.textContent = `❌ ${result.message}`;
+            statusDiv.innerHTML = `❌ ${result.message}`;
             this.ui.showToast('❌ GitHub connection failed');
         }
     }

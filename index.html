@@ -201,6 +201,18 @@
                                     Configure GitHub to automatically upload images and project data to your repository.
                                 </p>
                                 
+                                <div style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 4px; padding: 1rem; margin-bottom: 1.5rem;">
+                                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text-primary); font-size: 0.9rem;">📝 Required Permissions</h4>
+                                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                        Your GitHub token needs <strong>repo</strong> scope (full control of private repositories) or <strong>public_repo</strong> scope for public repos only.
+                                    </p>
+                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem;">
+                                        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Sketch%20and%20Script%20CMS" target="_blank" style="color: var(--primary); text-decoration: none;">
+                                            → Create token with repo permissions →
+                                        </a>
+                                    </p>
+                                </div>
+                                
                                 <div class="form-group">
                                     <label class="form-label">Repository Owner</label>
                                     <input type="text" id="githubOwner" class="form-input" placeholder="username">
@@ -220,7 +232,7 @@
                                     <label class="form-label">Personal Access Token</label>
                                     <input type="password" id="githubToken" class="form-input" placeholder="ghp_...">
                                     <small class="form-help">
-                                        Need a token? <a href="https://github.com/settings/tokens/new" target="_blank" style="color: var(--primary);">Create one here</a> with 'repo' permissions.
+                                        Keep this secure! Never share your token.
                                     </small>
                                 </div>
                                 
