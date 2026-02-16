@@ -161,10 +161,11 @@
                 width: 100%;
                 height: auto !important;
                 max-height: none !important;
-                object-fit: cover;
+                object-fit: contain;
                 position: static !important;
                 display: block;
                 margin: 0;
+                padding: 2rem;
             }
             
             .project-info-overlay {
@@ -222,24 +223,24 @@
         .hero-image-section {
             position: relative;
             width: 100%;
-            height: 100vh;
+            padding: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
         
         .hero-image-section img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
             cursor: pointer;
         }
         
         .project-info-overlay {
             position: absolute;
-            bottom: 4rem;
-            left: 4rem;
+            bottom: 2rem;
+            left: 2rem;
             color: white;
             z-index: 10;
             max-width: 600px;
