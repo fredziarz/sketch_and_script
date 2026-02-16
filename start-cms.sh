@@ -12,6 +12,9 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
+# Kill any process using port 8080
+lsof -ti:8080 | xargs kill -9 2>/dev/null || true
+
 # Try Python3 first
 if command -v python3 &> /dev/null; then
     cd "$(dirname "$0")"
