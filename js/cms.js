@@ -38,9 +38,6 @@ class CMS {
         // Setup event listeners
         this.setupEventListeners();
         
-        // Load GitHub settings
-        this.loadGitHubSettings();
-        
         console.log('✅ CMS Ready!');
     }
 
@@ -80,6 +77,8 @@ class CMS {
                 this.loadAllProjects();
             } else if (viewName === 'media') {
                 this.media.loadMediaLibrary();
+            } else if (viewName === 'settings') {
+                this.loadGitHubSettings();
             }
         }
     }
@@ -550,11 +549,33 @@ class CMS {
     
     loadGitHubSettings() {
         const settings = this.github.settings;
-        document.getElementById('githubOwner').value = settings.owner || '';
-        document.getElementById('githubRepo').value = settings.repo || '';
-        document.getElementById('githubBranch').value = settings.branch || 'main';
-        document.getElementById('githubToken').value = settings.token || '';
-        document.getElementById('githubBasePath').value = settings.basePath || 'images';
+        const elements = {
+            owner: document.getElementById('githubOwner'),
+            repo: document.getElementById('githubRepo'),
+            branch: document.getElementById('githubBranch'),
+            token: document.getElementById('githubToken'),
+            basePath: document.getElementById('githubBasePath')
+        };
+        
+        // Check if elements exist (they might not be rendered yet)
+        if (!elements.owner) return;
+        
+        // Populate fields
+        elements.owner.value = settings.owner || '';
+        elements.repo.value = settings.repo || '';
+        elements.branch.value = settings.branch || 'main';
+        elements.token.value = settings.token || '';
+        elements.basePath.value = settings.basePath || 'images';
+        
+        // Show configuration status
+        const statusDiv = document.getElementById('githubStatus');
+        if (statusDiv && this.github.isConfigured()) {
+            statusDiv.style.display = 'block';
+            statusDiv.style.background = 'var(--bg-tertiary)';
+            statusDiv.style.borderLeft = '3px solid var(--success)';
+            statusDiv.style.color = 'var(--text-secondary)';
+            statusDiv.innerHTML = `✅ GitHub is configured for <strong>${settings.owner}/${settings.repo}</strong>`;
+        }
     }
     
     saveGitHubSettings() {
