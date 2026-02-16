@@ -27,6 +27,12 @@ class ProjectLoader {
             }
             
             this.projects = await response.json();
+            // Sort by createdAt - newest first
+            this.projects.sort((a, b) => {
+                const dateA = new Date(a.createdAt || 0);
+                const dateB = new Date(b.createdAt || 0);
+                return dateB - dateA; // Descending order (newest first)
+            });
             this.renderProjects();
         } catch (error) {
             console.error('Error loading projects:', error);
