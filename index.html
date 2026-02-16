@@ -196,6 +196,49 @@
                         </div>
                         <div class="settings-content">
                             <div class="setting-group">
+                                <h3>GitHub Integration</h3>
+                                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 1rem;">
+                                    Configure GitHub to automatically upload images and project data to your repository.
+                                </p>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Repository Owner</label>
+                                    <input type="text" id="githubOwner" class="form-input" placeholder="username">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Repository Name</label>
+                                    <input type="text" id="githubRepo" class="form-input" placeholder="repo-name">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Branch</label>
+                                    <input type="text" id="githubBranch" class="form-input" placeholder="main" value="main">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Personal Access Token</label>
+                                    <input type="password" id="githubToken" class="form-input" placeholder="ghp_...">
+                                    <small class="form-help">
+                                        Need a token? <a href="https://github.com/settings/tokens/new" target="_blank" style="color: var(--primary);">Create one here</a> with 'repo' permissions.
+                                    </small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Images Base Path</label>
+                                    <input type="text" id="githubBasePath" class="form-input" placeholder="images" value="images">
+                                    <small class="form-help">Folder in your repo where images will be stored</small>
+                                </div>
+                                
+                                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                                    <button class="btn btn-primary" id="saveGitHubBtn">Save GitHub Settings</button>
+                                    <button class="btn btn-secondary" id="testGitHubBtn">Test Connection</button>
+                                </div>
+                                
+                                <div id="githubStatus" style="margin-top: 1rem; padding: 0.75rem; border-radius: 4px; display: none;"></div>
+                            </div>
+                            
+                            <div class="setting-group">
                                 <h3>Data Management</h3>
                                 <button class="btn btn-secondary" id="exportDataBtn">Export All Data (JSON)</button>
                                 <button class="btn btn-secondary" id="importDataBtn">Import Data</button>

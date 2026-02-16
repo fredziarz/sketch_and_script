@@ -84,21 +84,15 @@ export class FormBuilder {
                 <h3 class="form-section-title">Images</h3>
                 
                 <div class="form-group">
-                    <label class="form-label required">Featured Image Path</label>
-                    <input type="text" name="featuredImage" class="form-input" data-image-input="single" required placeholder="../images/architecture/project-main.jpg">
-                    <span class="form-help">Path to the main hero image (or select from media library)</span>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Gallery Images (comma-separated paths)</label>
-                    <textarea name="galleryImages" class="form-textarea" data-image-input="multiple" placeholder="../images/architecture/img1.jpg, ../images/architecture/img2.jpg"></textarea>
-                    <span class="form-help">Separate each image path with a comma, or browse from media library</span>
+                    <label class="form-label required">Upload Project Images</label>
+                    <input type="file" name="projectImages" class="form-input" multiple accept="image/*" required>
+                    <span class="form-help">Select all images for this project (JPG, PNG, etc.). First image will be the featured image.</span>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Gallery Captions (comma-separated)</label>
                     <textarea name="galleryCaptions" class="form-textarea" placeholder="Living room overview, Kitchen detail, Bedroom view"></textarea>
-                    <span class="form-help">One caption per image, in the same order</span>
+                    <span class="form-help">One caption per image, in the same order as uploaded</span>
                 </div>
             </div>
             
@@ -274,9 +268,9 @@ Reporting - Comprehensive test reports"></textarea>
                 <h3 class="form-section-title">Screenshots</h3>
                 
                 <div class="form-group">
-                    <label class="form-label">Screenshot Paths (comma-separated)</label>
-                    <textarea name="screenshots" class="form-textarea" data-image-input="multiple" placeholder="../images/coding/screenshot1.jpg, ../images/coding/screenshot2.jpg"></textarea>
-                    <span class="form-help">Or browse from media library</span>
+                    <label class="form-label">Upload Screenshots</label>
+                    <input type="file" name="projectImages" class="form-input" multiple accept="image/*">
+                    <span class="form-help">Select screenshots/images for this project (optional)</span>
                 </div>
                 
                 <div class="form-group">
@@ -427,15 +421,9 @@ Local multiplayer support"></textarea>
                 <h3 class="form-section-title">Screenshots & Media</h3>
                 
                 <div class="form-group">
-                    <label class="form-label required">Thumbnail Image</label>
-                    <input type="text" name="thumbnail" class="form-input" data-image-input="single" required placeholder="../images/games/game-thumbnail.jpg">
-                    <span class="form-help">Main image for the game card (or select from media library)</span>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Screenshot Paths (comma-separated)</label>
-                    <textarea name="screenshots" class="form-textarea" data-image-input="multiple" placeholder="../images/games/screenshot1.jpg, ../images/games/screenshot2.jpg"></textarea>
-                    <span class="form-help">Or browse from media library</span>
+                    <label class="form-label required">Upload Screenshots</label>
+                    <input type="file" name="projectImages" class="form-input" multiple accept="image/*" required>
+                    <span class="form-help">Select game screenshots. First image will be the thumbnail.</span>
                 </div>
                 
                 <div class="form-group">
@@ -462,22 +450,27 @@ Local multiplayer support"></textarea>
 
     extractFormData(formData, projectType) {
         const data = {};
+        const files = [];
         
         for (let [key, value] of formData.entries()) {
-            if (value && value.trim() !== '') {
+            // Handle file inputs
+            if (value instanceof File && value.size > 0) {
+                files.push(value);
+            }
+            // Handle text inputs
+            else if (typeof value === 'string' && value.trim() !== '') {
                 data[key] = value.trim();
             }
         }
         
-        // Process arrays (comma-separated values)
-        if (data.galleryImages) {
-            data.galleryImages = data.galleryImages.split(',').map(s => s.trim()).filter(s => s);
+        // Add files array to data if any files were uploaded
+        if (files.length > 0) {
+            data.images = files;
         }
+        
+        // Process arrays (comma-separated values)
         if (data.galleryCaptions) {
             data.galleryCaptions = data.galleryCaptions.split(',').map(s => s.trim()).filter(s => s);
-        }
-        if (data.screenshots) {
-            data.screenshots = data.screenshots.split(',').map(s => s.trim()).filter(s => s);
         }
         if (data.screenshotCaptions) {
             data.screenshotCaptions = data.screenshotCaptions.split(',').map(s => s.trim()).filter(s => s);
