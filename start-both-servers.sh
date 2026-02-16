@@ -13,7 +13,7 @@ python3 -m http.server 8080 > /dev/null 2>&1 &
 CMS_PID=$!
 
 # Start Dev Site in background
-cd /home/michal/Documents/sketchAndScript
+cd /home/michal/Documents/sketch_and_script
 python3 -m http.server 8000 > /dev/null 2>&1 &
 DEV_PID=$!
 
