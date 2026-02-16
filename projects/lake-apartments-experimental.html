@@ -160,42 +160,47 @@
             /* Mobile Hero Layout Restructure */
             .hero-image-section {
                 height: auto;
-                flex-direction: column;
-                padding-bottom: 0;
+                display: block;
+                padding: 0;
+                margin: 0;
             }
             
             .hero-image-section img {
                 width: 100%;
                 height: auto;
-                max-height: 60vh;
+                max-height: none;
                 object-fit: cover;
-                position: relative;
+                position: static;
+                display: block;
             }
             
             .project-info-overlay {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                right: auto;
+                position: static;
+                width: 100%;
                 max-width: 100%;
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+                margin: 0;
                 background: var(--color-bg);
                 color: var(--color-text-primary);
                 backdrop-filter: none;
             }
             
             .project-info-overlay h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
                 color: var(--color-text-primary);
+                margin-bottom: 0.5rem;
             }
             
             .project-info-overlay .subtitle {
-                font-size: 1.25rem;
+                font-size: 1.125rem;
                 color: var(--color-text-secondary);
+                margin-bottom: 1.5rem;
             }
             
             .project-info-overlay .meta-info {
                 color: var(--color-text-secondary);
+                flex-direction: row;
+                gap: 2rem;
             }
             
             .category-badge {
