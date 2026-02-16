@@ -1,14 +1,14 @@
 [
   {
     "title": "St Clare",
-    "slug": "St Clare",
+    "slug": "st-clare",
     "folder": "st-clare",
     "type": "architecture",
     "subtitle": "mixed development",
     "category": "Public Space",
     "location": "London, UK",
     "featuredImage": "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-6.jpg",
-    "htmlUrl": "projects/St Clare.html",
+    "htmlUrl": "projects/st-clare.html",
     "createdAt": "2026-02-16T16:46:52.279Z"
   },
   {
