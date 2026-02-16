@@ -44,6 +44,46 @@
             opacity: 1;
             transform: translateY(0);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            cursor: pointer;
+        }
+        
+        /* Lightbox Modal */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .lightbox-image {
+            max-width: 95vw;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .lightbox-overlay.active .lightbox-image {
+            transform: scale(1);
         }
         
         /* Hero section */
@@ -360,7 +400,44 @@
         </div>
     </footer>
 
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <img src="" alt="" class="lightbox-image" id="lightbox-image">
+    </div>
+
     <script src="../js/script.js"></script>
     <script src="../js/page-transitions.js"></script>
+    
+    <!-- Lightbox Script -->
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const galleryImages = document.querySelectorAll('.image-large');
+        
+        // Add click event to all gallery images
+        galleryImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close lightbox when clicking anywhere
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 </body>
 </html>
