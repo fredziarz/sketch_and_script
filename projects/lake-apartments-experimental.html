@@ -9,55 +9,46 @@
     <link rel="stylesheet" href="../css/page-transitions.css">
     
     <style>
-        /* Experimental Gallery Styles - Inspired by mir.no */
-        .experimental-gallery {
-            max-width: 100%;
-            margin: 0 auto;
+        /* Gallery Styles - Inspired by mir.no */
+        .project-items {
+            width: 100%;
+            margin: 0;
             padding: 0;
         }
         
-        .gallery-section {
-            min-height: 100vh;
+        .image-wrapper,
+        .row-image-wrapper {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 4rem 2rem;
+            min-height: 50vh;
         }
         
-        .image-holder {
-            position: relative;
+        .row-image-wrapper .image-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
-        .image-holder.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .gallery-image {
+        .image-large {
             width: 100%;
             height: auto;
             max-height: 90vh;
             object-fit: contain;
             display: block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
-        /* Row layout for multiple images */
-        .row-images {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        
-        .row-images .image-holder {
-            max-width: 100%;
+        .image-large.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* Hero section */
@@ -203,14 +194,19 @@
         }
         
         @media (max-width: 768px) {
-            .row-images {
+            .image-wrapper,
+            .row-image-wrapper {
+                padding: 2rem 1rem;
+                min-height: 40vh;
+            }
+            
+            .row-image-wrapper .image-list {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
             
-            .gallery-section {
-                padding: 2rem 1rem;
-                min-height: 50vh;
+            .image-large {
+                max-height: 70vh;
             }
             
             .project-info-overlay {
@@ -281,36 +277,30 @@
         </div>
     </section>
 
-    <!-- Experimental Gallery -->
-    <div class="experimental-gallery">
+    <!-- Project Gallery -->
+    <div class="project-items">
         
-        <!-- Single Image Section -->
-        <section class="gallery-section">
-            <div class="image-holder">
-                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/living-room.jpg" 
-                     alt="Living Room" 
-                     class="gallery-image"
-                     loading="lazy">
-            </div>
-        </section>
+        <!-- Single Image -->
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/living-room.jpg" 
+                 alt="Living Room" 
+                 class="image-large"
+                 loading="lazy">
+        </div>
 
         <!-- Row with 2 Images -->
-        <section class="gallery-section">
-            <div class="row-images">
-                <div class="image-holder">
-                    <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/bedroom.jpg" 
-                         alt="Bedroom" 
-                         class="gallery-image"
-                         loading="lazy">
-                </div>
-                <div class="image-holder">
-                    <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/rear-view.jpg" 
-                         alt="Rear View" 
-                         class="gallery-image"
-                         loading="lazy">
-                </div>
+        <div class="row-image-wrapper">
+            <div class="image-list">
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/bedroom.jpg" 
+                     alt="Bedroom" 
+                     class="image-large"
+                     loading="lazy">
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/rear-view.jpg" 
+                     alt="Rear View" 
+                     class="image-large"
+                     loading="lazy">
             </div>
-        </section>
+        </div>
 
         <!-- Project Description Section -->
         <section class="description-section">
@@ -379,8 +369,8 @@
     <script>
         // Intersection Observer for fade-in animations
         const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -391,11 +381,11 @@
             });
         }, observerOptions);
 
-        // Observe all image holders
+        // Observe all images
         document.addEventListener('DOMContentLoaded', () => {
-            const imageHolders = document.querySelectorAll('.image-holder');
-            imageHolders.forEach(holder => {
-                observer.observe(holder);
+            const images = document.querySelectorAll('.image-large');
+            images.forEach(img => {
+                observer.observe(img);
             });
         });
     </script>
