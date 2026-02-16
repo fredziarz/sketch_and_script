@@ -142,9 +142,10 @@ class CMS {
         
         // Generate project folder name from title
         const projectFolder = this.github.generateProjectFolderName(projectData.title || 'project');
+        const projectSlug = projectData.slug || projectFolder;
         
         // Show uploading message
-        this.ui.showToast('⏳ Uploading images to GitHub...');
+        this.ui.showToast('⏳ Uploading to GitHub...');
         
         try {
             // Upload images to GitHub if there are any
@@ -173,14 +174,36 @@ class CMS {
             // Generate HTML from template
             const html = this.templates.generateArchitectureProject(projectData);
             
-            // Save project data to GitHub
             if (this.github.isConfigured()) {
+                // Upload HTML page to GitHub
+                this.ui.showToast('⏳ Uploading HTML page...');
+                await this.github.uploadProjectHTML(html, projectSlug);
+                
+                // Save project data JSON
                 await this.github.createProjectData({
                     ...projectData,
                     type: 'architecture',
                     createdAt: new Date().toISOString(),
-                    folder: projectFolder
+                    folder: projectFolder,
+                    slug: projectSlug,
+                    htmlUrl: `projects/${projectSlug}.html`
                 }, projectFolder);
+                
+                // Update master projects list
+                this.ui.showToast('⏳ Updating project list...');
+                await this.github.updateProjectsList({
+                    title: projectData.title,
+                    slug: projectSlug,
+                    folder: projectFolder,
+                    type: 'architecture',
+                    subtitle: projectData.subtitle,
+                    category: projectData.category,
+                    year: projectData.year,
+                    location: projectData.location,
+                    featuredImage: projectData.imageUrls ? projectData.imageUrls[0] : null,
+                    htmlUrl: `projects/${projectSlug}.html`,
+                    createdAt: new Date().toISOString()
+                });
             }
             
             // Save project locally
@@ -190,15 +213,16 @@ class CMS {
                 data: projectData,
                 html: html,
                 folder: projectFolder,
+                slug: projectSlug,
                 createdAt: new Date().toISOString()
             };
             
             this.data.saveProject(project);
             
             // Show success message
-            this.ui.showToast('✅ Architecture project created and uploaded to GitHub!');
+            this.ui.showToast('✅ Project published to GitHub!');
             
-            // Download HTML file
+            // Download HTML file (for backup)
             this.downloadProjectFile(project);
             
             // Reset form
@@ -220,6 +244,7 @@ class CMS {
         const projectData = this.forms.extractFormData(formData, 'coding');
         
         const projectFolder = this.github.generateProjectFolderName(projectData.title || 'project');
+        const projectSlug = projectData.slug || projectFolder;
         this.ui.showToast('⏳ Uploading to GitHub...');
         
         try {
@@ -240,12 +265,30 @@ class CMS {
             const html = this.templates.generateCodingProject(projectData);
             
             if (this.github.isConfigured()) {
+                this.ui.showToast('⏳ Uploading HTML page...');
+                await this.github.uploadProjectHTML(html, projectSlug);
+                
                 await this.github.createProjectData({
                     ...projectData,
                     type: 'coding',
                     createdAt: new Date().toISOString(),
-                    folder: projectFolder
+                    folder: projectFolder,
+                    slug: projectSlug,
+                    htmlUrl: `projects/${projectSlug}.html`
                 }, projectFolder);
+                
+                this.ui.showToast('⏳ Updating project list...');
+                await this.github.updateProjectsList({
+                    title: projectData.title,
+                    slug: projectSlug,
+                    folder: projectFolder,
+                    type: 'coding',
+                    subtitle: projectData.subtitle,
+                    technologies: projectData.technologies,
+                    featuredImage: projectData.imageUrls ? projectData.imageUrls[0] : null,
+                    htmlUrl: `projects/${projectSlug}.html`,
+                    createdAt: new Date().toISOString()
+                });
             }
             
             const project = {
@@ -254,11 +297,12 @@ class CMS {
                 data: projectData,
                 html: html,
                 folder: projectFolder,
+                slug: projectSlug,
                 createdAt: new Date().toISOString()
             };
             
             this.data.saveProject(project);
-            this.ui.showToast('✅ Coding project created and uploaded to GitHub!');
+            this.ui.showToast('✅ Project published to GitHub!');
             this.downloadProjectFile(project);
             form.reset();
             
@@ -277,6 +321,7 @@ class CMS {
         const projectData = this.forms.extractFormData(formData, 'game');
         
         const projectFolder = this.github.generateProjectFolderName(projectData.title || 'project');
+        const projectSlug = projectData.slug || projectFolder;
         this.ui.showToast('⏳ Uploading to GitHub...');
         
         try {
@@ -297,12 +342,31 @@ class CMS {
             const html = this.templates.generateGameProject(projectData);
             
             if (this.github.isConfigured()) {
+                this.ui.showToast('⏳ Uploading HTML page...');
+                await this.github.uploadProjectHTML(html, projectSlug);
+                
                 await this.github.createProjectData({
                     ...projectData,
                     type: 'game',
                     createdAt: new Date().toISOString(),
-                    folder: projectFolder
+                    folder: projectFolder,
+                    slug: projectSlug,
+                    htmlUrl: `projects/${projectSlug}.html`
                 }, projectFolder);
+                
+                this.ui.showToast('⏳ Updating project list...');
+                await this.github.updateProjectsList({
+                    title: projectData.title,
+                    slug: projectSlug,
+                    folder: projectFolder,
+                    type: 'game',
+                    subtitle: projectData.subtitle,
+                    genre: projectData.genre,
+                    engine: projectData.engine,
+                    featuredImage: projectData.imageUrls ? projectData.imageUrls[0] : null,
+                    htmlUrl: `projects/${projectSlug}.html`,
+                    createdAt: new Date().toISOString()
+                });
             }
             
             const project = {
@@ -311,11 +375,12 @@ class CMS {
                 data: projectData,
                 html: html,
                 folder: projectFolder,
+                slug: projectSlug,
                 createdAt: new Date().toISOString()
             };
             
             this.data.saveProject(project);
-            this.ui.showToast('✅ Game project created and uploaded to GitHub!');
+            this.ui.showToast('✅ Project published to GitHub!');
             this.downloadProjectFile(project);
             form.reset();
             

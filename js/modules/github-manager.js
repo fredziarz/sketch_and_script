@@ -213,6 +213,90 @@ export class GitHubManager {
         }
     }
 
+    async uploadProjectHTML(html, projectSlug) {
+        if (!this.isConfigured()) {
+            throw new Error('GitHub is not configured.');
+        }
+
+        const path = `projects/${projectSlug}.html`;
+        const base64Content = btoa(unescape(encodeURIComponent(html)));
+
+        try {
+            let sha = null;
+            try {
+                const existingFile = await this.getFileContent(path);
+                sha = existingFile.sha;
+            } catch (e) {
+                // File doesn't exist
+            }
+
+            await this.createOrUpdateFile(path, base64Content, `${projectSlug}.html`, sha);
+            
+            return {
+                success: true,
+                path: path,
+                url: `https://${this.settings.owner}.github.io/${this.settings.repo}/projects/${projectSlug}.html`
+            };
+        } catch (error) {
+            console.error('GitHub HTML upload error:', error);
+            throw new Error(`Failed to upload HTML: ${error.message}`);
+        }
+    }
+
+    async updateProjectsList(newProject) {
+        if (!this.isConfigured()) {
+            throw new Error('GitHub is not configured.');
+        }
+
+        const path = 'data/projects.json';
+        
+        try {
+            // Get existing projects list
+            let projects = [];
+            let sha = null;
+            
+            try {
+                const existingFile = await this.getFileContent(path);
+                sha = existingFile.sha;
+                const content = atob(existingFile.content.replace(/\s/g, ''));
+                projects = JSON.parse(content);
+            } catch (e) {
+                // File doesn't exist yet, start fresh
+                if (e.message !== 'NOT_FOUND') {
+                    console.warn('Could not read existing projects list:', e.message);
+                }
+            }
+
+            // Check if project already exists (by slug or folder)
+            const existingIndex = projects.findIndex(p => 
+                p.slug === newProject.slug || p.folder === newProject.folder
+            );
+
+            if (existingIndex >= 0) {
+                // Update existing project
+                projects[existingIndex] = newProject;
+            } else {
+                // Add new project to the beginning
+                projects.unshift(newProject);
+            }
+
+            // Upload updated list
+            const content = JSON.stringify(projects, null, 2);
+            const base64Content = btoa(unescape(encodeURIComponent(content)));
+
+            await this.createOrUpdateFile(path, base64Content, 'projects.json', sha);
+            
+            return {
+                success: true,
+                path: path,
+                totalProjects: projects.length
+            };
+        } catch (error) {
+            console.error('GitHub projects list update error:', error);
+            throw new Error(`Failed to update projects list: ${error.message}`);
+        }
+    }
+
     async testConnection() {
         if (!this.isConfigured()) {
             return { success: false, message: 'GitHub is not configured' };
