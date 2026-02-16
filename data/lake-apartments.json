@@ -1,15 +1,11 @@
 {
   "title": "Lake Apartments",
-  "slug": "Lake Apartments",
+  "slug": "lake-apartments",
   "subtitle": "by the lake",
-  "category": "Residential",
+  "category": "residential",
   "overview": "New estate development almost on the bank of Lake Tegel in Berlin.",
-  "images": [
-    {},
-    {},
-    {},
-    {}
-  ],
+  "location": "Berlin, Germany",
+  "year": "2020",
   "imageUrls": [
     "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-aerial-view.jpg",
     "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-living-room.jpg",
@@ -23,7 +19,7 @@
     "images/lake-apartments/lake-apartments-rear-view.jpg"
   ],
   "type": "architecture",
-  "createdAt": "2026-02-16T13:12:27.232Z",
   "folder": "lake-apartments",
-  "htmlUrl": "projects/Lake Apartments.html"
+  "htmlUrl": "projects/lake-apartments.html",
+  "createdAt": "2026-02-16T12:35:25.197Z"
 }
