@@ -41,14 +41,9 @@
             max-height: 90vh;
             object-fit: contain;
             display: block;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .image-large.visible {
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         
         /* Hero section */
@@ -364,30 +359,5 @@
 
     <script src="../js/script.js"></script>
     <script src="../js/page-transitions.js"></script>
-    
-    <!-- Scroll Animation Script -->
-    <script>
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all images
-        document.addEventListener('DOMContentLoaded', () => {
-            const images = document.querySelectorAll('.image-large');
-            images.forEach(img => {
-                observer.observe(img);
-            });
-        });
-    </script>
 </body>
 </html>
