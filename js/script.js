@@ -180,7 +180,10 @@ if ('loading' in HTMLImageElement.prototype) {
     // Browser supports lazy loading
     const images = document.querySelectorAll('img[loading="lazy"]');
     images.forEach(img => {
-        img.src = img.dataset.src;
+        // Only set src from data-src if data-src exists
+        if (img.dataset.src) {
+            img.src = img.dataset.src;
+        }
     });
 } else {
     // Fallback for browsers that don't support lazy loading
