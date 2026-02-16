@@ -4,8 +4,6 @@
   "subtitle": "by the lake",
   "category": "Residential",
   "overview": "New estate development almost on the bank of Lake Tegel in Berlin.",
-  "location": "Berlin, Bermany",
-  "year": "2020",
   "images": [
     {},
     {},
@@ -25,6 +23,7 @@
     "images/lake-apartments/lake-apartments-rear-view.jpg"
   ],
   "type": "architecture",
-  "createdAt": "2026-02-16T12:35:25.197Z",
-  "folder": "lake-apartments"
+  "createdAt": "2026-02-16T13:12:27.232Z",
+  "folder": "lake-apartments",
+  "htmlUrl": "projects/Lake Apartments.html"
 }
