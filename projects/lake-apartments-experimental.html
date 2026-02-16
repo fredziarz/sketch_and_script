@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lake Apartments - Experimental Gallery | Sketch & Script</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/architecture-theme.css">
+    <link rel="stylesheet" href="../css/page-transitions.css">
+    
+    <style>
+        /* Experimental Gallery Styles - Inspired by mir.no */
+        .experimental-gallery {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        .gallery-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+        
+        .image-holder {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .image-holder.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            display: block;
+        }
+        
+        /* Row layout for multiple images */
+        .row-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .row-images .image-holder {
+            max-width: 100%;
+        }
+        
+        /* Hero section */
+        .hero-image-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .project-info-overlay {
+            position: absolute;
+            bottom: 4rem;
+            left: 4rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+            max-width: 600px;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .project-info-overlay h1 {
+            font-size: 3.5rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 600;
+        }
+        
+        .project-info-overlay .subtitle {
+            font-size: 1.5rem;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .project-info-overlay .meta-info {
+            display: flex;
+            gap: 2rem;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+        
+        .meta-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-info-item .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Project description section */
+        .description-section {
+            background: #f8f8f8;
+            padding: 8rem 2rem;
+        }
+        
+        .description-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .description-block {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .description-content h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .description-content .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #111;
+            line-height: 1.2;
+        }
+        
+        .description-content .project-desc {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+        
+        .description-content .additional-info {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .description-content .meta-detail {
+            font-size: 0.875rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 968px) {
+            .description-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .description-section {
+                padding: 4rem 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .row-images {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .gallery-section {
+                padding: 2rem 1rem;
+                min-height: 50vh;
+            }
+            
+            .project-info-overlay {
+                bottom: 2rem;
+                left: 2rem;
+                right: 2rem;
+            }
+            
+            .project-info-overlay h1 {
+                font-size: 2rem;
+            }
+            
+            .project-info-overlay .subtitle {
+                font-size: 1.125rem;
+            }
+            
+            .project-info-overlay .meta-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="architecture-theme">
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../images/arch-icon.png" alt="" class="logo-icon">
+                <span class="logo-text">Sketch & Script</span>
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../architecture.html" class="nav-link active">Architecture</a>
+                <a href="../coding.html" class="nav-link">QA & Coding</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
+            </div>
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Image Section -->
+    <section class="hero-image-section">
+        <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/aerial-view.jpg" 
+             alt="Lake Apartments Aerial View" 
+             loading="eager">
+        <div class="project-info-overlay">
+            <div class="category-badge">Residential</div>
+            <h1>Lake Apartments</h1>
+            <p class="subtitle">by the lake</p>
+            <div class="meta-info">
+                <div class="meta-info-item">
+                    <span class="label">Location</span>
+                    <span>Berlin, Germany</span>
+                </div>
+                <div class="meta-info-item">
+                    <span class="label">Year</span>
+                    <span>2020</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experimental Gallery -->
+    <div class="experimental-gallery">
+        
+        <!-- Single Image Section -->
+        <section class="gallery-section">
+            <div class="image-holder">
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/living-room.jpg" 
+                     alt="Living Room" 
+                     class="gallery-image"
+                     loading="lazy">
+            </div>
+        </section>
+
+        <!-- Row with 2 Images -->
+        <section class="gallery-section">
+            <div class="row-images">
+                <div class="image-holder">
+                    <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/bedroom.jpg" 
+                         alt="Bedroom" 
+                         class="gallery-image"
+                         loading="lazy">
+                </div>
+                <div class="image-holder">
+                    <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/rear-view.jpg" 
+                         alt="Rear View" 
+                         class="gallery-image"
+                         loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Description Section -->
+        <section class="description-section">
+            <div class="description-content">
+                <div class="description-block">
+                    <h2 class="project-title">Lake Apartments</h2>
+                    <div class="meta-detail">Residential Development</div>
+                    <p class="project-desc">New estate development almost on the bank of Lake Tegel in Berlin, creating a harmonious blend of modern living spaces and natural waterfront surroundings. The buildings integrate seamlessly with the landscape, offering residents panoramic views of the lake and surrounding nature.</p>
+                </div>
+                <div class="description-block">
+                    <p class="additional-info">The design emphasizes light-filled interiors and seamless indoor-outdoor connections, with floor-to-ceiling windows that frame the waterfront vistas. Sustainable materials and energy-efficient systems ensure minimal environmental impact while maximizing comfort and livability.</p>
+                    <div class="meta-detail">Completed 2020 • Berlin, Germany</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Back Button -->
+    <section class="section">
+        <div class="container" style="text-align: center;">
+            <a href="../architecture.html" class="btn btn-secondary">← Back to Architecture Portfolio</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sketch & Script</h3>
+                    <p>Architecture & Code</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="../architecture.html">Architecture</a>
+                    <a href="../coding.html">QA & Coding</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <a href="mailto:michalwicherek@gmail.com">michalwicherek@gmail.com</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="https://linkedin.com/in/michal-wicherek" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/fredziarz" target="_blank">GitHub</a>
+                    <a href="https://itch.io/profile/michalwicherek" target="_blank">itch.io</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sketch & Script | Michał Wicherek</p>
+                <p>Built with passion | Hosted on GitHub Pages</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/page-transitions.js"></script>
+    
+    <!-- Scroll Animation Script -->
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all image holders
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageHolders = document.querySelectorAll('.image-holder');
+            imageHolders.forEach(holder => {
+                observer.observe(holder);
+            });
+        });
+    </script>
+</body>
+</html>
