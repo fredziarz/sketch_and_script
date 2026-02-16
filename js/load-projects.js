@@ -1,122 +1,160 @@
-// ============================================
-// Dynamic Project Loader
-// Fetches projects from CMS-generated data/projects.json
-// ============================================
+/**
+ * Dynamic Project Loader
+ * Fetches projects from data/projects.json and renders them on the page
+ */
 
 class ProjectLoader {
     constructor() {
+        this.projectsTrack = document.querySelector('.projects-track');
+        this.filterButtons = document.querySelectorAll('.filter-btn');
         this.projects = [];
+        this.currentFilter = 'all';
+        
         this.init();
     }
 
     async init() {
         await this.loadProjects();
-        this.renderProjects();
         this.setupFilters();
     }
 
     async loadProjects() {
         try {
             const response = await fetch('data/projects.json');
-            if (response.ok) {
-                this.projects = await response.json();
-                console.log(`✅ Loaded ${this.projects.length} projects from CMS`);
-            } else {
-                console.warn('⚠️ No projects.json found, using static HTML');
+            if (!response.ok) {
+                console.warn('No projects.json found, showing placeholder projects');
+                return;
             }
+            
+            this.projects = await response.json();
+            // Sort by createdAt - newest first
+            this.projects.sort((a, b) => {
+                const dateA = new Date(a.createdAt || 0);
+                const dateB = new Date(b.createdAt || 0);
+                return dateB - dateA; // Descending order (newest first)
+            });
+            this.renderProjects();
         } catch (error) {
-            console.warn('⚠️ Could not load projects.json:', error.message);
+            console.error('Error loading projects:', error);
         }
     }
 
     renderProjects() {
-        // Find the projects track container
-        const track = document.querySelector('.projects-track');
-        if (!track || this.projects.length === 0) return;
+        if (!this.projectsTrack) return;
 
-        // Clear existing content
-        track.innerHTML = '';
+        // Clear existing projects
+        this.projectsTrack.innerHTML = '';
+
+        // Filter projects based on current filter
+        const filteredProjects = this.filterProjects();
+
+        if (filteredProjects.length === 0) {
+            this.projectsTrack.innerHTML = '<p class="no-projects">No projects found for this category.</p>';
+            return;
+        }
 
         // Render each project
-        this.projects.forEach(project => {
+        filteredProjects.forEach(project => {
             const card = this.createProjectCard(project);
-            track.appendChild(card);
+            this.projectsTrack.appendChild(card);
         });
+    }
 
-        console.log(`✅ Rendered ${this.projects.length} projects`);
+    filterProjects() {
+        if (this.currentFilter === 'all') {
+            return this.projects;
+        }
+
+        return this.projects.filter(project => {
+            const category = project.category ? project.category.toLowerCase() : '';
+            return category === this.currentFilter;
+        });
     }
 
     createProjectCard(project) {
         const article = document.createElement('article');
         article.className = 'project-card';
-        article.setAttribute('data-category', (project.category || project.type || 'all').toLowerCase());
+        article.setAttribute('data-category', project.category ? project.category.toLowerCase() : 'other');
 
-        const link = document.createElement('a');
-        link.href = project.htmlUrl || `projects/${project.slug}.html`;
-        link.className = 'project-card-link';
+        // Get the featured image (first image URL)
+        const imageUrl = this.getProjectImage(project);
+        const projectUrl = this.getProjectUrl(project);
+        const title = project.title || 'Untitled Project';
 
-        // Image
-        const imageDiv = document.createElement('div');
-        imageDiv.className = 'project-image';
-        
-        const img = document.createElement('img');
-        img.src = project.featuredImage || 'images/architecture/placeholder.jpg';
-        img.alt = project.title;
-        img.loading = 'lazy';
-        
-        imageDiv.appendChild(img);
-        link.appendChild(imageDiv);
+        article.innerHTML = `
+            <a href="${projectUrl}" class="project-card-link">
+                <div class="project-image">
+                    <img src="${imageUrl}" alt="${title}" loading="lazy">
+                </div>
+                <h3 class="project-title">${title}</h3>
+            </a>
+        `;
 
-        // Title
-        const title = document.createElement('h3');
-        title.className = 'project-title';
-        title.textContent = project.title;
-        link.appendChild(title);
-
-        // Optional subtitle
-        if (project.subtitle) {
-            const subtitle = document.createElement('p');
-            subtitle.className = 'project-subtitle';
-            subtitle.textContent = project.subtitle;
-            link.appendChild(subtitle);
-        }
-
-        article.appendChild(link);
         return article;
     }
 
-    setupFilters() {
-        const filterButtons = document.querySelectorAll('.filter-btn');
+    getProjectImage(project) {
+        // Try imageUrls first (from GitHub uploads)
+        if (project.imageUrls && project.imageUrls.length > 0) {
+            return project.imageUrls[0];
+        }
         
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active state
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                // Filter projects
-                const filter = button.getAttribute('data-filter');
-                this.filterProjects(filter);
-            });
-        });
+        // Try imagePaths (local paths)
+        if (project.imagePaths && project.imagePaths.length > 0) {
+            return project.imagePaths[0];
+        }
+        
+        // Try legacy featuredImage property
+        if (project.featuredImage) {
+            return project.featuredImage;
+        }
+        
+        // Fallback to placeholder
+        const type = project.type || 'architecture';
+        return `images/${type}/placeholder-${type}-1.jpg`;
     }
 
-    filterProjects(category) {
-        const cards = document.querySelectorAll('.project-card');
+    getProjectUrl(project) {
+        // Try slug-based URL first
+        if (project.slug) {
+            const slug = this.sanitizeSlug(project.slug);
+            return `projects/${slug}.html`;
+        }
         
-        cards.forEach(card => {
-            const cardCategory = card.getAttribute('data-category');
-            
-            if (category === 'all' || cardCategory === category) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
+        // Try folder-based URL
+        if (project.folder) {
+            return `projects/${project.folder}.html`;
+        }
+        
+        // Fallback
+        return '#';
+    }
+
+    sanitizeSlug(slug) {
+        return slug
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]/g, '');
+    }
+
+    setupFilters() {
+        this.filterButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active state
+                this.filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Update filter and re-render
+                this.currentFilter = button.getAttribute('data-filter');
+                this.renderProjects();
+            });
         });
     }
 }
 
-// Initialize when DOM is loaded
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         new ProjectLoader();
