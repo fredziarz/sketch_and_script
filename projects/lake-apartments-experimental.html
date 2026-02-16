@@ -22,7 +22,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 2rem;
+            padding: 2rem;
             min-height: 50vh;
         }
         
@@ -163,6 +163,7 @@
                 display: block;
                 padding: 0;
                 margin: 0;
+                overflow: visible;
             }
             
             .hero-image-section img {
@@ -172,40 +173,51 @@
                 object-fit: cover;
                 position: static;
                 display: block;
+                margin: 0;
             }
             
             .project-info-overlay {
-                position: static;
+                position: static !important;
                 width: 100%;
                 max-width: 100%;
                 padding: 2rem 1.5rem;
                 margin: 0;
-                background: var(--color-bg);
-                color: var(--color-text-primary);
-                backdrop-filter: none;
+                background: var(--color-bg) !important;
+                color: var(--color-text-primary) !important;
+                backdrop-filter: none !important;
+                transform: none !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
             }
             
             .project-info-overlay h1 {
                 font-size: 2rem;
-                color: var(--color-text-primary);
+                color: var(--color-text-primary) !important;
                 margin-bottom: 0.5rem;
             }
             
             .project-info-overlay .subtitle {
                 font-size: 1.125rem;
-                color: var(--color-text-secondary);
+                color: var(--color-text-secondary) !important;
                 margin-bottom: 1.5rem;
+                opacity: 1 !important;
             }
             
             .project-info-overlay .meta-info {
-                color: var(--color-text-secondary);
+                color: var(--color-text-secondary) !important;
                 flex-direction: row;
                 gap: 2rem;
+                opacity: 1 !important;
+            }
+            
+            .project-info-overlay .meta-info .label {
+                opacity: 0.7 !important;
             }
             
             .category-badge {
-                background: var(--color-accent);
-                color: white;
+                background: var(--color-accent) !important;
+                color: white !important;
             }
         }
         
@@ -356,13 +368,13 @@
         @media (max-width: 768px) {
             .image-wrapper,
             .row-image-wrapper {
-                padding: 2rem 1rem;
-                min-height: 40vh;
+                padding: 2rem;
+                min-height: auto;
             }
             
             .row-image-wrapper .image-list {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 2rem;
             }
             
             .image-large {
