@@ -1,0 +1,36 @@
+{
+  "title": "St Clare",
+  "slug": "St Clare",
+  "subtitle": "mixed development",
+  "category": "Public Space",
+  "overview": "Huge mixed development design in a quiet part of british capital city.",
+  "location": "London, UK",
+  "images": [
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+  ],
+  "imageUrls": [
+    "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-6.jpg",
+    "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-5.jpg",
+    "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-4.jpg",
+    "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-3.jpg",
+    "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-2.jpg",
+    "https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-1.jpg"
+  ],
+  "imagePaths": [
+    "images/st-clare/st-clare-view-6.jpg",
+    "images/st-clare/st-clare-view-5.jpg",
+    "images/st-clare/st-clare-view-4.jpg",
+    "images/st-clare/st-clare-view-3.jpg",
+    "images/st-clare/st-clare-view-2.jpg",
+    "images/st-clare/st-clare-view-1.jpg"
+  ],
+  "type": "architecture",
+  "createdAt": "2026-02-16T16:46:51.254Z",
+  "folder": "st-clare",
+  "htmlUrl": "projects/St Clare.html"
+}
