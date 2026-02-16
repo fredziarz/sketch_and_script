@@ -3,31 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../images/fav-icon.png">
-    <link rel="alternate icon" href="../images/fav-icon.png">
-    <meta name="description" content="Lake Apartments - New estate development almost on the bank of Lake Tegel in Berlin.">
     <title>Lake Apartments | Sketch & Script</title>
-    
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/architecture-theme.css">
-    <link rel="stylesheet" href="../css/project-pages.css">
     <link rel="stylesheet" href="../css/page-transitions.css">
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9ZNFG075D"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-R9ZNFG075D');
-    </script>
+    <style>
+        /* Gallery Styles - Inspired by mir.no */
+        .project-items {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .image-wrapper,
+        .row-image-wrapper {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            min-height: 50vh;
+        }
+        
+        .row-image-wrapper .image-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .image-large {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            cursor: pointer;
+        }
+        
+        /* Lightbox Modal */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .lightbox-image {
+            max-width: 95vw;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .lightbox-overlay.active .lightbox-image {
+            transform: scale(1);
+        }
+        
+        /* Lightbox Navigation Buttons */
+        .lightbox-nav {
+            position: absolute;
+            bottom: 5rem;
+            transform: translateX(0);
+            background: transparent;
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10000;
+            font-size: 2rem;
+            color: #B8936D;
+            user-select: none;
+        }
+        
+        .lightbox-nav:hover {
+            background: transparent;
+            color: #8B6F54;
+            transform: translateX(0) scale(1.2);
+        }
+        
+        .lightbox-nav.prev {
+            left: calc(50% - 4rem);
+        }
+        
+        .lightbox-nav.next {
+            right: calc(50% - 4rem);
+        }
+        
+        .lightbox-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: #2C2C2C;
+            border: 1px solid #B8936D;
+            z-index: 10000;
+        }
+        
+        @media (max-width: 768px) {
+            .lightbox-nav {
+                bottom: 4rem;
+                font-size: 1.75rem;
+            }
+            
+            .lightbox-nav.prev {
+                left: calc(50% - 3rem);
+            }
+            
+            .lightbox-nav.next {
+                right: calc(50% - 3rem);
+            }
+        }
+        
+        /* Hero section */
+        .hero-image-section {
+            position: relative;
+            width: 100%;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-section img {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            cursor: pointer;
+        }
+        
+        .project-info-overlay {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            color: white;
+            z-index: 10;
+            max-width: 600px;
+            padding: 2.5rem;
+            background: rgba(139, 111, 84, 0.65);
+            backdrop-filter: blur(15px);
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .project-info-overlay h1 {
+            font-size: 3.5rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 600;
+        }
+        
+        .project-info-overlay .subtitle {
+            font-size: 1.5rem;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .project-info-overlay .meta-info {
+            display: flex;
+            gap: 2rem;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+        
+        .meta-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-info-item .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Project description section */
+        .description-section {
+            background: #f8f8f8;
+            padding: 8rem 2rem;
+        }
+        
+        .description-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .description-block {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .description-content h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .description-content .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #111;
+            line-height: 1.2;
+        }
+        
+        .description-content .project-desc {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+        
+        .description-content .additional-info {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .description-content .meta-detail {
+            font-size: 0.875rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 968px) {
+            .description-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .description-section {
+                padding: 4rem 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Mobile Hero Layout Restructure */
+            .hero-image-section {
+                height: auto !important;
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                overflow: visible !important;
+                position: static !important;
+            }
+            
+            .hero-image-section img {
+                width: 100%;
+                height: auto !important;
+                max-height: none !important;
+                object-fit: contain;
+                position: static !important;
+                display: block;
+                margin: 0;
+                padding: 2rem;
+            }
+            
+            .project-info-overlay {
+                position: static !important;
+                width: 100%;
+                max-width: 100% !important;
+                padding: 2rem 1.5rem;
+                margin: 0;
+                background: var(--color-bg) !important;
+                color: var(--color-text-primary) !important;
+                backdrop-filter: none !important;
+                transform: none !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                top: auto !important;
+            }
+            
+            .project-info-overlay h1 {
+                font-size: 2rem;
+                color: var(--color-text-primary) !important;
+                margin-bottom: 0.5rem;
+            }
+            
+            .project-info-overlay .subtitle {
+                font-size: 1.125rem;
+                color: var(--color-text-secondary) !important;
+                margin-bottom: 1.5rem;
+                opacity: 1 !important;
+            }
+            
+            .project-info-overlay .meta-info {
+                color: var(--color-text-secondary) !important;
+                flex-direction: row;
+                gap: 2rem;
+                opacity: 1 !important;
+            }
+            
+            .project-info-overlay .meta-info .label {
+                opacity: 0.7 !important;
+                color: var(--color-text-secondary) !important;
+            }
+            
+            .project-info-overlay .meta-info span {
+                color: var(--color-text-secondary) !important;
+            }
+            
+            .category-badge {
+                background: var(--color-accent) !important;
+                color: white !important;
+            }
+            
+            .image-wrapper,
+            .row-image-wrapper {
+                padding: 2rem;
+                min-height: auto;
+            }
+            
+            .row-image-wrapper .image-list {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .image-large {
+                max-height: 70vh;
+            }
+        }
+    </style>
 </head>
 <body class="architecture-theme">
     <!-- Navigation -->
@@ -54,92 +406,75 @@
         </div>
     </nav>
 
-    <!-- Breadcrumb -->
-    <section class="breadcrumb-section">
-        <div class="container">
-            <nav class="breadcrumb">
-                <a href="../index.html">Home</a>
-                <span>/</span>
-                <a href="../architecture.html">Architecture</a>
-                <span>/</span>
-                <span class="current">Lake Apartments</span>
-            </nav>
-        </div>
-    </section>
-
-    <!-- Project Hero -->
-    <section class="project-hero">
-        <div class="container">
-            <div class="project-hero-content">
-                <span class="project-category-badge">Residential</span>
-                <h1 class="project-hero-title">Lake Apartments</h1>
-                <p class="project-hero-subtitle">by the lake</p>
-                
-                <div class="project-meta-grid">
-                    <div class="project-meta-item">
-                        <span class="meta-label">Location</span>
-                        <span class="meta-value">Berlin, Germany</span>
-                    </div>
-                    <div class="project-meta-item">
-                        <span class="meta-label">Year</span>
-                        <span class="meta-value">2020</span>
-                    </div>
+    <!-- Hero Image Section -->
+    <section class="hero-image-section">
+        <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-aerial-view.jpg" 
+             alt="Lake Apartments Aerial View" 
+             loading="eager"
+             class="hero-image">
+        <div class="project-info-overlay">
+            <div class="category-badge">Residential</div>
+            <h1>Lake Apartments</h1>
+            <p class="subtitle">by the lake</p>
+            <div class="meta-info">
+                <div class="meta-info-item">
+                    <span class="label">Location</span>
+                    <span>Berlin, Germany</span>
+                </div>
+                <div class="meta-info-item">
+                    <span class="label">Year</span>
+                    <span>2020</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Image -->
-    <section class="section section-featured-image">
-        <div class="container">
-            <div class="featured-image-wrapper">
-                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-aerial-view.jpg" 
-                     alt="Lake Apartments" 
-                     class="featured-image">
+    <!-- Project Gallery -->
+    <div class="project-items">
+        
+        <!-- Single Image -->
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-living-room.jpg" 
+                 alt="Living Room" 
+                 class="image-large"
+                 loading="lazy">
+        </div>
+
+        <!-- Row with 2 Images -->
+        <div class="row-image-wrapper">
+            <div class="image-list">
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-bedroom.jpg" 
+                     alt="Bedroom" 
+                     class="image-large"
+                     loading="lazy">
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-rear-view.jpg" 
+                     alt="Rear View" 
+                     class="image-large"
+                     loading="lazy">
             </div>
         </div>
-    </section>
 
-    <!-- Project Overview -->
+        <!-- Project Description Section -->
+        <section class="description-section">
+            <div class="description-content">
+                <div class="description-block">
+                    <h2 class="project-title">Lake Apartments</h2>
+                    <div class="meta-detail">Residential Development</div>
+                    <p class="project-desc">New estate development almost on the bank of Lake Tegel in Berlin, creating a harmonious blend of modern living spaces and natural waterfront surroundings. The buildings integrate seamlessly with the landscape, offering residents panoramic views of the lake and surrounding nature.</p>
+                </div>
+                <div class="description-block">
+                    <p class="additional-info">The design emphasizes light-filled interiors and seamless indoor-outdoor connections, with floor-to-ceiling windows that frame the waterfront vistas. Sustainable materials and energy-efficient systems ensure minimal environmental impact while maximizing comfort and livability.</p>
+                    <div class="meta-detail">Completed 2020 • Berlin, Germany</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Back Button -->
     <section class="section">
-        <div class="container">
-            <div class="project-content">
-                <h2>Project Overview</h2>
-                <p>New estate development almost on the bank of Lake Tegel in Berlin.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery -->
-    <section class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Gallery</h2>
-            <div class="project-gallery">
-                <div class="gallery-item">
-                    <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-living-room.jpg" 
-                         alt="Living Room" 
-                         loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-bedroom.jpg" 
-                         alt="Bedroom" 
-                         loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/lake-apartments/lake-apartments-rear-view.jpg" 
-                         alt="Rear View" 
-                         loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Back to Portfolio -->
-    <section class="section">
-        <div class="container">
-            <div class="back-to-portfolio">
-                <a href="../architecture.html" class="btn btn-secondary">← Back to Architecture Portfolio</a>
-            </div>
+        <div class="container" style="text-align: center;">
+            <a href="../architecture.html" class="btn btn-secondary">← Back to Architecture Portfolio</a>
         </div>
     </section>
 
@@ -179,7 +514,129 @@
         </div>
     </footer>
 
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <div class="lightbox-nav prev" id="lightbox-prev">‹</div>
+        <img src="" alt="" class="lightbox-image" id="lightbox-image">
+        <div class="lightbox-nav next" id="lightbox-next">›</div>
+        <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
+    </div>
+
     <script src="../js/script.js"></script>
     <script src="../js/page-transitions.js"></script>
+    
+    <!-- Lightbox Script -->
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const galleryImages = document.querySelectorAll('.image-large');
+        const heroImage = document.querySelector('.hero-image');
+        
+        // Collect all images (hero + gallery)
+        const allImages = [];
+        if (heroImage) allImages.push(heroImage);
+        galleryImages.forEach(img => allImages.push(img));
+        
+        let currentIndex = 0;
+        
+        // Update lightbox image and counter
+        function updateLightbox(index) {
+            currentIndex = index;
+            const img = allImages[currentIndex];
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${allImages.length}`;
+        }
+        
+        // Open lightbox
+        function openLightbox(index) {
+            updateLightbox(index);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Navigate to next image
+        function nextImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex + 1) % allImages.length;
+            updateLightbox(currentIndex);
+        }
+        
+        // Navigate to previous image
+        function prevImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+            updateLightbox(currentIndex);
+        }
+        
+        // Add click event to all images
+        allImages.forEach((img, index) => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openLightbox(index);
+            });
+        });
+        
+        // Navigation button events
+        lightboxPrev.addEventListener('click', prevImage);
+        lightboxNext.addEventListener('click', nextImage);
+        
+        // Close lightbox when clicking on overlay background
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+        });
+        
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next image
+                    nextImage();
+                } else {
+                    // Swipe right - previous image
+                    prevImage();
+                }
+            }
+        }
+    </script>
 </body>
 </html>

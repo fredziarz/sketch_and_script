@@ -62,10 +62,39 @@ Building quality through code. Projects featuring:
 
 - ✅ **Split homepage** - Choose your path: Architecture or Code
 - ✅ **Project galleries** - Detailed case studies with images
+- ✅ **Architecture gallery** - mir.no-inspired vertical scroll design with fullscreen lightbox
+- ✅ **Interactive lightbox** - Swipe, keyboard, and click navigation with image counter
+- ✅ **Content Management System** - Browser-based CMS with media library and image picker
 - ✅ **Smooth animations** - Professional page transitions
 - ✅ **Mobile responsive** - Perfect on phones, tablets, desktops
-- ✅ **Keyboard shortcuts** - Alt+A (Architecture), Alt+C (Coding)
+- ✅ **Keyboard shortcuts** - Alt+A (Architecture), Alt+C (Coding), Arrow keys (lightbox)
 - ✅ **SEO optimized** - Proper meta tags, sitemap, robots.txt
+
+---
+
+## 🏗️ Architecture Project Template
+
+Architecture projects use a clean, mir.no-inspired gallery design with these features:
+
+**Gallery Design:**
+- Clean vertical scroll layout for optimal image viewing
+- Hero image with overlaid project info (desktop) or stacked layout (mobile)
+- Consistent 2rem spacing throughout
+- Support for single images or 2-column image rows
+
+**Interactive Lightbox:**
+- Click/tap any image to view fullscreen
+- Navigate with swipe gestures (mobile), arrow keys, or navigation buttons
+- Image counter shows position (e.g., "3 / 7")
+- White blurred background with elegant shadow
+- Close with Escape key or background click
+
+**Mobile-First Responsive:**
+- Desktop: Hero image with bronze/gold overlay (#B8936D)
+- Mobile: Hero image → white project info section → gallery
+- Touch-optimized navigation with 50px swipe threshold
+
+**Template Location:** `templates/architecture-project-template.html`
 
 ---
 
@@ -117,15 +146,18 @@ Click **"New Project"** button, choose type:
 
 ### 4. Add Media
 
-**Images:**
-- Click **"Add Image"**
-- Select file from computer
-- Add caption (optional)
-- Images converted to base64 automatically
+**Media Library with Image Picker:**
+- Upload images to centralized media library
+- Click 🖼️ button in form fields to select from uploaded images
+- Single selection for featured images
+- Multiple selection for galleries/screenshots
+- Images converted to base64 automatically (no separate files)
+- Supports JPG, PNG, WebP, GIF, SVG (max 10MB)
 
-**Files/Code:**
-- Upload source files, demos, or playable files
-- Add descriptions for each file
+**Recommended sizes:**
+- Architecture hero images: 1920px width
+- Gallery images: 1920px width
+- Coding screenshots: 1600px width
 
 ### 5. Generate & Save
 
@@ -199,10 +231,12 @@ sketchAndScript-cms/         # CMS (separate branch)
 ## 🛠️ Built With
 
 - **Pure HTML5/CSS3/JavaScript** - No dependencies, no build process
+- **mir.no-inspired gallery** - Clean vertical scroll design for architecture projects
+- **Custom lightbox system** - Touch, swipe, and keyboard navigation
 - **PT Sans typography** - Clean, professional, readable
 - **GitHub Pages** - Free, reliable hosting
 - **Custom domain** - Professional presence
-- **Browser-based CMS** - LocalStorage, no database needed
+- **Browser-based CMS** - LocalStorage with media library and image picker
 
 ---
 
@@ -261,7 +295,8 @@ Because good UX means **everyone** can navigate efficiently:
 | `Alt + C` | QA & Coding portfolio |
 | `Tab` | Navigate through links |
 | `Enter/Space` | Activate buttons |
-| `Escape` | Close menus |
+| `Escape` | Close menus / Exit lightbox |
+| `← →` | Navigate lightbox images (architecture projects) |
 
 ---
 
@@ -294,10 +329,15 @@ This portfolio can serve as a template for others. Key learnings:
 - Building accessible websites without frameworks
 - Implementing dual themes (light/dark)
 - Creating smooth page transitions
-- Browser-based CMS with LocalStorage
+- Browser-based CMS with LocalStorage and media library
+- Interactive lightbox with swipe/touch/keyboard navigation
+- mir.no-inspired clean gallery design
+- Mobile-first responsive architecture
 - Deploying to GitHub Pages with custom domain
 
 **Repository:** [github.com/fredziarz/sketch_and_script](https://github.com/fredziarz/sketch_and_script)
+
+**Architecture Template:** See `templates/architecture-project-template.html` for the complete gallery system with lightbox, responsive design, and all placeholders documented.
 
 ---
 
