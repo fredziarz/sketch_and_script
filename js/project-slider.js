@@ -31,6 +31,12 @@
     // Initialize sliders on page load
     document.addEventListener('DOMContentLoaded', initializeSliders);
     
+    // Re-initialize when CMS projects are loaded dynamically
+    window.addEventListener('projectsLoaded', () => {
+        console.log('🔄 Re-initializing slider after CMS projects loaded');
+        initializeSliders();
+    });
+    
     function initializeSliders() {
         const sliders = document.querySelectorAll('.projects-slider-wrapper');
         

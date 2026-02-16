@@ -58,6 +58,11 @@ class ProjectLoader {
             const card = this.createProjectCard(project);
             this.projectsTrack.appendChild(card);
         });
+        
+        // Trigger custom event to notify slider that projects are loaded
+        window.dispatchEvent(new CustomEvent('projectsLoaded', {
+            detail: { count: filteredProjects.length }
+        }));
     }
 
     filterProjects() {
