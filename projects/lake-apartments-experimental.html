@@ -22,9 +22,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            margin: 0;
+            padding: 0 1.5rem;
+            margin: 0 0 1.5rem 0;
             min-height: 50vh;
+        }
+        
+        .image-wrapper:last-of-type,
+        .row-image-wrapper:last-of-type {
+            margin-bottom: 0;
         }
         
         .row-image-wrapper .image-list {
@@ -253,7 +258,7 @@
         .description-section {
             background: #f8f8f8;
             padding: 6rem 1.5rem;
-            margin: 0;
+            margin: 1.5rem 0 0 0;
         }
         
         .description-content {
@@ -384,9 +389,14 @@
             
             .image-wrapper,
             .row-image-wrapper {
-                padding: 1.5rem;
+                padding: 0 1.5rem;
+                margin: 0 0 1.5rem 0;
                 min-height: auto;
-                margin: 0;
+            }
+            
+            .image-wrapper:last-of-type,
+            .row-image-wrapper:last-of-type {
+                margin-bottom: 0;
             }
             
             .row-image-wrapper .image-list {
