@@ -6,7 +6,7 @@
 # This script copies new projects from CMS to dev site
 # Run after creating projects in CMS
 
-CMS_DIR="/home/michal/Documents/sketchAndScript-cms"
+CMS_DIR="/home/michal/Documents/sketch_and_script_cms"
 DEV_DIR="/home/michal/Documents/sketch_and_script"
 
 echo "🔄 Syncing projects from CMS to Dev Site..."

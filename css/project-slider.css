@@ -52,9 +52,9 @@
 .projects-slider {
     overflow-x: auto;
     overflow-y: hidden;
-    scroll-behavior: auto; /* Handled by JS for smooth physics */
-    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
-    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     padding: 1rem 0 2rem;
     margin: 0 -1rem; /* Offset container padding */
     padding-left: 1rem;

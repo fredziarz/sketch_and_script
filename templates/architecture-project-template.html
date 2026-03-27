@@ -1,34 +1,479 @@
 <!DOCTYPE html>
+<!--
+  Architecture Project Template - Mir.no-inspired Gallery Design
+  
+  PLACEHOLDERS TO REPLACE:
+  {{PROJECT_TITLE}} - Project name
+  {{SUBTITLE}} - Short tagline/subtitle
+  {{CATEGORY}} - Short category (e.g., "Residential", "Commercial")
+  {{CATEGORY_FULL}} - Full category description (e.g., "Residential Development")
+  {{LOCATION}} - Project location
+  {{YEAR}} - Completion year
+  {{HERO_IMAGE_URL}} - Hero image URL
+  {{GALLERY_IMAGES}} - Replace with actual gallery image HTML (use commented examples)
+  {{DESCRIPTION}} - Main project description paragraph
+  {{ADDITIONAL_INFO}} - Additional project information paragraph
+  
+  FEATURES:
+  - Clean vertical scroll gallery
+  - Fullscreen lightbox with swipe/keyboard navigation
+  - Compact 60vh hero with gradient overlay
+  - Responsive mobile layout (portrait stacked, landscape side-by-side)
+  - 1.5rem consistent spacing throughout
+  - Bronze/gold theme color (#B8936D)
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PROJECT_TITLE}} | Sketch & Script</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/architecture-theme.css">
+    <link rel="stylesheet" href="../css/page-transitions.css">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../images/fav-icon.png">
-    <link rel="alternate icon" href="../images/fav-icon.png">
-    <meta name="description" content="[Project Name] - Architecture & Interiors">
-    <title>[Project Name] | Sketch & Script</title>
-    
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="architecture-theme.css">
-    <link rel="stylesheet" href="project-pages.css">
-    <link rel="stylesheet" href="page-transitions.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9ZNFG075D"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-R9ZNFG075D');
-    </script>
+    <style>
+        /* Gallery Styles - Inspired by mir.no */
+        .project-items {
+            width: 100%;
+            margin: 0;
+            padding: 1.5rem 0 0 0;
+        }
+        
+        .image-wrapper,
+        .row-image-wrapper {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1.5rem;
+            margin: 0 0 1.5rem 0;
+        }
+        
+        .image-wrapper {
+            min-height: 50vh;
+        }
+        
+        .image-wrapper:last-of-type,
+        .row-image-wrapper:last-of-type {
+            margin-bottom: 1.5rem;
+        }
+        
+        .row-image-wrapper .image-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .image-large {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            cursor: pointer;
+            margin: 0;
+        }
+        
+        /* Lightbox Modal */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .lightbox-image {
+            max-width: 95vw;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .lightbox-overlay.active .lightbox-image {
+            transform: scale(1);
+        }
+        
+        /* Lightbox Navigation Buttons */
+        .lightbox-nav {
+            position: absolute;
+            bottom: 5rem;
+            transform: translateX(0);
+            background: transparent;
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10000;
+            font-size: 2rem;
+            color: #B8936D;
+            user-select: none;
+        }
+        
+        .lightbox-nav:hover {
+            background: transparent;
+            color: #8B6F54;
+            transform: translateX(0) scale(1.2);
+        }
+        
+        .lightbox-nav.prev {
+            left: calc(50% - 4rem);
+        }
+        
+        .lightbox-nav.next {
+            right: calc(50% - 4rem);
+        }
+        
+        .lightbox-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: #2C2C2C;
+            border: 1px solid #B8936D;
+            z-index: 10000;
+        }
+        
+        @media (max-width: 768px) {
+            .lightbox-nav {
+                bottom: 4rem;
+                font-size: 1.75rem;
+            }
+            
+            .lightbox-nav.prev {
+                left: calc(50% - 3rem);
+            }
+            
+            .lightbox-nav.next {
+                right: calc(50% - 3rem);
+            }
+        }
+        
+        /* Hero section - Compact design with better contrast */
+        .hero-image-section {
+            position: relative;
+            width: 100%;
+            max-height: 60vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        
+        .hero-image-section img {
+            width: 100%;
+            height: 60vh;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.75;
+        }
+        
+        .project-info-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: white;
+            z-index: 10;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 60%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+        
+        .project-info-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .project-info-main {
+            flex: 1;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            background: #B8936D;
+            color: white;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .project-info-overlay h1 {
+            font-size: 1.75rem;
+            margin: 0 0 0.25rem 0;
+            font-weight: 700;
+            line-height: 1.1;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .project-info-overlay .subtitle {
+            font-size: 1rem;
+            margin: 0 0 0.5rem 0;
+            opacity: 0.8;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+        
+        .project-info-overlay .meta-info {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+        
+        .meta-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .meta-info-item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+            font-weight: 600;
+        }
+        
+        .meta-info-item span:last-child {
+            font-weight: 500;
+        }
+        
+        /* Project description section */
+        .description-section {
+            background: #f8f8f8;
+            padding: 6rem 1.5rem;
+            margin: 0;
+        }
+        
+        .description-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .description-block {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .description-content h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .description-content .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #111;
+            line-height: 1.2;
+        }
+        
+        .description-content .project-desc {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+        
+        .description-content .additional-info {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .description-content .meta-detail {
+            font-size: 0.875rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 968px) {
+            .description-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .description-section {
+                padding: 4rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Mobile Portrait - Stack vertically */
+            .hero-image-section {
+                max-height: none;
+                background: transparent;
+                display: block;
+            }
+            
+            .hero-image-section img {
+                width: 100%;
+                height: auto;
+                max-height: none;
+                object-fit: cover;
+                opacity: 1;
+            }
+            
+            .project-info-overlay {
+                position: static;
+                background: var(--color-bg);
+                padding: 1.5rem;
+            }
+            
+            .project-info-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .category-badge {
+                background: var(--color-accent);
+                font-size: 0.7rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .project-info-overlay h1 {
+                font-size: 1.75rem;
+                color: var(--color-text-primary);
+                text-shadow: none;
+                margin-bottom: 0.25rem;
+            }
+            
+            .project-info-overlay .subtitle {
+                font-size: 0.9rem;
+                color: var(--color-text-secondary);
+                opacity: 0.7;
+                margin-bottom: 0.75rem;
+            }
+            
+            .project-info-overlay .meta-info {
+                color: var(--color-text-secondary);
+                margin-top: 0;
+                font-size: 0.8rem;
+                gap: 1.5rem;
+            }
+            
+            .meta-info-item .label {
+                color: var(--color-text-secondary);
+            }
+            
+            .meta-info-item span:last-child {
+                color: var(--color-text-primary);
+            }
+            
+            .image-wrapper,
+            .row-image-wrapper {
+                padding: 0 1.5rem;
+                margin: 0 0 1.5rem 0;
+                min-height: auto;
+            }
+            
+            .image-wrapper:last-of-type,
+            .row-image-wrapper:last-of-type {
+                margin-bottom: 1.5rem;
+            }
+            
+            .row-image-wrapper .image-list {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .image-large {
+                max-height: 70vh;
+            }
+        }
+        
+        @media (min-width: 481px) and (max-width: 768px) and (orientation: landscape) {
+            /* Mobile Landscape - Side by side layout */
+            .hero-image-section {
+                display: flex;
+                flex-direction: row;
+                max-height: 70vh;
+                background: transparent;
+            }
+            
+            .hero-image-section img {
+                width: 55%;
+                height: 70vh;
+                object-fit: cover;
+                opacity: 1;
+            }
+            
+            .project-info-overlay {
+                position: static;
+                width: 45%;
+                background: var(--color-bg);
+                padding: 2rem 1.5rem;
+                display: flex;
+                align-items: center;
+                overflow-y: auto;
+            }
+            
+            .project-info-content {
+                width: 100%;
+            }
+            
+            .project-info-overlay h1 {
+                font-size: 1.5rem;
+            }
+            
+            .project-info-overlay .subtitle {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
 <body class="architecture-theme">
     <!-- Navigation -->
@@ -40,195 +485,102 @@
             </a>
             
             <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="architecture.html" class="nav-link active">Architecture</a>
-                <a href="coding.html" class="nav-link">QA & Development</a>
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../architecture.html" class="nav-link active">Architecture</a>
+                <a href="../coding.html" class="nav-link">QA & Coding</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#contact" class="nav-link nav-cta">Contact</a>
             </div>
             
-            <div class="nav-toggle" id="nav-toggle">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
-    <!-- Breadcrumb -->
-    <section class="breadcrumb-section">
-        <div class="container">
-            <nav class="breadcrumb">
-                <a href="index.html">Home</a>
-                <span>/</span>
-                <a href="architecture.html">Architecture</a>
-                <span>/</span>
-                <span class="current">[Project Name]</span>
-            </nav>
-        </div>
-    </section>
-
-    <!-- Project Hero -->
-    <section class="project-hero">
-        <div class="container">
-            <div class="project-hero-content">
-                <span class="project-category-badge">Residential</span>
-                <h1 class="project-hero-title">Modern Apartment Renovation</h1>
-                <p class="project-hero-subtitle">Complete transformation of an 80m² apartment in central Warsaw</p>
-                
-                <div class="project-meta-grid">
-                    <div class="project-meta-item">
-                        <span class="meta-label">Location</span>
-                        <span class="meta-value">Warsaw, Poland</span>
+    <!-- Hero Image Section -->
+    <section class="hero-image-section">
+        <img src="{{HERO_IMAGE_URL}}" 
+             alt="{{PROJECT_TITLE}}" 
+             loading="eager"
+             class="hero-image">
+        <div class="project-info-overlay">
+            <div class="project-info-content">
+                <div class="project-info-main">
+                    <div class="category-badge">{{CATEGORY}}</div>
+                    <h1>{{PROJECT_TITLE}}</h1>
+                    <p class="subtitle">{{SUBTITLE}}</p>
+                </div>
+                <div class="meta-info">
+                    <div class="meta-info-item">
+                        <span class="label">Location</span>
+                        <span>{{LOCATION}}</span>
                     </div>
-                    <div class="project-meta-item">
-                        <span class="meta-label">Year</span>
-                        <span class="meta-value">2024</span>
-                    </div>
-                    <div class="project-meta-item">
-                        <span class="meta-label">Area</span>
-                        <span class="meta-value">80 m²</span>
-                    </div>
-                    <div class="project-meta-item">
-                        <span class="meta-label">Duration</span>
-                        <span class="meta-value">3 months</span>
+                    <div class="meta-info-item">
+                        <span class="label">Year</span>
+                        <span>{{YEAR}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Featured Image -->
-    <section class="section section-featured-image">
-        <div class="container-wide">
-            <div class="featured-image-wrapper">
-                <img src="images/architecture/placeholder-architecture-1.jpg" alt="Modern Apartment Renovation - Main View" loading="eager">
-            </div>
         </div>
     </section>
 
-    <!-- Project Overview -->
+    <!-- Project Gallery -->
+    <div class="project-items">
+        
+        <!-- Single Image Example -->
+        <!-- 
+        <div class="image-wrapper">
+            <img src="{{IMAGE_URL}}" 
+                 alt="{{IMAGE_ALT}}" 
+                 class="image-large"
+                 loading="lazy">
+        </div>
+        -->
+
+        <!-- Row with 2 Images Example -->
+        <!-- 
+        <div class="row-image-wrapper">
+            <div class="image-list">
+                <img src="{{IMAGE_URL_1}}" 
+                     alt="{{IMAGE_ALT_1}}" 
+                     class="image-large"
+                     loading="lazy">
+                <img src="{{IMAGE_URL_2}}" 
+                     alt="{{IMAGE_ALT_2}}" 
+                     class="image-large"
+                     loading="lazy">
+            </div>
+        </div>
+        -->
+
+        {{GALLERY_IMAGES}}
+
+        <!-- Project Description Section -->
+        <section class="description-section">
+            <div class="description-content">
+                <div class="description-block">
+                    <h2 class="project-title">{{PROJECT_TITLE}}</h2>
+                    <div class="meta-detail">{{CATEGORY_FULL}}</div>
+                    <p class="project-desc">{{DESCRIPTION}}</p>
+                </div>
+                <div class="description-block">
+                    <p class="additional-info">{{ADDITIONAL_INFO}}</p>
+                    <div class="meta-detail">Completed {{YEAR}} • {{LOCATION}}</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Back Button -->
     <section class="section">
-        <div class="container-narrow">
-            <div class="project-overview">
-                <h2 class="section-title">Project Overview</h2>
-                <div class="project-description">
-                    <p>
-                        This comprehensive renovation project transformed an outdated 80m² apartment into a modern, functional living space. 
-                        The design focuses on maximizing natural light, creating an open-plan living area, and incorporating 
-                        contemporary materials with a warm, minimalist aesthetic.
-                    </p>
-                    <p>
-                        The client's brief emphasized creating a spacious feel within the compact footprint, integrating smart storage 
-                        solutions, and maintaining a connection to the building's architectural heritage while embracing modern design 
-                        principles.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery -->
-    <section class="section">
-        <div class="container-wide">
-            <h2 class="section-title">Project Gallery</h2>
-            <p class="section-description">Explore the transformation through detailed photography</p>
-            
-            <div class="project-gallery">
-                <!-- Gallery Image 1 -->
-                <div class="gallery-item gallery-item-large">
-                    <img src="images/architecture/placeholder-architecture-1.jpg" alt="Living room overview" loading="lazy">
-                    <div class="gallery-caption">Living Room - Open plan layout with natural light</div>
-                </div>
-                
-                <!-- Gallery Image 2 -->
-                <div class="gallery-item">
-                    <img src="images/architecture/placeholder-architecture-2.jpg" alt="Kitchen detail" loading="lazy">
-                    <div class="gallery-caption">Kitchen - Custom millwork and marble countertops</div>
-                </div>
-                
-                <!-- Gallery Image 3 -->
-                <div class="gallery-item">
-                    <img src="images/architecture/placeholder-architecture-3.jpg" alt="Bedroom view" loading="lazy">
-                    <div class="gallery-caption">Bedroom - Minimalist design with built-in storage</div>
-                </div>
-                
-                <!-- Gallery Image 4 -->
-                <div class="gallery-item">
-                    <img src="images/architecture/placeholder-architecture-1.jpg" alt="Bathroom detail" loading="lazy">
-                    <div class="gallery-caption">Bathroom - Spa-inspired design</div>
-                </div>
-                
-                <!-- Gallery Image 5 -->
-                <div class="gallery-item">
-                    <img src="images/architecture/placeholder-architecture-2.jpg" alt="Hallway storage" loading="lazy">
-                    <div class="gallery-caption">Hallway - Smart storage solutions</div>
-                </div>
-                
-                <!-- Gallery Image 6 -->
-                <div class="gallery-item gallery-item-wide">
-                    <img src="images/architecture/placeholder-architecture-3.jpg" alt="Overall space" loading="lazy">
-                    <div class="gallery-caption">Full apartment view - Cohesive design throughout</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Related Projects -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Related Projects</h2>
-            <p class="section-description">Explore more architecture projects</p>
-            
-            <div class="related-projects-grid">
-                <!-- Related Project 1 -->
-                <article class="project-card">
-                    <a href="../projects/architecture-project-2.html" class="project-card-link">
-                        <div class="project-image">
-                            <img src="images/architecture/placeholder-architecture-2.jpg" alt="Coffee Shop Interior" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <span class="project-category">Commercial</span>
-                            <h3 class="project-title">Coffee Shop Interior</h3>
-                            <p class="project-excerpt">Inviting coffee shop interior blending industrial elements...</p>
-                        </div>
-                    </a>
-                </article>
-                
-                <!-- Related Project 2 -->
-                <article class="project-card">
-                    <a href="../projects/architecture-project-3.html" class="project-card-link">
-                        <div class="project-image">
-                            <img src="images/architecture/placeholder-architecture-3.jpg" alt="Minimalist Studio Loft" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <span class="project-category">Residential</span>
-                            <h3 class="project-title">Minimalist Studio Loft</h3>
-                            <p class="project-excerpt">Studio loft designed for an artist...</p>
-                        </div>
-                    </a>
-                </article>
-                
-                <!-- Related Project 3 -->
-                <article class="project-card">
-                    <a href="architecture.html" class="project-card-link view-all-card">
-                        <div class="view-all-content">
-                            <span class="view-all-icon">→</span>
-                            <h3>View All Projects</h3>
-                            <p>Explore our complete architecture portfolio</p>
-                        </div>
-                    </a>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section section-alt">
-        <div class="container">
-            <div class="cta-box">
-                <h2>Interested in Working Together?</h2>
-                <p>Let's discuss your next architecture or interior design project.</p>
-                <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
-            </div>
+        <div class="container" style="text-align: center;">
+            <a href="../architecture.html" class="btn btn-secondary">← Back to Architecture Portfolio</a>
         </div>
     </section>
 
@@ -244,14 +596,14 @@
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Architecture</h4>
-                        <a href="architecture.html#portfolio">Portfolio</a>
-                        <a href="architecture.html#workflow">My Workflow</a>
+                        <a href="../architecture.html#portfolio">Portfolio</a>
+                        <a href="../architecture.html#workflow">My Workflow</a>
                     </div>
                     
                     <div class="footer-column">
                         <h4>QA & Development</h4>
-                        <a href="coding.html#projects">Projects</a>
-                        <a href="coding.html#games">Game Portfolio</a>
+                        <a href="../coding.html#projects">Projects</a>
+                        <a href="../coding.html#games">Game Portfolio</a>
                     </div>
                     
                     <div class="footer-column">
@@ -265,13 +617,134 @@
             
             <div class="footer-bottom">
                 <p>&copy; 2025 Sketch & Script | Michał Wicherek</p>
-                <p>Built with passion | Hosted on GitHub Pages</p>
+                <p>Hosted on GitHub Pages</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="page-transitions.js"></script>
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <div class="lightbox-nav prev" id="lightbox-prev">‹</div>
+        <img src="" alt="" class="lightbox-image" id="lightbox-image">
+        <div class="lightbox-nav next" id="lightbox-next">›</div>
+        <div class="lightbox-counter" id="lightbox-counter">1 / 1</div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/page-transitions.js"></script>
+    
+    <!-- Lightbox Script -->
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const galleryImages = document.querySelectorAll('.image-large');
+        const heroImage = document.querySelector('.hero-image');
+        
+        // Collect all images (hero + gallery)
+        const allImages = [];
+        if (heroImage) allImages.push(heroImage);
+        galleryImages.forEach(img => allImages.push(img));
+        
+        let currentIndex = 0;
+        
+        // Update lightbox image and counter
+        function updateLightbox(index) {
+            currentIndex = index;
+            const img = allImages[currentIndex];
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${allImages.length}`;
+        }
+        
+        // Open lightbox
+        function openLightbox(index) {
+            updateLightbox(index);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Navigate to next image
+        function nextImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex + 1) % allImages.length;
+            updateLightbox(currentIndex);
+        }
+        
+        // Navigate to previous image
+        function prevImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+            updateLightbox(currentIndex);
+        }
+        
+        // Add click event to all images
+        allImages.forEach((img, index) => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openLightbox(index);
+            });
+        });
+        
+        // Navigation button events
+        lightboxPrev.addEventListener('click', prevImage);
+        lightboxNext.addEventListener('click', nextImage);
+        
+        // Close lightbox when clicking on overlay background
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+        });
+        
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next image
+                    nextImage();
+                } else {
+                    // Swipe right - previous image
+                    prevImage();
+                }
+            }
+        }
+    </script>
 </body>
 </html>
-

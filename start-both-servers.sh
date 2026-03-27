@@ -8,7 +8,7 @@ sleep 1
 echo "🚀 Starting servers..."
 
 # Start CMS in background
-cd /home/michal/Documents/sketchAndScript-cms
+cd /home/michal/Documents/sketch_and_script_cms
 python3 -m http.server 8080 > /dev/null 2>&1 &
 CMS_PID=$!
 
