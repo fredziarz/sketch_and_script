@@ -408,6 +408,7 @@
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--color-text-primary);
+    padding-top: 1.125rem;
 }
 
 .workflow-step p {
