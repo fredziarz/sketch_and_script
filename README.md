@@ -205,7 +205,7 @@ sketchAndScript/              # Main website
 │   └── page-transitions.js
 └── images/                  # Media organized by category
 
-sketchAndScript-cms/         # CMS (separate branch)
+sketch_and_script_cms/       # CMS (separate branch)
 ├── index.html               # CMS interface
 ├── js/                      # CMS logic & modules
 └── css/                     # CMS styles
