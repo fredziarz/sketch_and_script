@@ -128,25 +128,26 @@ export class TemplateGenerator {
         let html = '';
         let i = 0;
 
+        // ponytail: odd gallery count → single first, then pairs (matches lake-apartments.html)
+        if (images.length % 2 === 1) {
+            html += `
+        <div class="image-wrapper">
+            <img src="${images[0]}" alt="${e(captions[0] || 'Gallery image 1')}" class="image-large" loading="lazy">
+        </div>`;
+            i = 1;
+        }
+
         while (i < images.length) {
             const alt = e(captions[i] || `Gallery image ${i + 1}`);
-            if (i + 1 < images.length) {
-                const alt2 = e(captions[i + 1] || `Gallery image ${i + 2}`);
-                html += `
+            const alt2 = e(captions[i + 1] || `Gallery image ${i + 2}`);
+            html += `
         <div class="row-image-wrapper">
             <div class="image-list">
                 <img src="${images[i]}" alt="${alt}" class="image-large" loading="lazy">
                 <img src="${images[i + 1]}" alt="${alt2}" class="image-large" loading="lazy">
             </div>
         </div>`;
-                i += 2;
-            } else {
-                html += `
-        <div class="image-wrapper">
-            <img src="${images[i]}" alt="${alt}" class="image-large" loading="lazy">
-        </div>`;
-                i += 1;
-            }
+            i += 2;
         }
         return html;
     }
