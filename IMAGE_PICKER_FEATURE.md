@@ -81,7 +81,7 @@ Added comprehensive styling for:
 ## Files Modified
 
 ```
-sketchAndScript-cms/
+sketch_and_script_cms/
 ├── js/
 │   ├── cms.js                        [Modified]
 │   └── modules/

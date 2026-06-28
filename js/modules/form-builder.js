@@ -23,7 +23,7 @@ export class FormBuilder {
                     <div class="form-group">
                         <label class="form-label required">URL Slug</label>
                         <input type="text" name="slug" class="form-input" required placeholder="modern-apartment-renovation">
-                        <span class="form-help">Used for the filename (e.g., architecture-project-10.html)</span>
+                        <span class="form-help">Filename slug (e.g. lake-apartments.html)</span>
                     </div>
                 </div>
                 
@@ -133,7 +133,7 @@ export class FormBuilder {
                     <div class="form-group">
                         <label class="form-label required">URL Slug</label>
                         <input type="text" name="slug" class="form-input" required placeholder="ecommerce-test-automation">
-                        <span class="form-help">Used for the filename (e.g., coding-project-2.html)</span>
+                        <span class="form-help">Filename slug (e.g. coding-project-3.html)</span>
                     </div>
                 </div>
                 
@@ -306,7 +306,7 @@ Reporting - Comprehensive test reports"></textarea>
                     <div class="form-group">
                         <label class="form-label required">URL Slug</label>
                         <input type="text" name="slug" class="form-input" required placeholder="pixel-platformer">
-                        <span class="form-help">Used for the filename (e.g., coding-project-game-2.html)</span>
+                        <span class="form-help">Filename slug (e.g. coding-project-game-2.html)</span>
                     </div>
                 </div>
                 

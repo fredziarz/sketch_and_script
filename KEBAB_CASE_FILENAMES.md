@@ -192,9 +192,11 @@ sketch_and_script/
 │       ├── gameplay-demo.jpg
 │       └── character-design.png
 ├── projects/
-│   ├── architecture-project-1.html  (uses ../images/architecture/...)
+│   ├── lake-apartments.html          (architecture, slug-based)
 │   ├── coding-project-1.html         (uses ../images/coding/...)
 │   └── coding-project-game-1.html    (uses ../images/games/...)
+├── data/
+│   └── projects.json                 (architecture portfolio registry)
 └── ...
 ```
 

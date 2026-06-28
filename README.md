@@ -1,51 +1,39 @@
 # CMS - Sketch & Script
 
-Content management for your portfolio.
+Browser CMS for the portfolio at `sketch_and_script`. Generated HTML must match main-site templates.
 
 ## Start
 
 ```bash
-cd /home/michal/Documents/sketchAndScript
+cd /home/michal/Documents/sketch_and_script
 ./start-both-servers.sh
 ```
 
-Opens automatically:
 - CMS: http://localhost:8080
-- Dev Site: http://localhost:8000
+- Dev site: http://localhost:8000
 
-## Stop
+## Publish flow
 
-```bash
-cd /home/michal/Documents/sketchAndScript
-./stop-servers.sh
-```
+1. Create project in CMS (Architecture / Coding / Game)
+2. Images upload to `images/{slug}/` on GitHub
+3. HTML uploads to `projects/{slug}.html`
+4. **Architecture only:** entry merged into `data/projects.json` (portfolio slider reads this)
 
-## Workflow
+## Filename conventions
 
-1. Create project in CMS
-2. Upload files, add content
-3. Click "Dev Site" button → preview changes
-4. Click "Live Site" button → see production
+| Type | Example | Registry |
+|------|---------|----------|
+| Architecture | `lake-apartments.html` | `data/projects.json` |
+| Coding | `coding-project-3.html` | manual card in `coding.html` |
+| Game | `coding-project-game-2.html` | manual card in `coding.html` |
 
-## Buttons
+## Generated architecture pages include
 
-- **🔧 Dev Site** → Local preview (port 8000)
-- **🌐 Live Site** → Production site
+- `css/architecture-gallery.css`
+- `js/architecture-lightbox.js`
+- `js/keyboard-accessibility.js`
+- Skip link, lightbox, hero overlay layout (mir.no style)
 
-## Features
+## Ponytail rule
 
-- Create Architecture/Coding/Game projects
-- Upload images and files
-- Add tags and descriptions
-- Export HTML for deployment
-- LocalStorage persistence
-
-## Deploy
-
-When ready to publish:
-```bash
-cd /home/michal/Documents/sketchAndScript
-./publish.sh
-```
-
-That's it!
+See `.cursor/rules/ponytail.mdc` — keep generator in sync with main repo templates, no duplicate JSON files per project.

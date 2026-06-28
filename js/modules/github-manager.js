@@ -146,15 +146,24 @@ export class GitHubManager {
     async createOrUpdateFile(path, base64Content, filename, sha = null) {
         const url = `https://api.github.com/repos/${this.settings.owner}/${this.settings.repo}/contents/${path}`;
         
+        // Determine commit message based on file type
+        let commitMessage;
+        if (filename.endsWith('.html')) {
+            commitMessage = sha ? `Update project: ${filename}` : `Add project: ${filename}`;
+        } else if (filename.endsWith('.json')) {
+            commitMessage = sha ? `Update data: ${filename}` : `Add data: ${filename}`;
+        } else {
+            commitMessage = sha ? `Update image: ${filename}` : `Upload image: ${filename}`;
+        }
+        
         const body = {
-            message: `Upload image: ${filename}`,
+            message: commitMessage,
             content: base64Content,
             branch: this.settings.branch
         };
 
         if (sha) {
             body.sha = sha;
-            body.message = `Update image: ${filename}`;
         }
 
         const response = await fetch(url, {
@@ -181,36 +190,6 @@ export class GitHubManager {
         }
 
         return await response.json();
-    }
-
-    async createProjectData(projectData, projectFolder) {
-        if (!this.isConfigured()) {
-            throw new Error('GitHub is not configured.');
-        }
-
-        const path = `data/${projectFolder}.json`;
-        const content = JSON.stringify(projectData, null, 2);
-        const base64Content = btoa(unescape(encodeURIComponent(content)));
-
-        try {
-            let sha = null;
-            try {
-                const existingFile = await this.getFileContent(path);
-                sha = existingFile.sha;
-            } catch (e) {
-                // File doesn't exist
-            }
-
-            await this.createOrUpdateFile(path, base64Content, `${projectFolder}.json`, sha);
-            
-            return {
-                success: true,
-                path: path
-            };
-        } catch (error) {
-            console.error('GitHub data upload error:', error);
-            throw new Error(`Failed to upload project data: ${error.message}`);
-        }
     }
 
     async uploadProjectHTML(html, projectSlug) {
@@ -273,8 +252,12 @@ export class GitHubManager {
             );
 
             if (existingIndex >= 0) {
-                // Update existing project
-                projects[existingIndex] = newProject;
+                const existing = projects[existingIndex];
+                projects[existingIndex] = {
+                    ...existing,
+                    ...newProject,
+                    createdAt: existing.createdAt || newProject.createdAt
+                };
             } else {
                 // Add new project to the beginning
                 projects.unshift(newProject);

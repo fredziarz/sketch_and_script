@@ -117,277 +117,106 @@ class CMS {
     }
 
     attachFormHandlers() {
-        // Architecture Form
         document.getElementById('architectureForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            await this.handleArchitectureSubmit(e.target);
+            await this.publishProject(e.target, 'architecture');
         });
-        
-        // Coding Form
+
         document.getElementById('codingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            await this.handleCodingSubmit(e.target);
+            await this.publishProject(e.target, 'coding');
         });
-        
-        // Game Form
+
         document.getElementById('gameForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            await this.handleGameSubmit(e.target);
+            await this.publishProject(e.target, 'game');
         });
     }
 
-    async handleArchitectureSubmit(form) {
+    buildProjectsJsonEntry(projectData, projectSlug, projectFolder) {
+        return {
+            title: projectData.title,
+            slug: projectSlug,
+            subtitle: projectData.subtitle || '',
+            category: (projectData.category || 'other').toLowerCase(),
+            overview: projectData.overview || projectData.description || '',
+            location: projectData.location || '',
+            year: projectData.year || '',
+            imageUrls: projectData.imageUrls || [],
+            imagePaths: projectData.imagePaths || [],
+            type: 'architecture',
+            folder: projectFolder,
+            htmlUrl: `projects/${projectSlug}.html`,
+            createdAt: new Date().toISOString()
+        };
+    }
+
+    async publishProject(form, type) {
         const formData = new FormData(form);
-        const projectData = this.forms.extractFormData(formData, 'architecture');
-        
-        // Generate project folder name from title
+        const projectData = this.forms.extractFormData(formData, type);
+
         const projectFolder = this.github.generateProjectFolderName(projectData.title || 'project');
-        const projectSlug = projectData.slug || projectFolder;
-        
-        // Show uploading message
+        const projectSlug = this.github.generateProjectFolderName(projectData.slug || projectData.title || 'project');
+
         this.ui.showToast('⏳ Uploading to GitHub...');
-        
+
         try {
-            // Upload images to GitHub if there are any
-            if (projectData.images && projectData.images.length > 0) {
+            if (projectData.images?.length) {
                 const uploadResults = await this.github.uploadMultipleImages(
-                    projectData.images, 
+                    projectData.images,
                     projectFolder
                 );
-                
-                // Replace local file objects with GitHub URLs
+
                 projectData.imageUrls = uploadResults
                     .filter(r => r.success)
                     .map(r => r.url);
-                
                 projectData.imagePaths = uploadResults
                     .filter(r => r.success)
                     .map(r => r.path);
-                
-                // Check for failures
+
                 const failures = uploadResults.filter(r => !r.success);
-                if (failures.length > 0) {
+                if (failures.length) {
                     console.warn('Some images failed to upload:', failures);
                 }
             }
-            
-            // Generate HTML from template
-            const html = this.templates.generateArchitectureProject(projectData);
-            
-            if (this.github.isConfigured()) {
-                // Upload HTML page to GitHub
-                this.ui.showToast('⏳ Uploading HTML page...');
-                await this.github.uploadProjectHTML(html, projectSlug);
-                
-                // Save project data JSON
-                await this.github.createProjectData({
-                    ...projectData,
-                    type: 'architecture',
-                    createdAt: new Date().toISOString(),
-                    folder: projectFolder,
-                    slug: projectSlug,
-                    htmlUrl: `projects/${projectSlug}.html`
-                }, projectFolder);
-                
-                // Update master projects list
-                this.ui.showToast('⏳ Updating project list...');
-                await this.github.updateProjectsList({
-                    title: projectData.title,
-                    slug: projectSlug,
-                    folder: projectFolder,
-                    type: 'architecture',
-                    subtitle: projectData.subtitle,
-                    category: projectData.category,
-                    year: projectData.year,
-                    location: projectData.location,
-                    featuredImage: projectData.imageUrls ? projectData.imageUrls[0] : null,
-                    htmlUrl: `projects/${projectSlug}.html`,
-                    createdAt: new Date().toISOString()
-                });
-            }
-            
-            // Save project locally
-            const project = {
-                id: Date.now().toString(),
-                type: 'architecture',
-                data: projectData,
-                html: html,
-                folder: projectFolder,
-                slug: projectSlug,
-                createdAt: new Date().toISOString()
-            };
-            
-            this.data.saveProject(project);
-            
-            // Show success message
-            this.ui.showToast('✅ Project published to GitHub!');
-            
-            // Download HTML file (for backup)
-            this.downloadProjectFile(project);
-            
-            // Reset form
-            form.reset();
-            
-            // Return to dashboard
-            setTimeout(() => {
-                document.querySelector('[data-view="dashboard"]').click();
-            }, 1500);
-            
-        } catch (error) {
-            console.error('Error creating project:', error);
-            this.ui.showToast(`❌ Error: ${error.message}`);
-        }
-    }
 
-    async handleCodingSubmit(form) {
-        const formData = new FormData(form);
-        const projectData = this.forms.extractFormData(formData, 'coding');
-        
-        const projectFolder = this.github.generateProjectFolderName(projectData.title || 'project');
-        const projectSlug = projectData.slug || projectFolder;
-        this.ui.showToast('⏳ Uploading to GitHub...');
-        
-        try {
-            if (projectData.images && projectData.images.length > 0) {
-                const uploadResults = await this.github.uploadMultipleImages(
-                    projectData.images, 
-                    projectFolder
-                );
-                
-                projectData.imageUrls = uploadResults
-                    .filter(r => r.success)
-                    .map(r => r.url);
-                projectData.imagePaths = uploadResults
-                    .filter(r => r.success)
-                    .map(r => r.path);
-            }
-            
-            const html = this.templates.generateCodingProject(projectData);
-            
-            if (this.github.isConfigured()) {
-                this.ui.showToast('⏳ Uploading HTML page...');
-                await this.github.uploadProjectHTML(html, projectSlug);
-                
-                await this.github.createProjectData({
-                    ...projectData,
-                    type: 'coding',
-                    createdAt: new Date().toISOString(),
-                    folder: projectFolder,
-                    slug: projectSlug,
-                    htmlUrl: `projects/${projectSlug}.html`
-                }, projectFolder);
-                
-                this.ui.showToast('⏳ Updating project list...');
-                await this.github.updateProjectsList({
-                    title: projectData.title,
-                    slug: projectSlug,
-                    folder: projectFolder,
-                    type: 'coding',
-                    subtitle: projectData.subtitle,
-                    technologies: projectData.technologies,
-                    featuredImage: projectData.imageUrls ? projectData.imageUrls[0] : null,
-                    htmlUrl: `projects/${projectSlug}.html`,
-                    createdAt: new Date().toISOString()
-                });
-            }
-            
-            const project = {
-                id: Date.now().toString(),
-                type: 'coding',
-                data: projectData,
-                html: html,
-                folder: projectFolder,
-                slug: projectSlug,
-                createdAt: new Date().toISOString()
-            };
-            
-            this.data.saveProject(project);
-            this.ui.showToast('✅ Project published to GitHub!');
-            this.downloadProjectFile(project);
-            form.reset();
-            
-            setTimeout(() => {
-                document.querySelector('[data-view="dashboard"]').click();
-            }, 1500);
-            
-        } catch (error) {
-            console.error('Error creating project:', error);
-            this.ui.showToast(`❌ Error: ${error.message}`);
-        }
-    }
+            const html = type === 'architecture'
+                ? this.templates.generateArchitectureProject(projectData)
+                : type === 'coding'
+                    ? this.templates.generateCodingProject(projectData)
+                    : this.templates.generateGameProject(projectData);
 
-    async handleGameSubmit(form) {
-        const formData = new FormData(form);
-        const projectData = this.forms.extractFormData(formData, 'game');
-        
-        const projectFolder = this.github.generateProjectFolderName(projectData.title || 'project');
-        const projectSlug = projectData.slug || projectFolder;
-        this.ui.showToast('⏳ Uploading to GitHub...');
-        
-        try {
-            if (projectData.images && projectData.images.length > 0) {
-                const uploadResults = await this.github.uploadMultipleImages(
-                    projectData.images, 
-                    projectFolder
-                );
-                
-                projectData.imageUrls = uploadResults
-                    .filter(r => r.success)
-                    .map(r => r.url);
-                projectData.imagePaths = uploadResults
-                    .filter(r => r.success)
-                    .map(r => r.path);
-            }
-            
-            const html = this.templates.generateGameProject(projectData);
-            
             if (this.github.isConfigured()) {
                 this.ui.showToast('⏳ Uploading HTML page...');
                 await this.github.uploadProjectHTML(html, projectSlug);
-                
-                await this.github.createProjectData({
-                    ...projectData,
-                    type: 'game',
-                    createdAt: new Date().toISOString(),
-                    folder: projectFolder,
-                    slug: projectSlug,
-                    htmlUrl: `projects/${projectSlug}.html`
-                }, projectFolder);
-                
-                this.ui.showToast('⏳ Updating project list...');
-                await this.github.updateProjectsList({
-                    title: projectData.title,
-                    slug: projectSlug,
-                    folder: projectFolder,
-                    type: 'game',
-                    subtitle: projectData.subtitle,
-                    genre: projectData.genre,
-                    engine: projectData.engine,
-                    featuredImage: projectData.imageUrls ? projectData.imageUrls[0] : null,
-                    htmlUrl: `projects/${projectSlug}.html`,
-                    createdAt: new Date().toISOString()
-                });
+
+                if (type === 'architecture') {
+                    this.ui.showToast('⏳ Updating project list...');
+                    await this.github.updateProjectsList(
+                        this.buildProjectsJsonEntry(projectData, projectSlug, projectFolder)
+                    );
+                }
             }
-            
+
             const project = {
                 id: Date.now().toString(),
-                type: 'game',
+                type,
                 data: projectData,
-                html: html,
+                html,
                 folder: projectFolder,
                 slug: projectSlug,
                 createdAt: new Date().toISOString()
             };
-            
+
             this.data.saveProject(project);
             this.ui.showToast('✅ Project published to GitHub!');
             this.downloadProjectFile(project);
             form.reset();
-            
+
             setTimeout(() => {
                 document.querySelector('[data-view="dashboard"]').click();
             }, 1500);
-            
+
         } catch (error) {
             console.error('Error creating project:', error);
             this.ui.showToast(`❌ Error: ${error.message}`);
@@ -395,7 +224,7 @@ class CMS {
     }
 
     downloadProjectFile(project) {
-        const filename = `${project.data.slug || 'project'}.html`;
+        const filename = `${project.slug || 'project'}.html`;
         const blob = new Blob([project.html], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         
@@ -570,7 +399,7 @@ class CMS {
     setupEventListeners() {
         // View Dev Site button - opens local development server
         document.getElementById('viewDevBtn')?.addEventListener('click', () => {
-            window.open('http://localhost:8000?highlight=new', '_blank');
+            window.open('http://localhost:8000', '_blank');
         });
         
         // View Live Site button - opens production website
