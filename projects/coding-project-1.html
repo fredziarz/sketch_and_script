@@ -31,6 +31,7 @@
     </script>
 </head>
 <body class="coding-theme">
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav" id="navbar">
         <div class="nav-container">
@@ -45,18 +46,18 @@
                 <a href="../coding.html" class="nav-link active">QA & Development</a>
             </div>
             
-            <div class="nav-toggle" id="nav-toggle">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- Breadcrumb -->
     <section class="breadcrumb-section">
         <div class="container">
-            <nav class="breadcrumb">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="../index.html">Home</a>
                 <span>/</span>
                 <a href="../coding.html">QA & Development</a>
@@ -66,6 +67,7 @@
         </div>
     </section>
 
+    <main id="main-content">
     <!-- Project Hero -->
     <section class="project-hero">
         <div class="container">
@@ -97,13 +99,9 @@
                 </div>
                 
                 <div class="project-links">
-                    <a href="https://github.com/fredziarz" target="_blank" class="btn btn-primary">
+                    <a href="https://github.com/fredziarz" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                         <span>View on GitHub</span>
                         <span class="btn-icon">↗</span>
-                    </a>
-                    <a href="#" class="btn btn-secondary">
-                        <span>Live Demo</span>
-                        <span class="btn-icon">→</span>
                     </a>
                 </div>
             </div>
@@ -351,21 +349,7 @@ def test_successful_checkout(driver, test_data):
             <p class="section-description">Explore more QA & development projects</p>
             
             <div class="related-projects-grid">
-                <!-- Related Project 1 -->
-                <article class="project-card">
-                    <a href="coding-project-2.html" class="project-card-link">
-                        <div class="project-image">
-                            <img src="../images/coding/placeholder-coding-2.jpg" alt="API Testing Suite" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <span class="project-category">API Testing</span>
-                            <h3 class="project-title">REST API Test Suite</h3>
-                            <p class="project-excerpt">Comprehensive API testing framework...</p>
-                        </div>
-                    </a>
-                </article>
-                
-                <!-- Related Project 2 -->
+                <!-- Related Project -->
                 <article class="game-card">
                     <a href="coding-project-game-1.html" class="project-card-link">
                         <div class="game-image">
@@ -405,6 +389,7 @@ def test_successful_checkout(driver, test_data):
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -445,6 +430,7 @@ def test_successful_checkout(driver, test_data):
     </footer>
 
     <script src="../js/script.js"></script>
+    <script src="../js/keyboard-accessibility.js"></script>
     <script src="../js/page-transitions.js"></script>
 </body>
 </html>

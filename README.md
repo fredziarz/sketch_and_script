@@ -96,6 +96,10 @@ Architecture projects use a clean, mir.no-inspired gallery design with these fea
 
 **Template Location:** `templates/architecture-project-template.html`
 
+**Shared assets (link from generated pages, do not inline):**
+- `css/architecture-gallery.css` — gallery layout and hero styles
+- `js/architecture-lightbox.js` — fullscreen lightbox (touch, keyboard, swipe)
+
 ---
 
 ## 🚀 For Developers - CMS Workflow
@@ -163,10 +167,11 @@ Click **"New Project"** button, choose type:
 
 1. Click **"Generate HTML"** button
 2. Click **"Download HTML"**
-3. Save as `projects/[type]-project-[number].html`
-   - Architecture: `architecture-project-10.html`
-   - Coding: `coding-project-3.html`
-   - Game: `coding-project-game-2.html`
+3. Save the project page under `projects/`:
+   - **Architecture:** slug-based name, e.g. `lake-apartments.html` (from project slug)
+   - **Coding:** `coding-project-3.html`
+   - **Game:** `coding-project-game-2.html`
+4. **Architecture only:** add an entry to `data/projects.json` — the architecture portfolio (`architecture.html`) loads cards from this file via `load-projects.js`. Do not add hardcoded cards to `architecture.html`.
 
 ### 6. Preview
 
@@ -189,18 +194,24 @@ sketchAndScript/              # Main website
 ├── stop-servers.sh          # Stop servers
 ├── publish.sh               # Deploy to production
 ├── index.html               # Split homepage
-├── architecture.html        # Architecture portfolio
+├── architecture.html        # Architecture portfolio (cards from data/projects.json)
 ├── coding.html              # Coding portfolio
+├── data/
+│   └── projects.json        # Architecture project list for load-projects.js
 ├── projects/                # Individual project pages
-│   ├── architecture-project-*.html
+│   ├── lake-apartments.html # Architecture (slug-based)
 │   └── coding-project-*.html
-├── css/                     # Theming & responsive design
+├── css/
 │   ├── styles.css           # Core styles
-│   ├── architecture-theme.css  # Light theme
-│   ├── coding-theme.css     # Dark theme
-│   └── project-slider.css   # Image galleries
-├── js/                      # Interactive functionality
+│   ├── architecture-theme.css
+│   ├── architecture-gallery.css  # Architecture project gallery
+│   ├── coding-theme.css
+│   └── project-slider.css
+├── js/
 │   ├── script.js
+│   ├── load-projects.js     # Architecture portfolio from JSON
+│   ├── project-filters.js   # Coding portfolio filters
+│   ├── architecture-lightbox.js
 │   ├── keyboard-accessibility.js
 │   └── page-transitions.js
 └── images/                  # Media organized by category
@@ -232,7 +243,7 @@ sketch_and_script_cms/       # CMS (separate branch)
 
 - **Pure HTML5/CSS3/JavaScript** - No dependencies, no build process
 - **mir.no-inspired gallery** - Clean vertical scroll design for architecture projects
-- **Custom lightbox system** - Touch, swipe, and keyboard navigation
+- **Custom lightbox** — `js/architecture-lightbox.js` + `css/architecture-gallery.css`
 - **PT Sans typography** - Clean, professional, readable
 - **GitHub Pages** - Free, reliable hosting
 - **Custom domain** - Professional presence
@@ -247,10 +258,9 @@ sketch_and_script_cms/       # CMS (separate branch)
 - CMS converts to base64 (no separate image files needed)
 - Add descriptive captions for accessibility
 
-### Project Numbers
-- Check existing files in `projects/` folder
-- Use next available number
-- Format: `[type]-project-[number].html`
+### Project Numbers & Names
+- **Architecture:** use a URL slug (`lake-apartments.html`) and register in `data/projects.json`
+- **Coding / games:** check `projects/` for the next number — `coding-project-N.html`, `coding-project-game-N.html`
 
 ### Testing
 - Always preview in Dev Site before deploying
@@ -337,7 +347,7 @@ This portfolio can serve as a template for others. Key learnings:
 
 **Repository:** [github.com/fredziarz/sketch_and_script](https://github.com/fredziarz/sketch_and_script)
 
-**Architecture Template:** See `templates/architecture-project-template.html` for the complete gallery system with lightbox, responsive design, and all placeholders documented.
+**Architecture Template:** See `templates/architecture-project-template.html`. Gallery CSS/JS live in `css/architecture-gallery.css` and `js/architecture-lightbox.js`.
 
 ---
 

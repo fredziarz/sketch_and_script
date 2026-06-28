@@ -149,28 +149,26 @@
     // ===================================
     
     function addKeyboardShortcuts() {
+        const root = window.location.pathname.includes('/projects/') ? '../' : '';
+
         document.addEventListener('keydown', function(e) {
-            // Don't activate if user is typing in input/textarea
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
                 return;
             }
             
-            // Alt + H for Home
             if (e.altKey && e.key === 'h') {
                 e.preventDefault();
-                window.location.href = 'index.html';
+                window.location.href = root + 'index.html';
             }
             
-            // Alt + A for Architecture
             if (e.altKey && e.key === 'a') {
                 e.preventDefault();
-                window.location.href = 'architecture.html';
+                window.location.href = root + 'architecture.html';
             }
             
-            // Alt + C for Coding
             if (e.altKey && e.key === 'c') {
                 e.preventDefault();
-                window.location.href = 'coding.html';
+                window.location.href = root + 'coding.html';
             }
             
             // / to focus search/filter (if exists)
