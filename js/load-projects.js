@@ -58,11 +58,10 @@ class ProjectLoader {
             const card = this.createProjectCard(project);
             this.projectsTrack.appendChild(card);
         });
-        
-        // Trigger custom event to notify slider that projects are loaded
         window.dispatchEvent(new CustomEvent('projectsLoaded', {
             detail: { count: filteredProjects.length }
         }));
+        window.reinitTransitions?.();
     }
 
     filterProjects() {
@@ -143,13 +142,20 @@ class ProjectLoader {
     }
 
     setupFilters() {
+        this.filterButtons.forEach(btn => {
+            btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
+        });
+
         this.filterButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Update active state
-                this.filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
                 button.classList.add('active');
+                button.setAttribute('aria-pressed', 'true');
                 
                 // Update filter and re-render
                 this.currentFilter = button.getAttribute('data-filter');

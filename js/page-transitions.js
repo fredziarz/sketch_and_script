@@ -55,8 +55,9 @@ function navigateWithFallback(url) {
  * Intercept all internal link clicks for smooth transitions
  */
 function initPageTransitions() {
-    // Get all internal links
-    const links = document.querySelectorAll('a[href^="/"]:not([target="_blank"]), a[href^="./"]:not([target="_blank"]), a[href^="index.html"], a[href^="architecture.html"], a[href^="coding.html"]');
+    const links = document.querySelectorAll(
+        'a[href*=".html"]:not([href^="http"]):not([href^="//"]):not([target="_blank"])'
+    );
     
     links.forEach(link => {
         // Skip if already has transition handler
@@ -111,24 +112,27 @@ function initPageLoadAnimation() {
  * Initialize smooth scrolling for anchor links
  */
 function initSmoothScroll() {
+    const navbar = document.getElementById('navbar');
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            
-            // Skip if just "#"
+
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 e.preventDefault();
-                
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+
+                const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
-                
-                // Update URL without jumping
+
                 history.pushState(null, null, targetId);
             }
         });

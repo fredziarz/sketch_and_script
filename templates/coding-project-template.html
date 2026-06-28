@@ -10,10 +10,10 @@
     <meta name="description" content="[Project Name] - QA Engineering & Development">
     <title>[Project Name] | Sketch & Script</title>
     
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="coding-theme.css">
-    <link rel="stylesheet" href="project-pages.css">
-    <link rel="stylesheet" href="page-transitions.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/coding-theme.css">
+    <link rel="stylesheet" href="../css/project-pages.css">
+    <link rel="stylesheet" href="../css/page-transitions.css">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,7 @@
     </script>
 </head>
 <body class="coding-theme">
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
     <!-- Navigation -->
     <nav class="nav" id="navbar">
         <div class="nav-container">
@@ -40,32 +41,33 @@
             </a>
             
             <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="architecture.html" class="nav-link">Architecture</a>
-                <a href="coding.html" class="nav-link active">QA & Development</a>
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../architecture.html" class="nav-link">Architecture</a>
+                <a href="../coding.html" class="nav-link active">QA & Development</a>
             </div>
             
-            <div class="nav-toggle" id="nav-toggle">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- Breadcrumb -->
     <section class="breadcrumb-section">
         <div class="container">
-            <nav class="breadcrumb">
-                <a href="index.html">Home</a>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="../index.html">Home</a>
                 <span>/</span>
-                <a href="coding.html">QA & Development</a>
+                <a href="../coding.html">QA & Development</a>
                 <span>/</span>
                 <span class="current">[Project Name]</span>
             </nav>
         </div>
     </section>
 
+    <main id="main-content">
     <!-- Project Hero -->
     <section class="project-hero">
         <div class="container">
@@ -97,13 +99,9 @@
                 </div>
                 
                 <div class="project-links">
-                    <a href="https://github.com/fredziarz" target="_blank" class="btn btn-primary">
+                    <a href="https://github.com/fredziarz" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                         <span>View on GitHub</span>
                         <span class="btn-icon">↗</span>
-                    </a>
-                    <a href="#" class="btn btn-secondary">
-                        <span>Live Demo</span>
-                        <span class="btn-icon">→</span>
                     </a>
                 </div>
             </div>
@@ -319,25 +317,25 @@ def test_successful_checkout(driver, test_data):
             <div class="project-gallery">
                 <!-- Screenshot 1 -->
                 <div class="gallery-item gallery-item-large">
-                    <img src="images/coding/placeholder-coding-1.jpg" alt="Test Report Dashboard" loading="lazy">
+                    <img src="../images/coding/placeholder-coding-1.jpg" alt="Test Report Dashboard" loading="lazy">
                     <div class="gallery-caption">Test Report Dashboard - Overall test execution status</div>
                 </div>
                 
                 <!-- Screenshot 2 -->
                 <div class="gallery-item">
-                    <img src="images/coding/placeholder-coding-2.jpg" alt="CI/CD Pipeline" loading="lazy">
+                    <img src="../images/coding/placeholder-coding-2.jpg" alt="CI/CD Pipeline" loading="lazy">
                     <div class="gallery-caption">Jenkins Pipeline - Automated test execution</div>
                 </div>
                 
                 <!-- Screenshot 3 -->
                 <div class="gallery-item">
-                    <img src="images/coding/placeholder-coding-3.jpg" alt="Test Coverage" loading="lazy">
+                    <img src="../images/coding/placeholder-coding-3.jpg" alt="Test Coverage" loading="lazy">
                     <div class="gallery-caption">Coverage Report - 85% test coverage achieved</div>
                 </div>
                 
                 <!-- Screenshot 4 -->
                 <div class="gallery-item gallery-item-wide">
-                    <img src="images/coding/placeholder-coding-1.jpg" alt="Framework Architecture" loading="lazy">
+                    <img src="../images/coding/placeholder-coding-1.jpg" alt="Framework Architecture" loading="lazy">
                     <div class="gallery-caption">Framework Architecture - Page Object Model design</div>
                 </div>
             </div>
@@ -351,25 +349,10 @@ def test_successful_checkout(driver, test_data):
             <p class="section-description">Explore more QA & development projects</p>
             
             <div class="related-projects-grid">
-                <!-- Related Project 1 -->
-                <article class="project-card">
-                    <a href="../projects/coding-project-2.html" class="project-card-link">
-                        <div class="project-image">
-                            <img src="images/coding/placeholder-coding-2.jpg" alt="API Testing Suite" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <span class="project-category">API Testing</span>
-                            <h3 class="project-title">REST API Test Suite</h3>
-                            <p class="project-excerpt">Comprehensive API testing framework...</p>
-                        </div>
-                    </a>
-                </article>
-                
-                <!-- Related Project 2 -->
                 <article class="game-card">
-                    <a href="../projects/coding-project-game-1.html" class="project-card-link">
+                    <a href="coding-project-game-1.html" class="project-card-link">
                         <div class="game-image">
-                            <img src="images/games/placeholder-game-1.jpg" alt="Pixel Platformer" loading="lazy">
+                            <img src="../images/games/placeholder-game-1.jpg" alt="Pixel Platformer" loading="lazy">
                         </div>
                         <div class="game-info">
                             <h3 class="game-title">Pixel Platformer</h3>
@@ -383,7 +366,7 @@ def test_successful_checkout(driver, test_data):
                 
                 <!-- Related Project 3 -->
                 <article class="project-card">
-                    <a href="coding.html" class="project-card-link view-all-card">
+                    <a href="../coding.html" class="project-card-link view-all-card">
                         <div class="view-all-content">
                             <span class="view-all-icon">→</span>
                             <h3>View All Projects</h3>
@@ -401,10 +384,11 @@ def test_successful_checkout(driver, test_data):
             <div class="cta-box">
                 <h2>Let's Collaborate</h2>
                 <p>Looking for QA expertise or test automation? Get in touch to discuss your project.</p>
-                <a href="index.html#contact" class="btn btn-primary">Contact Me</a>
+                <a href="../index.html#contact" class="btn btn-primary">Contact Me</a>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -418,14 +402,14 @@ def test_successful_checkout(driver, test_data):
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Architecture</h4>
-                        <a href="architecture.html#portfolio">Portfolio</a>
-                        <a href="architecture.html#workflow">My Workflow</a>
+                        <a href="../architecture.html#portfolio">Portfolio</a>
+                        <a href="../architecture.html#workflow">My Workflow</a>
                     </div>
                     
                     <div class="footer-column">
                         <h4>QA & Development</h4>
-                        <a href="coding.html#projects">Projects</a>
-                        <a href="coding.html#games">Game Portfolio</a>
+                        <a href="../coding.html#projects">Projects</a>
+                        <a href="../coding.html#games">Game Portfolio</a>
                     </div>
                     
                     <div class="footer-column">
@@ -444,8 +428,9 @@ def test_successful_checkout(driver, test_data):
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="page-transitions.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/keyboard-accessibility.js"></script>
+    <script src="../js/page-transitions.js"></script>
 </body>
 </html>
 

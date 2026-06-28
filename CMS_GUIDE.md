@@ -173,6 +173,16 @@ You can still manually enter image paths:
 
 ### Format
 
+**Architecture** (slug-based, matches `data/projects.json`):
+
+```
+[slug].html
+```
+
+Example: `lake-apartments.html`
+
+**Coding / games** (numbered):
+
 ```
 [type]-project-[number].html
 ```
@@ -180,7 +190,7 @@ You can still manually enter image paths:
 ### Rules
 
 **✅ CORRECT:**
-- `architecture-project-10.html`
+- `lake-apartments.html` (architecture)
 - `coding-project-3.html`
 - `coding-project-game-2.html`
 
@@ -190,22 +200,18 @@ You can still manually enter image paths:
 - `architecture project 10.html` (❌ Spaces)
 - `arch-proj-10.html` (❌ Abbreviations)
 - `project-10.html` (❌ Missing type)
-- `architecture-10.html` (❌ Missing "project")
-- `my-cool-project.html` (❌ Custom name)
+- `my-cool-project.html` (❌ Custom name without slug convention)
 
-### Find Next Number
+### Find Next Number (coding / games only)
 
 ```bash
-# Count existing projects
-ls projects/architecture-project-*.html | wc -l
-
-# List all
-ls projects/
+ls projects/coding-project-*.html
+ls projects/coding-project-game-*.html
 ```
 
 ### Type Prefixes
 
-- **Architecture projects:** `architecture-project-N.html`
+- **Architecture projects:** `[slug].html` + entry in `data/projects.json`
 - **Coding projects:** `coding-project-N.html`
 - **Game projects:** `coding-project-game-N.html`
 
@@ -221,8 +227,8 @@ ls projects/
 
 | Wrong | Right | Why |
 |-------|-------|-----|
-| `Apartment.html` | `architecture-project-10.html` | Missing type & number |
-| `project_11.html` | `architecture-project-11.html` | Underscores, missing type |
+| `Apartment.html` | `lake-apartments.html` | Use slug; register in `data/projects.json` |
+| `project_11.html` | `coding-project-11.html` | Underscores, missing type |
 | `CODING-PROJECT-5.html` | `coding-project-5.html` | All caps |
 | `game-1.html` | `coding-project-game-1.html` | Missing "project" |
 
@@ -232,28 +238,24 @@ ls projects/
 
 ### Architecture Projects
 
-**Edit:** `architecture.html`
+**1. Add entry to** `data/projects.json` (title, slug, category, imageUrls, htmlUrl, createdAt).
 
-**Find:** `<div class="projects-grid" id="projects-grid">`
+**2. Save generated page as** `projects/[slug].html` (e.g. `projects/lake-apartments.html`).
 
-**Add at top:**
-```html
-<article class="project-card" data-category="residential" data-tags="modern,interior">
-    <a href="projects/architecture-project-10.html" class="project-link">
-        <div class="project-image">
-            <img src="images/architecture/project10-cover.jpg" alt="Modern Apartment">
-        </div>
-        <div class="project-info">
-            <h3>Modern Apartment Redesign</h3>
-            <p class="project-year">2024</p>
-            <p class="project-description">Contemporary transformation maximizing light.</p>
-            <div class="project-tags">
-                <span class="tag">Modern</span>
-                <span class="tag">Interior</span>
-            </div>
-        </div>
-    </a>
-</article>
+The portfolio slider on `architecture.html` is filled automatically by `load-projects.js` — do not add hardcoded `<article class="project-card">` blocks there.
+
+Example JSON entry:
+
+```json
+{
+  "title": "Lake Apartments",
+  "slug": "lake-apartments",
+  "category": "residential",
+  "imageUrls": ["https://…/lake-apartments-aerial-view.jpg"],
+  "type": "architecture",
+  "htmlUrl": "projects/lake-apartments.html",
+  "createdAt": "2026-02-16T12:00:00.000Z"
+}
 ```
 
 ### Coding Projects
@@ -396,8 +398,8 @@ pkill -f 'python3 -m http.server'
 # Stop
 ./stop-servers.sh
 
-# Count projects
-ls projects/architecture-project-*.html | wc -l
+# List project pages
+ls projects/
 
 # Deploy
 ./publish.sh
@@ -410,7 +412,7 @@ ls projects/architecture-project-*.html | wc -l
 
 ### File Naming
 ```
-architecture-project-[N].html
+[slug].html                    # architecture (+ data/projects.json)
 coding-project-[N].html
 coding-project-game-[N].html
 ```
