@@ -1,0 +1,37 @@
+---
+description: Architecture project pages — gallery layout and file conventions
+globs: projects/*.html,templates/architecture-project-template.html,data/projects.json
+alwaysApply: false
+---
+
+# Architecture project pages
+
+Reference implementation: `projects/lake-apartments.html`. New pages must match its structure, not the legacy `project-pages.css` layout.
+
+## Required structure
+
+1. **CSS/JS** — link `architecture-gallery.css` and `architecture-lightbox.js`. Do **not** use `project-pages.css`, breadcrumbs, `project-hero`, or `project-gallery` grid.
+2. **Hero** — `section.hero-image-section` with first image + `project-info-overlay` (category badge, title, subtitle, location/year meta).
+3. **Gallery** — inside `div.project-items`, **before** `section.description-section`:
+   - Single: `div.image-wrapper` > `img.image-large`
+   - Pair: `div.row-image-wrapper` > `div.image-list` > two `img.image-large`
+4. **Description** — `section.description-section` with two `description-block` columns (title, category, main text | additional italic text, location/year footer).
+5. **Lightbox** — `#lightbox` overlay + four scripts: `script.js`, `keyboard-accessibility.js`, `page-transitions.js`, `architecture-lightbox.js`.
+
+## Gallery image order
+
+First image = hero. Remaining images in gallery:
+
+- **Odd count** → one single image, then rows of two (see lake-apartments: 1 single + 1 pair for 3 gallery images).
+- **Even count** → rows of two only.
+
+## File naming & registry
+
+- HTML: `projects/[slug].html` (kebab-case, e.g. `st-clare.html` — never spaces or `St Clare.html`).
+- Images: `images/[slug]/` folder.
+- Register in `data/projects.json` with `slug`, `imageUrls`, `imagePaths`, `htmlUrl`, `type: "architecture"`.
+- Portfolio cards load from JSON via `load-projects.js` — do not hardcode cards in `architecture.html`.
+
+## CMS sync
+
+CMS generator lives in `sketch_and_script_cms/js/modules/template-generator.js`. Keep it aligned with this template when changing layout.

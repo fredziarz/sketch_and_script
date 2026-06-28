@@ -146,6 +146,20 @@ You can still manually enter image paths:
 - Coding: 3-6 screenshots
 - Games: 6-12 screenshots
 
+### Architecture gallery layout
+
+Reference page: `projects/lake-apartments.html`. Generated pages must use `architecture-gallery.css` (not `project-pages.css`).
+
+**Structure:** hero image → gallery images → description section → back button.
+
+**Gallery order** (images after hero):
+- Odd count: one single full-width image, then rows of two
+- Even count: rows of two only
+
+Example (3 gallery images): single → pair. Example (5 gallery images): single → pair → pair.
+
+See `.cursor/rules/architecture-projects.mdc` for the full checklist.
+
 ### Files (Optional)
 
 **Click "Add File"**

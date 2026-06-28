@@ -1,24 +1,9 @@
 <!DOCTYPE html>
-<!--
-  Architecture Project Template — mirror projects/lake-apartments.html
-
-  PLACEHOLDERS:
-  {{PROJECT_TITLE}}, {{SUBTITLE}}, {{CATEGORY}}, {{CATEGORY_FULL}},
-  {{LOCATION}}, {{YEAR}}, {{HERO_IMAGE_URL}}, {{GALLERY_IMAGES}},
-  {{DESCRIPTION}}, {{ADDITIONAL_INFO}}
-
-  Gallery layout (after hero): odd count → one single image, then pairs;
-  even count → pairs only. See .cursor/rules/architecture-projects.mdc
-
-  Required assets (do not inline — link these):
-  - css/architecture-gallery.css
-  - js/architecture-lightbox.js
--->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{PROJECT_TITLE}} | Sketch & Script</title>
+    <title>St Clare | Sketch & Script</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/architecture-theme.css">
     <link rel="stylesheet" href="../css/page-transitions.css">
@@ -26,7 +11,8 @@
 </head>
 <body class="architecture-theme">
     <a href="#main-content" class="skip-nav">Skip to main content</a>
-  <nav class="nav" id="navbar">
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
         <div class="nav-container">
             <a href="../index.html" class="nav-logo">
                 <img src="../images/arch-icon.png" alt="" class="logo-icon">
@@ -50,78 +36,86 @@
     </nav>
 
     <main id="main-content">
+    <!-- Hero Image Section -->
     <section class="hero-image-section">
-        <img src="{{HERO_IMAGE_URL}}" 
-             alt="{{PROJECT_TITLE}}" 
+        <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-6.jpg" 
+             alt="St Clare aerial view" 
              loading="eager"
              class="hero-image">
         <div class="project-info-overlay">
             <div class="project-info-content">
                 <div class="project-info-main">
-                    <div class="category-badge">{{CATEGORY}}</div>
-                    <h1>{{PROJECT_TITLE}}</h1>
-                    <p class="subtitle">{{SUBTITLE}}</p>
+                    <div class="category-badge">Public Space</div>
+                    <h1>St Clare</h1>
+                    <p class="subtitle">mixed development</p>
                 </div>
                 <div class="meta-info">
                     <div class="meta-info-item">
                         <span class="label">Location</span>
-                        <span>{{LOCATION}}</span>
-                    </div>
-                    <div class="meta-info-item">
-                        <span class="label">Year</span>
-                        <span>{{YEAR}}</span>
+                        <span>London, UK</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Project Gallery -->
     <div class="project-items">
-
-        <!-- Single image (use when gallery has odd count — place before pairs) -->
-        <!--
+        
+        <!-- Single Image -->
         <div class="image-wrapper">
-            <img src="{{IMAGE_URL}}" 
-                 alt="{{IMAGE_ALT}}" 
+            <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-5.jpg" 
+                 alt="St Clare street view" 
                  class="image-large"
                  loading="lazy">
         </div>
-        -->
 
-        <!-- Pair of images -->
-        <!--
+        <!-- Row with 2 Images -->
         <div class="row-image-wrapper">
             <div class="image-list">
-                <img src="{{IMAGE_URL_1}}" 
-                     alt="{{IMAGE_ALT_1}}" 
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-4.jpg" 
+                     alt="St Clare courtyard" 
                      class="image-large"
                      loading="lazy">
-                <img src="{{IMAGE_URL_2}}" 
-                     alt="{{IMAGE_ALT_2}}" 
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-3.jpg" 
+                     alt="St Clare facade detail" 
                      class="image-large"
                      loading="lazy">
             </div>
         </div>
-        -->
 
-        {{GALLERY_IMAGES}}
+        <!-- Row with 2 Images -->
+        <div class="row-image-wrapper">
+            <div class="image-list">
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-2.jpg" 
+                     alt="St Clare interior view" 
+                     class="image-large"
+                     loading="lazy">
+                <img src="https://raw.githubusercontent.com/fredziarz/sketch_and_script/main/images/st-clare/st-clare-view-1.jpg" 
+                     alt="St Clare landscape view" 
+                     class="image-large"
+                     loading="lazy">
+            </div>
+        </div>
 
+        <!-- Project Description Section -->
         <section class="description-section">
             <div class="description-content">
                 <div class="description-block">
-                    <h2 class="project-title">{{PROJECT_TITLE}}</h2>
-                    <div class="meta-detail">{{CATEGORY_FULL}}</div>
-                    <p class="project-desc">{{DESCRIPTION}}</p>
+                    <h2 class="project-title">St Clare</h2>
+                    <div class="meta-detail">Public Space Development</div>
+                    <p class="project-desc">Huge mixed development design in a quiet part of british capital city.</p>
                 </div>
                 <div class="description-block">
-                    <p class="additional-info">{{ADDITIONAL_INFO}}</p>
-                    <div class="meta-detail">Completed {{YEAR}} • {{LOCATION}}</div>
+                    <p class="additional-info">A large-scale mixed-use scheme set in a calm London neighbourhood, balancing new density with the character of the surrounding streets.</p>
+                    <div class="meta-detail">London, UK</div>
                 </div>
             </div>
         </section>
 
     </div>
 
+    <!-- Back Button -->
     <section class="section">
         <div class="container" style="text-align: center;">
             <a href="../architecture.html" class="btn btn-secondary">← Back to Architecture Portfolio</a>
@@ -129,6 +123,7 @@
     </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -166,6 +161,7 @@
         </div>
     </footer>
 
+    <!-- Lightbox Overlay -->
     <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image gallery">
         <button type="button" class="lightbox-nav prev" id="lightbox-prev" aria-label="Previous image">‹</button>
         <img src="" alt="" class="lightbox-image" id="lightbox-image">
