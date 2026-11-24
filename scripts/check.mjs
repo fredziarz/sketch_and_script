@@ -23,7 +23,7 @@ for (const page of html) {
     if (!src.includes('name="robots" content="noindex"') && !site.codingVisible) fail(`${page}: missing noindex`);
     continue;
   }
-  if (src.includes('http-equiv="refresh"')) continue;
+  if (src.includes('http-equiv="refresh"') || page.startsWith('/admin/')) continue;
 
   for (const [, url] of src.matchAll(/(?:href|src)="(\/[^"]*)"/g)) {
     const target = resolve(url);

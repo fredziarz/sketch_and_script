@@ -1,0 +1,217 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: fredziarz/sketch_and_script
+  branch: dev
+  auth_methods: [token]
+  commit_messages:
+    create: "content: add {{collection}} {{slug}}"
+    update: "content: update {{collection}} {{slug}}"
+    delete: "content: delete {{collection}} {{slug}}"
+    uploadMedia: "content: upload {{path}}"
+    deleteMedia: "content: delete {{path}}"
+
+site_url: https://www.sketchandscript.pl
+
+media_folder: /src/images
+public_folder: /images
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image: { format: webp, quality: 85, width: 2560, height: 2560 }
+
+i18n:
+  structure: single_file
+  locales: [pl, en]
+  default_locale: pl
+
+collections:
+  - name: projects
+    label: Projekty
+    label_singular: Projekt
+    folder: /src/_data/projects
+    extension: json
+    format: json
+    create: true
+    i18n: true
+    identifier_field: title
+    slug: "{{title}}"
+    sortable_fields: [order, title]
+    summary: "{{order}}. {{title}}"
+    fields:
+      - { name: title, label: Nazwa, widget: string, i18n: duplicate_if_empty }
+      - { name: order, label: Kolejność, widget: number, value_type: int, i18n: duplicate, hint: "1 = pierwszy na liście i w pokazie zdjęć" }
+      - { name: category, label: Typ, widget: string, i18n: true }
+      - { name: location, label: Lokalizacja, widget: string, i18n: true }
+      - { name: year, label: Rok, widget: string, i18n: duplicate, required: false }
+      - { name: summary, label: Krótki opis (karta), widget: text, i18n: true }
+      - { name: description, label: Opis, widget: text, i18n: true, hint: "Akapity oddziel pustą linią" }
+      - { name: credits, label: Autorstwo, widget: string, i18n: true, required: false, hint: "Np. projekt w pracowni X, moja rola: wizualizacje" }
+      - name: images
+        label: Zdjęcia
+        label_singular: Zdjęcie
+        widget: list
+        i18n: true
+        hint: "Pierwsze zdjęcie jest główne i trafia do pokazu na stronie startowej"
+        fields:
+          - { name: src, label: Plik, widget: image, i18n: duplicate }
+          - { name: alt, label: Opis zdjęcia (dla niewidomych i Google), widget: string, i18n: true }
+
+  - name: pages
+    label: Strona
+    files:
+      - name: home
+        label: Strona główna
+        file: /src/_data/home.json
+        format: json
+        i18n: true
+        fields:
+          - { name: metaTitle, label: Tytuł w Google, widget: string, i18n: true }
+          - { name: metaDescription, label: Opis w Google, widget: text, i18n: true }
+          - { name: tagline, label: Podpis pod nazwiskiem, widget: string, i18n: true }
+          - name: nav
+            label: Menu
+            widget: list
+            i18n: true
+            allow_add: false
+            allow_remove: false
+            allow_reorder: false
+            summary: "{{label}}"
+            fields:
+              - { name: label, label: Nazwa, widget: string, i18n: true }
+              - { name: id, label: Kotwica w adresie, widget: string, i18n: true, pattern: ['^[a-z0-9-]+$', "Małe litery, cyfry i myślniki"] }
+          - name: intro
+            label: Wstęp
+            widget: object
+            i18n: true
+            fields:
+              - { name: heading, label: Nagłówek, widget: text, i18n: true }
+              - { name: text, label: Tekst, widget: text, i18n: true }
+              - { name: cta, label: Przycisk, widget: string, i18n: true }
+          - name: portfolio
+            label: Portfolio
+            widget: object
+            i18n: true
+            fields:
+              - { name: label, label: Etykieta, widget: string, i18n: true }
+              - { name: heading, label: Nagłówek, widget: string, i18n: true }
+          - name: process
+            label: Jak pracuję
+            widget: object
+            i18n: true
+            fields:
+              - { name: label, label: Etykieta, widget: string, i18n: true }
+              - { name: heading, label: Nagłówek, widget: text, i18n: true }
+              - { name: text, label: Tekst, widget: text, i18n: true }
+              - { name: deliverablesLabel, label: Etykieta „Co dostajesz”, widget: string, i18n: true }
+              - name: steps
+                label: Kroki
+                label_singular: Krok
+                widget: list
+                i18n: true
+                summary: "{{title}}"
+                fields:
+                  - { name: title, label: Tytuł, widget: string, i18n: true }
+                  - { name: text, label: Opis, widget: text, i18n: true }
+                  - { name: deliverables, label: Co dostajesz, widget: text, i18n: true, required: false }
+                  - { name: duration, label: Czas, widget: string, i18n: true, required: false }
+              - name: extra
+                label: Usługa dodatkowa
+                widget: object
+                i18n: true
+                fields:
+                  - { name: title, label: Tytuł, widget: string, i18n: true }
+                  - { name: text, label: Opis, widget: text, i18n: true }
+          - name: services
+            label: Oferta
+            widget: object
+            i18n: true
+            fields:
+              - { name: label, label: Etykieta, widget: string, i18n: true }
+              - { name: heading, label: Nagłówek, widget: string, i18n: true }
+              - name: items
+                label: Usługi
+                label_singular: Usługa
+                widget: list
+                i18n: true
+                summary: "{{title}}"
+                fields:
+                  - { name: title, label: Nazwa, widget: string, i18n: true }
+                  - { name: text, label: Opis, widget: text, i18n: true }
+              - { name: area, label: Obszar działania, widget: text, i18n: true }
+          - name: about
+            label: O mnie
+            widget: object
+            i18n: true
+            fields:
+              - { name: label, label: Etykieta, widget: string, i18n: true }
+              - { name: heading, label: Nagłówek, widget: string, i18n: true }
+              - { name: text, label: Tekst, widget: text, i18n: true, hint: "Akapity oddziel pustą linią" }
+              - { name: portrait, label: Zdjęcie, widget: image, i18n: duplicate, required: false }
+              - { name: portraitAlt, label: Opis zdjęcia, widget: string, i18n: true, required: false }
+          - name: contact
+            label: Kontakt
+            widget: object
+            i18n: true
+            fields:
+              - { name: label, label: Etykieta, widget: string, i18n: true }
+              - { name: heading, label: Nagłówek, widget: string, i18n: true }
+              - { name: text, label: Tekst, widget: text, i18n: true }
+              - { name: emailLabel, label: Etykieta e-maila, widget: string, i18n: true }
+              - { name: phoneLabel, label: Etykieta telefonu, widget: string, i18n: true }
+              - { name: locationLabel, label: Etykieta lokalizacji, widget: string, i18n: true }
+              - name: form
+                label: Formularz
+                widget: object
+                i18n: true
+                collapsed: true
+                fields:
+                  - { name: subject, label: Temat e-maila z formularza, widget: string, i18n: true }
+                  - { name: name, label: Pole „imię”, widget: string, i18n: true }
+                  - { name: email, label: Pole „e-mail”, widget: string, i18n: true }
+                  - { name: service, label: Pole „czego dotyczy”, widget: string, i18n: true }
+                  - { name: servicePlaceholder, label: Podpowiedź wyboru, widget: string, i18n: true }
+                  - { name: services, label: Opcje do wyboru, widget: list, i18n: true }
+                  - { name: message, label: Pole „wiadomość”, widget: string, i18n: true }
+                  - { name: submit, label: Przycisk, widget: string, i18n: true }
+                  - { name: sending, label: Komunikat „wysyłanie”, widget: string, i18n: true }
+                  - { name: success, label: Komunikat „wysłano”, widget: string, i18n: true }
+                  - { name: error, label: Komunikat „błąd”, widget: string, i18n: true }
+          - name: ui
+            label: Drobne napisy
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { name: skip, label: Przejdź do treści, widget: string, i18n: true }
+              - { name: menu, label: Menu, widget: string, i18n: true }
+              - { name: seeProject, label: Zobacz projekt, widget: string, i18n: true }
+              - { name: allProjects, label: Wszystkie projekty, widget: string, i18n: true }
+              - { name: location, label: Lokalizacja, widget: string, i18n: true }
+              - { name: year, label: Rok, widget: string, i18n: true }
+              - { name: category, label: Typ, widget: string, i18n: true }
+              - { name: credits, label: Autorstwo, widget: string, i18n: true }
+              - { name: prev, label: Poprzednie zdjęcie, widget: string, i18n: true }
+              - { name: next, label: Następne zdjęcie, widget: string, i18n: true }
+              - { name: close, label: Zamknij, widget: string, i18n: true }
+              - { name: slide, label: Zdjęcie, widget: string, i18n: true }
+              - { name: pause, label: Zatrzymaj pokaz, widget: string, i18n: true }
+              - { name: langSwitch, label: Przełącznik języka, widget: string, i18n: true }
+
+      - name: site
+        label: Dane kontaktowe i ustawienia
+        file: /src/_data/site.json
+        format: json
+        fields:
+          - { name: email, label: E-mail, widget: string }
+          - { name: phone, label: Telefon, widget: string, required: false }
+          - { name: company, label: Nazwa działalności, widget: string }
+          - { name: address, label: Adres działalności, widget: string }
+          - { name: nip, label: NIP, widget: string }
+          - { name: location, label: Lokalizacja (kontakt), widget: string }
+          - { name: mapUrl, label: Link do mapy, widget: string }
+          - { name: linkedin, label: LinkedIn, widget: string, required: false }
+          - { name: instagram, label: Instagram, widget: string, required: false }
+          - { name: cloudflareAnalyticsToken, label: Token Cloudflare Web Analytics, widget: string, required: false }
