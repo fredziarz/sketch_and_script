@@ -26,17 +26,19 @@ npm test      # sprawdza zbudowaną stronę (linki, kotwice, PL/EN, ukryte /code
 
 ## Panel treści (CMS)
 
-`/admin/` – Sveltia CMS, konfiguracja w `src/admin/config.yml`. Edytuje te same pliki JSON co wyżej, w obu językach naraz. Każdy zapis to commit na GitHubie, na gałęzi ustawionej w `backend.branch`. Zdjęcia przy wgrywaniu są zmniejszane i zamieniane na WebP.
+`/admin/` – Sveltia CMS, konfiguracja w `src/admin/config.yml`. Edytuje te same pliki JSON co wyżej, w obu językach naraz. Każdy zapis to commit na `main`, czyli publikacja (strona odświeża się po około minucie). Zdjęcia przy wgrywaniu są zmniejszane i zamieniane na WebP.
 
-- Online: „Sign In Using Access Token”. Użyj tokenu typu fine-grained, ograniczonego tylko do tego repo, z jednym uprawnieniem Contents: Read and write i z datą wygaśnięcia. Okno logowania podaje link do wygenerowania tokenu.
+- Online: „Sign In Using Access Token”. Użyj tokenu typu fine-grained z konta z prawem zapisu do repo (właściciel: `fredziarz`), ograniczonego tylko do tego repo, z jednym uprawnieniem Contents: Read and write i z datą wygaśnięcia. Okno logowania podaje link do wygenerowania tokenu.
 - Wersja Sveltia jest przypięta w `src/admin/index.html`; aktualizacja to zmiana numeru w adresie skryptu.
 - Lokalnie (`npm start`, potem `localhost:8080/admin/` w Chrome): „Work with Local Repository” i wskazanie folderu repo. Zmiany trafiają prosto do plików, bez commitów.
 
-Po edycji online zrób `git pull`, zanim zaczniesz zmieniać pliki lokalnie.
-
 ## Publikacja
 
-Praca na gałęzi `dev`. Merge do `main` uruchamia workflow `.github/workflows/deploy.yml`: build, `npm test`, publikacja na GitHub Pages.
+Push na `main` (z panelu albo z `dev`) uruchamia workflow `.github/workflows/deploy.yml`: build, `npm test`, publikacja na GitHub Pages. Jeśli build albo test padnie, strona zostaje bez zmian.
+
+Zmiany w kodzie i designie: praca na `dev`, a przed jej rozpoczęciem `git pull origin main` (panel commituje na `main`). Gotowe zmiany: `git push origin dev`, potem `git push origin dev:main`.
+
+Punkt powrotu do starej strony: gałąź `legacy-site` (tag `pre-redesign`).
 
 ## Wersje
 

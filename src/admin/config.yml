@@ -3,7 +3,7 @@
 backend:
   name: github
   repo: fredziarz/sketch_and_script
-  branch: dev
+  branch: main
   auth_methods: [token]
   commit_messages:
     create: "content: add {{collection}} {{slug}}"
