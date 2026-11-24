@@ -4,11 +4,26 @@
     "metaDescription": "Projekty wnętrz mieszkań, domów i lokali, koncepcje domów jednorodzinnych, wizualizacje 3D i nadzór autorski. Wrząca, region łódzki i cała Polska.",
     "tagline": "projektowanie architektury i wnętrz",
     "nav": [
-      { "id": "portfolio", "label": "Portfolio" },
-      { "id": "jak-pracuje", "label": "Jak pracuję" },
-      { "id": "oferta", "label": "Oferta" },
-      { "id": "o-mnie", "label": "O mnie" },
-      { "id": "kontakt", "label": "Kontakt" }
+      {
+        "id": "portfolio",
+        "label": "Portfolio"
+      },
+      {
+        "id": "jak-pracuje",
+        "label": "Jak pracuję"
+      },
+      {
+        "id": "oferta",
+        "label": "Oferta"
+      },
+      {
+        "id": "o-mnie",
+        "label": "O mnie"
+      },
+      {
+        "id": "kontakt",
+        "label": "Kontakt"
+      }
     ],
     "intro": {
       "heading": "Projektuję domy i wnętrza – od pierwszego szkicu po dokumentację dla wykonawcy.",
@@ -21,29 +36,80 @@
     },
     "process": {
       "label": "Jak pracuję",
-      "heading": "Każdy projekt przechodzi przez te same etapy",
-      "text": "Zakres dopasowujemy do potrzeb. Nadzór autorski jest opcjonalny.",
+      "heading": "Od pierwszej rozmowy do dokumentacji dla wykonawcy",
+      "text": "Zakres dobieramy do Twoich potrzeb: od samej koncepcji z wizualizacjami po kompletny projekt wykonawczy. Każdy etap kończy się Twoją akceptacją, a w cenie etapu są 2 tury poprawek.",
       "deliverablesLabel": "Co dostajesz:",
       "steps": [
-        { "title": "Pierwsza rozmowa", "text": "Rozmawiamy o tym, jak korzystasz z przestrzeni, czego potrzebujesz, jaki styl Ci odpowiada i jaki masz budżet. Przy istniejącym wnętrzu przyjeżdżam na pomiary.", "deliverables": "pomiary, wstępny zakres projektu", "duration": "" },
-        { "title": "Umowa", "text": "Spisujemy zakres prac, terminy i wynagrodzenie.", "deliverables": "", "duration": "" },
-        { "title": "Koncepcja", "text": "Przygotowuję 1–2 warianty układu i moodboard z kierunkiem aranżacji. Materiały pokazuję jako próbki (płytki, drewno, tkaniny), a gdy to niemożliwe – cyfrowo. Etap obejmuje do trzech rund poprawek.", "deliverables": "moodboard w PDF, szkice rzutów, paleta materiałów", "duration": "1–2 tygodnie od podpisania umowy" },
-        { "title": "Projekt", "text": "Po akceptacji koncepcji dopracowuję układ i dobieram wszystko: konkretne meble, oświetlenie, wykończenia w każdym pomieszczeniu i zabudowy. Wnętrze modeluję w 3D, więc widzisz efekt przed rozpoczęciem prac. Zakupy są po Twojej stronie – dostajesz specyfikację z linkami.", "deliverables": "rzuty z wymiarami, wizualizacje 3D (3–5 ujęć), zestawienie mebli i oświetlenia, zestawienie materiałów", "duration": "" },
-        { "title": "Dokumentacja wykonawcza", "text": "Rysunki dla wykonawców: rzuty, rozwinięcia ścian, instalacja elektryczna i oświetlenie, opisy materiałów. Przy zabudowach na wymiar – rysunki warsztatowe.", "deliverables": "pliki DWG i PDF, rzut instalacji elektrycznej, uwagi wykonawcze", "duration": "" },
-        { "title": "Przekazanie", "text": "Omawiamy całość i odpowiadam na pytania. Komplet dokumentów trafia do Ciebie i wykonawcy, a harmonogram budowy prowadzicie już Wy.", "deliverables": "komplet dokumentacji", "duration": "" }
+        {
+          "title": "Bezpłatne spotkanie",
+          "text": "Poznajemy się i rozmawiamy o tym, jak korzystasz z przestrzeni, czego potrzebujesz i jaki masz budżet. Ustalamy zakres projektu.",
+          "deliverables": "",
+          "duration": ""
+        },
+        {
+          "title": "Umowa i pomiary",
+          "text": "Spisujemy zakres, terminy i wynagrodzenie. Przyjeżdżam na inwentaryzację – pomiary są w cenie projektu w promieniu 50 km od Wrzącej.",
+          "deliverables": "umowa, inwentaryzacja pomiarowa",
+          "duration": ""
+        },
+        {
+          "title": "Koncepcja",
+          "text": "Przygotowuję 3 warianty układu funkcjonalnego, moodboard oraz propozycję kolorystyki i materiałów.",
+          "deliverables": "rzuty 2D w 3 wariantach, moodboard, paleta kolorów i materiałów",
+          "duration": "ok. 2 tygodnie od pomiarów"
+        },
+        {
+          "title": "Wizualizacje 3D",
+          "text": "Na bazie wybranej koncepcji modeluję wnętrze, żebyś zobaczył efekt przed rozpoczęciem prac.",
+          "deliverables": "2 ujęcia na każde pomieszczenie",
+          "duration": "ok. 1 tydzień od akceptacji koncepcji"
+        },
+        {
+          "title": "Projekt wykonawczy",
+          "text": "Rysunki, z których ekipa może budować, oraz zestawienie materiałów i wyposażenia z orientacyjnymi cenami.",
+          "deliverables": "rzuty, rozwinięcia ścian, rzuty posadzek i sufitów, projekt oświetlenia, plan punktów elektrycznych i hydraulicznych, rysunki zabudów, zestawienie materiałów – w PDF",
+          "duration": "ok. 2 tygodnie od akceptacji wizualizacji"
+        },
+        {
+          "title": "Przekazanie",
+          "text": "Omawiamy całość i odpowiadam na pytania. Wykonawców i zakupy wybierasz Ty – masz komplet informacji, żeby zrobić to spokojnie.",
+          "deliverables": "komplet dokumentacji i specyfikacja",
+          "duration": ""
+        }
       ],
-      "extra": { "title": "Nadzór autorski (opcjonalnie)", "text": "Jeśli chcesz wsparcia w trakcie budowy: wizyty na budowie, kontakt z wykonawcą, akceptacja materiałów, rozwiązywanie problemów i odbiór końcowy." }
+      "extra": {
+        "title": "Nadzór autorski i wsparcie (opcjonalnie)",
+        "text": "Wizyty na budowie, wyjaśnianie wątpliwości wykonawców, uzgadnianie zamienników, a na życzenie także pomoc w zakupach i koordynacja wybranych elementów."
+      }
     },
     "services": {
       "label": "Oferta",
       "heading": "W czym mogę pomóc",
       "items": [
-        { "title": "Wnętrza mieszkań i domów", "text": "Kompletny projekt: od układu funkcjonalnego po dokumentację wykonawczą." },
-        { "title": "Wnętrza komercyjne", "text": "Biura i lokale usługowe zaprojektowane pod sposób pracy i klientów." },
-        { "title": "Koncepcje domów jednorodzinnych", "text": "Bryła, układ pomieszczeń i relacja z działką na etapie koncepcji." },
-        { "title": "Konsultacje", "text": "Jednorazowa porada: układ, kolory, materiały albo ocena gotowego projektu." },
-        { "title": "Wizualizacje 3D", "text": "Realistyczne wizualizacje wnętrz i budynków jako osobna usługa." },
-        { "title": "Nadzór autorski", "text": "Wizyty na budowie i wsparcie wykonawcy, by projekt powstał zgodnie z założeniami." }
+        {
+          "title": "Wnętrza mieszkań i domów",
+          "text": "Kompletny projekt: od układu funkcjonalnego po dokumentację wykonawczą."
+        },
+        {
+          "title": "Wnętrza komercyjne",
+          "text": "Biura i lokale usługowe zaprojektowane pod sposób pracy i klientów."
+        },
+        {
+          "title": "Koncepcje domów jednorodzinnych",
+          "text": "Bryła, układ pomieszczeń i relacja z działką na etapie koncepcji (bez projektu budowlanego)."
+        },
+        {
+          "title": "Konsultacje",
+          "text": "Jednorazowa porada: układ, kolory, materiały albo ocena gotowego projektu."
+        },
+        {
+          "title": "Wizualizacje 3D",
+          "text": "Realistyczne wizualizacje wnętrz i budynków jako osobna usługa."
+        },
+        {
+          "title": "Nadzór autorski",
+          "text": "Wizyty na budowie i wsparcie wykonawcy, by projekt powstał zgodnie z założeniami."
+        }
       ],
       "area": "Pracuję w całej Polsce. W regionie łódzkim (Wrząca, Łódź i okolice) jestem na miejscu."
     },
@@ -67,7 +133,14 @@
         "email": "E-mail",
         "service": "Czego dotyczy projekt",
         "servicePlaceholder": "Wybierz",
-        "services": ["Wnętrze mieszkania lub domu", "Wnętrze komercyjne", "Koncepcja domu", "Konsultacja", "Wizualizacje 3D", "Inne"],
+        "services": [
+          "Wnętrze mieszkania lub domu",
+          "Wnętrze komercyjne",
+          "Koncepcja domu",
+          "Konsultacja",
+          "Wizualizacje 3D",
+          "Inne"
+        ],
         "message": "Wiadomość",
         "submit": "Wyślij",
         "sending": "Wysyłanie…",
@@ -97,11 +170,26 @@
     "metaDescription": "Interior design for homes, apartments and commercial spaces, single-family house concepts, 3D visualisations and design supervision. Based near Łódź, working across Poland.",
     "tagline": "architecture and interior design",
     "nav": [
-      { "id": "portfolio", "label": "Portfolio" },
-      { "id": "process", "label": "Process" },
-      { "id": "services", "label": "Services" },
-      { "id": "about", "label": "About" },
-      { "id": "contact", "label": "Contact" }
+      {
+        "id": "portfolio",
+        "label": "Portfolio"
+      },
+      {
+        "id": "process",
+        "label": "Process"
+      },
+      {
+        "id": "services",
+        "label": "Services"
+      },
+      {
+        "id": "about",
+        "label": "About"
+      },
+      {
+        "id": "contact",
+        "label": "Contact"
+      }
     ],
     "intro": {
       "heading": "I design homes and interiors – from the first sketch to drawings your contractor can build from.",
@@ -114,29 +202,80 @@
     },
     "process": {
       "label": "Process",
-      "heading": "Every project follows the same stages",
-      "text": "The scope is tailored to your needs. Design supervision is optional.",
+      "heading": "From the first conversation to drawings your contractor can build from",
+      "text": "The scope fits your needs: from a concept with visualisations to a complete construction-ready design. Each stage ends with your approval, and two rounds of changes are included in every stage.",
       "deliverablesLabel": "What you get:",
       "steps": [
-        { "title": "First conversation", "text": "We talk about how you use the space, what you need, the style you like and your budget. For an existing space, I visit to take measurements.", "deliverables": "site measurements, initial scope", "duration": "" },
-        { "title": "Agreement", "text": "We put the scope, schedule and fee in writing.", "deliverables": "", "duration": "" },
-        { "title": "Concept", "text": "I prepare one or two layout options and a mood board showing the design direction. Materials are shown as physical samples where possible (tiles, wood, fabrics), digitally otherwise. Up to three rounds of changes are included.", "deliverables": "PDF mood board, floor plan sketches, material palette", "duration": "1–2 weeks from signing" },
-        { "title": "Design development", "text": "Once you approve the concept, I refine the layout and specify everything: furniture, lighting, finishes for each room and built-ins. The space is modelled in 3D, so you see the result before work starts. Purchasing is up to you – you get a specification with links.", "deliverables": "dimensioned floor plans, 3D renders (3–5 views), furniture and lighting schedule, finishes schedule", "duration": "" },
-        { "title": "Construction drawings", "text": "Drawings for contractors: floor plans, elevations, electrical and lighting layouts, material notes. Shop drawings for any custom joinery.", "deliverables": "DWG and PDF files, electrical plan, construction notes", "duration": "" },
-        { "title": "Handover", "text": "We go through everything and I answer your questions. The full package goes to you and your contractor; you run the build schedule from there.", "deliverables": "complete documentation", "duration": "" }
+        {
+          "title": "Free first meeting",
+          "text": "We get to know each other and talk about how you use the space, what you need and your budget. We agree on the scope.",
+          "deliverables": "",
+          "duration": ""
+        },
+        {
+          "title": "Agreement and measurements",
+          "text": "We put the scope, schedule and fee in writing. I visit to measure the space – measurements are included within 50 km of Wrząca.",
+          "deliverables": "agreement, measured survey",
+          "duration": ""
+        },
+        {
+          "title": "Concept",
+          "text": "I prepare three layout options, a mood board and a proposal for colours and materials.",
+          "deliverables": "2D plans in three options, mood board, colour and material palette",
+          "duration": "about 2 weeks from the survey"
+        },
+        {
+          "title": "3D visualisations",
+          "text": "Based on the chosen concept I model the space, so you see the result before work starts.",
+          "deliverables": "2 views of every room",
+          "duration": "about 1 week from concept approval"
+        },
+        {
+          "title": "Construction drawings",
+          "text": "Drawings your contractor can build from, plus a schedule of materials and furnishings with indicative prices.",
+          "deliverables": "floor plans, wall elevations, floor and ceiling plans, lighting design, electrical and plumbing point layout, joinery drawings, materials schedule – as PDF",
+          "duration": "about 2 weeks from visualisation approval"
+        },
+        {
+          "title": "Handover",
+          "text": "We go through everything and I answer your questions. You choose contractors and products – with everything you need to do it calmly.",
+          "deliverables": "complete documentation and specification",
+          "duration": ""
+        }
       ],
-      "extra": { "title": "Design supervision (optional)", "text": "If you want support during construction: site visits, contractor coordination, material approval, problem-solving and a final walkthrough." }
+      "extra": {
+        "title": "Design supervision and support (optional)",
+        "text": "Site visits, answering contractors' questions, approving substitutes and, on request, help with shopping and coordinating selected elements."
+      }
     },
     "services": {
       "label": "Services",
       "heading": "How I can help",
       "items": [
-        { "title": "Apartment and house interiors", "text": "A complete design, from the layout to construction drawings." },
-        { "title": "Commercial interiors", "text": "Offices and service spaces designed around how people work and visit." },
-        { "title": "Single-family house concepts", "text": "Massing, room layout and the relationship with the plot at concept stage." },
-        { "title": "Consultations", "text": "One-off advice on layout, colours, materials, or a review of an existing design." },
-        { "title": "3D visualisations", "text": "Realistic renders of interiors and buildings as a standalone service." },
-        { "title": "Design supervision", "text": "Site visits and contractor support to make sure the design is built as intended." }
+        {
+          "title": "Apartment and house interiors",
+          "text": "A complete design, from the layout to construction drawings."
+        },
+        {
+          "title": "Commercial interiors",
+          "text": "Offices and service spaces designed around how people work and visit."
+        },
+        {
+          "title": "Single-family house concepts",
+          "text": "Massing, room layout and the relationship with the plot at concept stage (not a building permit design)."
+        },
+        {
+          "title": "Consultations",
+          "text": "One-off advice on layout, colours, materials, or a review of an existing design."
+        },
+        {
+          "title": "3D visualisations",
+          "text": "Realistic renders of interiors and buildings as a standalone service."
+        },
+        {
+          "title": "Design supervision",
+          "text": "Site visits and contractor support to make sure the design is built as intended."
+        }
       ],
       "area": "I work across Poland. In the Łódź region (Wrząca, Łódź and around) I can be on site."
     },
@@ -160,7 +299,14 @@
         "email": "Email",
         "service": "Project type",
         "servicePlaceholder": "Select",
-        "services": ["Apartment or house interior", "Commercial interior", "House concept", "Consultation", "3D visualisations", "Other"],
+        "services": [
+          "Apartment or house interior",
+          "Commercial interior",
+          "House concept",
+          "Consultation",
+          "3D visualisations",
+          "Other"
+        ],
         "message": "Message",
         "submit": "Send",
         "sending": "Sending…",
