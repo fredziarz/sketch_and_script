@@ -1,0 +1,26 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- for lang in langs %}
+  <url>
+    <loc>{{ site.url }}{{ lang | homeUrl }}</loc>
+    {%- for l in langs %}
+    <xhtml:link rel="alternate" hreflang="{{ l }}" href="{{ site.url }}{{ l | homeUrl }}"/>
+    {%- endfor %}
+  </url>
+{%- endfor %}
+{%- for item in projectPages %}
+  <url>
+    <loc>{{ site.url }}{{ item.slug | projectUrl(item.lang) }}</loc>
+    {%- for l in langs %}
+    <xhtml:link rel="alternate" hreflang="{{ l }}" href="{{ site.url }}{{ item.slug | projectUrl(l) }}"/>
+    {%- endfor %}
+  </url>
+{%- endfor %}
+{%- if site.codingVisible %}
+  <url><loc>{{ site.url }}/code/</loc></url>
+{%- endif %}
+</urlset>

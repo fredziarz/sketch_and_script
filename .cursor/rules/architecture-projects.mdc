@@ -1,37 +1,26 @@
 ---
-description: Architecture project pages — gallery layout and file conventions
-globs: projects/*.html,templates/architecture-project-template.html,data/projects.json
+description: Architecture projects — data files, images and page generation
+globs: src/_data/projects/*.json,src/project.njk,src/index.njk,src/assets/js/lightbox.js
 alwaysApply: false
 ---
 
-# Architecture project pages
+# Architecture projects
 
-Reference implementation: `projects/lake-apartments.html`. New pages must match its structure, not the legacy `project-pages.css` layout.
+Projects are data, not HTML. One JSON file per project generates both language versions.
 
-## Required structure
+## Files
 
-1. **CSS/JS** — link `architecture-gallery.css` and `architecture-lightbox.js`. Do **not** use `project-pages.css`, breadcrumbs, `project-hero`, or `project-gallery` grid.
-2. **Hero** — `section.hero-image-section` with first image + `project-info-overlay` (category badge, title, subtitle, location/year meta).
-3. **Gallery** — inside `div.project-items`, **before** `section.description-section`:
-   - Single: `div.image-wrapper` > `img.image-large`
-   - Pair: `div.row-image-wrapper` > `div.image-list` > two `img.image-large`
-4. **Description** — `section.description-section` with two `description-block` columns (title, category, main text | additional italic text, location/year footer).
-5. **Lightbox** — `#lightbox` overlay + four scripts: `script.js`, `keyboard-accessibility.js`, `page-transitions.js`, `architecture-lightbox.js`.
+- Data: `src/_data/projects/[slug].json` (kebab-case slug = file name). URLs: `/projekty/[slug]/` and `/en/projects/[slug]/`.
+- Images: `src/images/[slug]/`. Paths in JSON start with `/images/[slug]/`.
+- Shape: `{ "pl": {...}, "en": {...} }`, both with `title`, `order`, `category`, `location`, `year`, `summary`, `description` (paragraphs separated by a blank line), `credits`, `images: [{ src, alt }]`. Missing `en` fields fall back to `pl`.
 
-## Gallery image order
+## Rendering
 
-First image = hero. Remaining images in gallery:
+- `src/project.njk` renders project pages; `src/index.njk` renders the homepage slideshow and portfolio cards from `projectList` (sorted by `order`).
+- First image = hero and slideshow cover. Remaining images: odd count starts with one full-width image, then pairs; even count is pairs only.
+- Images are optimized at build time by `@11ty/eleventy-img`; the lightbox (`src/assets/js/lightbox.js`) uses `currentSrc`.
+- Do not hand-write project HTML or edit `sitemap.xml`; both are generated.
 
-- **Odd count** → one single image, then rows of two (see lake-apartments: 1 single + 1 pair for 3 gallery images).
-- **Even count** → rows of two only.
+## Check
 
-## File naming & registry
-
-- HTML: `projects/[slug].html` (kebab-case, e.g. `st-clare.html` — never spaces or `St Clare.html`).
-- Images: `images/[slug]/` folder.
-- Register in `data/projects.json` with `slug`, `imageUrls`, `imagePaths`, `htmlUrl`, `type: "architecture"`.
-- Portfolio cards load from JSON via `load-projects.js` — do not hardcode cards in `architecture.html`.
-
-## CMS sync
-
-CMS generator lives in `sketch_and_script_cms/js/modules/template-generator.js`. Keep it aligned with this template when changing layout.
+`npm run build && npm test` must pass after any change.

@@ -1,0 +1,34 @@
+{
+  "pl": {
+    "title": "Lake Apartments",
+    "order": 1,
+    "category": "Budynek mieszkalny wielorodzinny",
+    "location": "Berlin, Niemcy",
+    "year": "2020",
+    "summary": "Osiedle niemal na brzegu jeziora Tegel w Berlinie.",
+    "description": "Nowe osiedle mieszkaniowe na skraju jeziora Tegel w Berlinie. Działka dochodzi do samej wody, więc budynki ustawiono tak, by z głównych pomieszczeń dziennych był widok na jezioro.\n\nWysokie okna sięgają od podłogi do sufitu salonów. Paleta wnętrz jest stonowana, bo pierwsze skrzypce grają tu woda i światło.",
+    "credits": "",
+    "images": [
+      { "src": "/images/lake-apartments/lake-apartments-aerial-view.jpg", "alt": "Lake Apartments, widok z lotu ptaka" },
+      { "src": "/images/lake-apartments/lake-apartments-living-room.jpg", "alt": "Lake Apartments, salon" },
+      { "src": "/images/lake-apartments/lake-apartments-bedroom.jpg", "alt": "Lake Apartments, sypialnia" },
+      { "src": "/images/lake-apartments/lake-apartments-rear-view.jpg", "alt": "Lake Apartments, elewacja tylna" }
+    ]
+  },
+  "en": {
+    "title": "Lake Apartments",
+    "order": 1,
+    "category": "Residential development",
+    "location": "Berlin, Germany",
+    "year": "2020",
+    "summary": "A housing scheme almost on the shore of Lake Tegel in Berlin.",
+    "description": "A new residential development on the edge of Lake Tegel in Berlin. The site runs right down to the water, so the buildings are positioned to give the main living spaces a view of the lake.\n\nFloor-to-ceiling windows run the full height of the living rooms. The interior palette stays neutral and lets the water and light do most of the work.",
+    "credits": "",
+    "images": [
+      { "src": "/images/lake-apartments/lake-apartments-aerial-view.jpg", "alt": "Lake Apartments, aerial view" },
+      { "src": "/images/lake-apartments/lake-apartments-living-room.jpg", "alt": "Lake Apartments, living room" },
+      { "src": "/images/lake-apartments/lake-apartments-bedroom.jpg", "alt": "Lake Apartments, bedroom" },
+      { "src": "/images/lake-apartments/lake-apartments-rear-view.jpg", "alt": "Lake Apartments, rear elevation" }
+    ]
+  }
+}

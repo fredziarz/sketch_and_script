@@ -1,0 +1,60 @@
+{%- set t = home[lang] -%}
+{%- set other = lang | otherLang -%}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ pageTitle or t.metaTitle }}</title>
+  <meta name="description" content="{{ pageDescription or t.metaDescription }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="{{ lang }}" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="{{ other }}" href="{{ site.url }}{{ altUrl }}">
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ altUrl if lang == 'en' else page.url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ pageTitle or t.metaTitle }}">
+  <meta property="og:description" content="{{ pageDescription or t.metaDescription }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}{{ ogImage or projectList[0].pl.images[0].src }}">
+  <meta property="og:locale" content="{{ 'pl_PL' if lang == 'pl' else 'en_GB' }}">
+  <link rel="icon" type="image/png" href="/images/fav-icon.png">
+  <link rel="preload" href="/assets/fonts/work-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  {%- if site.cloudflareAnalyticsToken %}
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ site.cloudflareAnalyticsToken }}"}'></script>
+  {%- endif %}
+</head>
+<body class="{{ bodyClass }}">
+  <a href="#main" class="skip">{{ t.ui.skip }}</a>
+  <header class="header" id="header">
+    <a class="brand" href="{{ lang | homeUrl }}">{{ site.name }}<small>{{ t.tagline }}</small></a>
+    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="menu">{{ t.ui.menu }}</button>
+    <nav class="menu" id="menu" aria-label="{{ t.ui.menu }}">
+      {%- for item in t.nav %}
+      <a href="{{ lang | homeUrl }}#{{ item.id }}">{{ item.label }}</a>
+      {%- endfor %}
+      {%- if site.codingVisible %}
+      <a href="/code/">Code</a>
+      {%- endif %}
+      <a class="lang" href="{{ altUrl }}" hreflang="{{ other }}" lang="{{ other }}" title="{{ t.ui.langSwitch }}">{{ other | upper }}</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+    <span>© {{ year }} {{ site.name }}</span>
+    <span>
+      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      {%- if site.linkedin %} · <a href="{{ site.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>{% endif %}
+      {%- if site.instagram %} · <a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
+    </span>
+  </footer>
+  <script src="/assets/js/site.js" defer></script>
+  {%- if bodyClass == 'project' %}
+  <script src="/assets/js/lightbox.js" defer></script>
+  {%- endif %}
+</body>
+</html>

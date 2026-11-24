@@ -1,0 +1,38 @@
+{
+  "pl": {
+    "title": "St Clare",
+    "order": 2,
+    "category": "Zabudowa wielofunkcyjna",
+    "location": "Londyn, Wielka Brytania",
+    "year": "",
+    "summary": "Duży zespół wielofunkcyjny w spokojnej części Londynu.",
+    "description": "Duży zespół zabudowy wielofunkcyjnej w spokojnej dzielnicy Londynu.\n\nProjekt godzi nową, gęstszą zabudowę z charakterem okolicznych ulic.",
+    "credits": "",
+    "images": [
+      { "src": "/images/st-clare/st-clare-view-6.jpg", "alt": "St Clare, widok z lotu ptaka" },
+      { "src": "/images/st-clare/st-clare-view-5.jpg", "alt": "St Clare, widok od ulicy" },
+      { "src": "/images/st-clare/st-clare-view-4.jpg", "alt": "St Clare, dziedziniec" },
+      { "src": "/images/st-clare/st-clare-view-3.jpg", "alt": "St Clare, detal elewacji" },
+      { "src": "/images/st-clare/st-clare-view-2.jpg", "alt": "St Clare, wnętrze" },
+      { "src": "/images/st-clare/st-clare-view-1.jpg", "alt": "St Clare, zieleń" }
+    ]
+  },
+  "en": {
+    "title": "St Clare",
+    "order": 2,
+    "category": "Mixed-use development",
+    "location": "London, United Kingdom",
+    "year": "",
+    "summary": "A large mixed-use scheme in a quiet part of London.",
+    "description": "A large mixed-use development in a quiet London neighbourhood.\n\nThe scheme balances new density with the character of the surrounding streets.",
+    "credits": "",
+    "images": [
+      { "src": "/images/st-clare/st-clare-view-6.jpg", "alt": "St Clare, aerial view" },
+      { "src": "/images/st-clare/st-clare-view-5.jpg", "alt": "St Clare, street view" },
+      { "src": "/images/st-clare/st-clare-view-4.jpg", "alt": "St Clare, courtyard" },
+      { "src": "/images/st-clare/st-clare-view-3.jpg", "alt": "St Clare, facade detail" },
+      { "src": "/images/st-clare/st-clare-view-2.jpg", "alt": "St Clare, interior" },
+      { "src": "/images/st-clare/st-clare-view-1.jpg", "alt": "St Clare, landscaping" }
+    ]
+  }
+}

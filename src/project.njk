@@ -1,0 +1,55 @@
+---
+pagination:
+  data: projectPages
+  size: 1
+  alias: item
+permalink: "{{ item.slug | projectUrl(item.lang) }}"
+layout: base.njk
+bodyClass: project
+eleventyComputed:
+  lang: "{{ item.lang }}"
+  altUrl: "{{ item.slug | projectUrl(item.lang | otherLang) }}"
+  pageTitle: "{{ item.project.title }} – {{ site.name }}"
+  pageDescription: "{{ item.project.summary }}"
+  ogImage: "{{ item.project.images[0].src }}"
+---
+{%- set t = home[lang] -%}
+{%- set p = item.project -%}
+{%- set rest = p.images.slice(1) -%}
+<div class="project-hero"><img src="{{ p.images[0].src }}" alt="{{ p.images[0].alt }}" loading="eager" fetchpriority="high"></div>
+<div class="wrap">
+  <div class="project-head">
+    <div>
+      <h1>{{ p.title }}</h1>
+      {{ p.description | paragraphs | safe }}
+    </div>
+    <dl class="meta">
+      {%- if p.location %}<div><dt>{{ t.ui.location }}</dt><dd>{{ p.location }}</dd></div>{% endif %}
+      {%- if p.year %}<div><dt>{{ t.ui.year }}</dt><dd>{{ p.year }}</dd></div>{% endif %}
+      {%- if p.category %}<div><dt>{{ t.ui.category }}</dt><dd>{{ p.category }}</dd></div>{% endif %}
+      {%- if p.credits %}<div><dt>{{ t.ui.credits }}</dt><dd>{{ p.credits }}</dd></div>{% endif %}
+    </dl>
+  </div>
+  <div class="gallery">
+    {%- set start = 0 %}
+    {%- if rest.length % 2 == 1 %}
+    <img src="{{ rest[0].src }}" alt="{{ rest[0].alt }}">
+    {%- set start = 1 %}
+    {%- endif %}
+    {%- for i in range(start, rest.length, 2) %}
+    <div class="pair">
+      <img src="{{ rest[i].src }}" alt="{{ rest[i].alt }}" sizes="(min-width: 800px) 50vw, 100vw">
+      <img src="{{ rest[i + 1].src }}" alt="{{ rest[i + 1].alt }}" sizes="(min-width: 800px) 50vw, 100vw">
+    </div>
+    {%- endfor %}
+  </div>
+  <p class="back"><a href="{{ lang | homeUrl }}#portfolio">← {{ t.ui.allProjects }}</a></p>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="{{ p.title }}">
+  <button class="lightbox-close" id="lightbox-close" aria-label="{{ t.ui.close }}">×</button>
+  <button class="lightbox-nav prev" id="lightbox-prev" aria-label="{{ t.ui.prev }}">‹</button>
+  <img class="lightbox-image" id="lightbox-image" src="data:," alt="" eleventy:ignore>
+  <button class="lightbox-nav next" id="lightbox-next" aria-label="{{ t.ui.next }}">›</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>

@@ -1,0 +1,21 @@
+{
+  "name": "sketchandscript",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Michał Wicherek – projektowanie architektury i wnętrz. www.sketchandscript.pl",
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "test": "node scripts/check.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fredziarz/sketch_and_script.git"
+  },
+  "author": "Michał Wicherek",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.8",
+    "@11ty/eleventy-img": "^7.1.1"
+  }
+}
