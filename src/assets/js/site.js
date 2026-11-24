@@ -55,6 +55,7 @@
             button.disabled = true;
             button.textContent = form.dataset.sending;
             status.textContent = '';
+            status.classList.remove('error');
             try {
                 const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) });
                 const json = await res.json();

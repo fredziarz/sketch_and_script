@@ -6,12 +6,14 @@ const homeUrl = lang => (lang === 'pl' ? '/' : '/en/');
 const projectUrl = (slug, lang) => (lang === 'pl' ? `/projekty/${slug}/` : `/en/projects/${slug}/`);
 
 const projectsDir = 'src/_data/projects';
+const isEmpty = v => v == null || v === '' || (Array.isArray(v) && !v.length);
+const filled = o => Object.fromEntries(Object.entries(o || {}).filter(([, v]) => !isEmpty(v)));
 const loadProjects = () =>
   readdirSync(projectsDir)
     .filter(f => f.endsWith('.json'))
     .map(f => {
       const p = JSON.parse(readFileSync(`${projectsDir}/${f}`, 'utf8'));
-      return { slug: f.slice(0, -5), pl: p.pl, en: { ...p.pl, ...p.en } };
+      return { slug: f.slice(0, -5), pl: p.pl, en: { ...p.pl, ...filled(p.en) } };
     })
     .sort((a, b) => (a.pl.order ?? 99) - (b.pl.order ?? 99));
 

@@ -78,9 +78,17 @@
     }
 
     allImages.forEach((img, index) => {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
         img.addEventListener('click', (e) => {
             e.stopPropagation();
             openLightbox(index);
+        });
+        img.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(index);
+            }
         });
     });
 
@@ -105,6 +113,11 @@
         } else if (e.key === 'ArrowLeft') {
             e.preventDefault();
             prevImage();
+        } else if (e.key === 'Tab') {
+            const focusable = [lightboxClose, lightboxPrev, lightboxNext];
+            const i = focusable.indexOf(document.activeElement);
+            e.preventDefault();
+            focusable[(i + (e.shiftKey ? focusable.length - 1 : 1)) % focusable.length].focus();
         }
     });
 

@@ -41,6 +41,13 @@ for (const page of html) {
   if (!site.codingVisible && src.includes('href="/code/')) fail(`${page}: links to hidden /code/`);
 }
 
+for (const { from, to } of JSON.parse(readFileSync('src/_data/redirects.json', 'utf8'))) {
+  const target = resolve(to);
+  if (!resolve(from)) fail(`redirect: missing page ${from}`);
+  if (!target) fail(`redirect: ${from} points to missing ${to}`);
+  else if (to.includes('#') && !read(target).includes(`id="${to.split('#')[1]}"`)) fail(`redirect: ${from} points to missing anchor ${to}`);
+}
+
 const sitemap = read('/sitemap.xml');
 for (const [, url] of sitemap.matchAll(/<loc>https:\/\/www\.sketchandscript\.pl([^<]*)<\/loc>/g)) {
   if (!resolve(url)) fail(`sitemap: missing ${url}`);

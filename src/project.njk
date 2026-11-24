@@ -9,9 +9,9 @@ bodyClass: project
 eleventyComputed:
   lang: "{{ item.lang }}"
   altUrl: "{{ item.slug | projectUrl(item.lang | otherLang) }}"
-  pageTitle: "{{ item.project.title }} – {{ site.name }}"
-  pageDescription: "{{ item.project.summary }}"
-  ogImage: "{{ item.project.images[0].src }}"
+  pageTitle: "{{ item.project.title | safe }} – {{ site.name | safe }}"
+  pageDescription: "{{ item.project.summary | safe }}"
+  ogImage: "{{ item.project.images[0].src | safe }}"
 ---
 {%- set t = home[lang] -%}
 {%- set p = item.project -%}
