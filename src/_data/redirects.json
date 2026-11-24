@@ -1,8 +1,8 @@
 [
-  { "from": "/architecture.html", "to": "/#portfolio" },
+  { "from": "/architecture.html", "to": "/en/#portfolio" },
   { "from": "/coding.html", "to": "/code/" },
-  { "from": "/projects/lake-apartments.html", "to": "/projekty/lake-apartments/" },
-  { "from": "/projects/st-clare.html", "to": "/projekty/st-clare/" },
+  { "from": "/projects/lake-apartments.html", "to": "/en/projects/lake-apartments/" },
+  { "from": "/projects/st-clare.html", "to": "/en/projects/st-clare/" },
   { "from": "/projects/coding-project-1.html", "to": "/code/coding-project-1.html" },
   { "from": "/projects/coding-project-game-1.html", "to": "/code/coding-project-game-1.html" }
 ]
