@@ -23,6 +23,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'src/images': 'images', 'src/assets': 'assets', 'src/code': 'code', 'src/admin': 'admin' });
   eleventyConfig.addPassthroughCopy('src/CNAME');
   eleventyConfig.addPassthroughCopy('src/robots.txt');
+  eleventyConfig.addPassthroughCopy('src/_headers');
   eleventyConfig.ignores.add('src/code/**');
   eleventyConfig.ignores.add('src/admin/**');
   eleventyConfig.addWatchTarget(projectsDir);
