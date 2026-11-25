@@ -59,12 +59,11 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
 .slide.on { opacity: 1; z-index: 1; }
 .slide img { width: 100%; height: 100%; object-fit: cover; }
 .slides::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(rgba(0,0,0,.45), transparent 24%, transparent 50%, rgba(0,0,0,.65)); }
-.slide figcaption { position: absolute; left: var(--pad); right: 72px; bottom: 48px; z-index: 3; color: var(--fg); font-weight: 400; text-align: center; }
-.slide figcaption a { display: inline-block; max-width: 100%; padding: 14px 22px; border-radius: 16px; background: rgba(244, 243, 240, .45); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 0 0 1px rgba(255, 255, 255, .35); }
+.slide figcaption { position: absolute; left: calc(var(--pad) + 2em); right: var(--pad); bottom: 48px; z-index: 3; color: #f4f3f0; font-weight: 400; text-align: left; }
+.slide figcaption a { display: inline-block; max-width: 100%; }
 .slide-title { display: block; font-size: clamp(20px, 2vw, 28px); line-height: 1.1; margin-bottom: 6px; }
 .slide:not(.on) figcaption { visibility: hidden; }
-.slides-pause { position: absolute; right: var(--pad); bottom: 52px; z-index: 3; width: 40px; height: 40px; border: 0; border-radius: 12px; color: var(--fg); background: rgba(244, 243, 240, .45); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 0 0 1px rgba(255, 255, 255, .35); cursor: pointer; font-size: 13px; }
-html.refract .slide figcaption a, html.refract .slides-pause { background: rgba(244, 243, 240, .42); -webkit-backdrop-filter: url(#glass-chip) blur(3px) saturate(1.5); backdrop-filter: url(#glass-chip) blur(3px) saturate(1.5); }
+.slides-pause { position: absolute; left: var(--pad); bottom: 48px; z-index: 3; transform: translateY(-1.2em); border: 0; padding: 0; color: #f4f3f0; background: none; cursor: pointer; font-size: 13px; }
 
 /* Wstęp */
 .intro { text-align: center; }
@@ -98,7 +97,7 @@ html.refract .slide figcaption a, html.refract .slides-pause { background: rgba(
 .scope thead th { font-weight: 400; color: var(--muted); border-top: 1px solid var(--line); }
 .scope th + th, .scope td + td { border-left: 1px solid var(--line); }
 .scope td { max-width: 18em; }
-.scope ul { list-style: none; }
+.scope ul { padding-left: 1.15em; }
 .scope li + li, .scope td p + ul { margin-top: 12px; }
 
 /* O mnie */
