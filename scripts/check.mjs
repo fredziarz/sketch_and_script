@@ -64,6 +64,8 @@ if (!home.includes('Projekt skrojony do Twoich potrzeb') || !enHome.includes(`A$
 if (!home.includes(`To, co w${nbsp}Koncepcji, oraz`) || !enHome.includes('Everything in Concept, plus')) fail('homepage: missing package shorthand');
 if (!home.includes(`z${nbsp}wizualizacjami`) || home.includes('z wizualizacjami')) fail('homepage: conjunction left at the end of a line');
 if (home.includes('Najbardziej opłacalny') || enHome.includes('Best value') || home.includes('Wszystko z pakietu')) fail('homepage: old package wording');
+if (home.includes('✓') || enHome.includes('✓')) fail('homepage: package checkmarks');
+if (!home.includes('id="glass-bar"') || !home.includes('id="glass-chip"')) fail('homepage: missing glass');
 if (!home.includes('/images/fav-icon.png')) fail('homepage: missing mark');
 
 for (const leak of ['_working_files', 'node_modules', 'agent-toolkit', '.agents']) {

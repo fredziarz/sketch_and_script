@@ -84,24 +84,37 @@ eleventyComputed:
     <table class="scope">
       <thead>
         <tr>
-          <th></th>
-          <th>{{ t.packages.concept }}</th>
-          <th>{{ t.packages.full }}</th>
-          <th>{{ t.packages.premium }}</th>
+          <th scope="col">{{ t.packages.concept }}</th>
+          <th scope="col">{{ t.packages.full }}</th>
+          <th scope="col">{{ t.packages.premium }}</th>
         </tr>
       </thead>
       <tbody>
-        {%- for row in t.packages.rows %}{% if row.concept %}
-        <tr><th scope="row">{{ row.label }}</th><td>✓</td><td></td><td></td></tr>
-        {% endif %}{% endfor %}
-        <tr><th scope="row">{{ t.packages.includesConcept }}</th><td></td><td>✓</td><td></td></tr>
-        {%- for row in t.packages.rows %}{% if row.full and not row.concept %}
-        <tr><th scope="row">{{ row.label }}</th><td></td><td>✓</td><td></td></tr>
-        {% endif %}{% endfor %}
-        <tr><th scope="row">{{ t.packages.includesFull }}</th><td></td><td></td><td>✓</td></tr>
-        {%- for row in t.packages.rows %}{% if row.premium and not row.full %}
-        <tr><th scope="row">{{ row.label }}</th><td></td><td></td><td>✓</td></tr>
-        {% endif %}{% endfor %}
+        <tr>
+          <td>
+            <ul>
+              {%- for row in t.packages.rows %}{% if row.concept %}
+              <li>{{ row.label }}</li>
+              {% endif %}{% endfor %}
+            </ul>
+          </td>
+          <td>
+            <p>{{ t.packages.includesConcept }}</p>
+            <ul>
+              {%- for row in t.packages.rows %}{% if row.full and not row.concept %}
+              <li>{{ row.label }}</li>
+              {% endif %}{% endfor %}
+            </ul>
+          </td>
+          <td>
+            <p>{{ t.packages.includesFull }}</p>
+            <ul>
+              {%- for row in t.packages.rows %}{% if row.premium and not row.full %}
+              <li>{{ row.label }}</li>
+              {% endif %}{% endfor %}
+            </ul>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
