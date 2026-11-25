@@ -4,6 +4,13 @@ Strona Michała Wicherka – projektowanie architektury i wnętrz. Polski pod `/
 
 Eleventy + GitHub Actions + GitHub Pages. Bez frameworków JS po stronie przeglądarki.
 
+## Serwisy
+
+- [GitHub](https://github.com/fredziarz/sketch_and_script) – repozytorium, akcje (check `build`) i GitHub Pages (produkcja, www.sketchandscript.pl).
+- [Cloudflare](https://dash.cloudflare.com/) – Worker `sketch-and-script` (strona testowa) i Web Analytics.
+- [Google Cloud](https://console.cloud.google.com/home/dashboard?project=sketchandscript-cms) – projekt `sketchandscript-cms`, tłumaczenia PL → EN w panelu (Cloud Translation).
+- [Web3Forms](https://web3forms.com/) – formularz kontaktowy.
+
 ## Praca lokalna
 
 ```bash
