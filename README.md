@@ -30,6 +30,7 @@ npm test      # sprawdza zbudowaną stronę (linki, kotwice, PL/EN, ukryte /code
 `/admin/` – Sveltia CMS, konfiguracja w `src/admin/config.yml`. Edytuje te same pliki JSON co wyżej, w obu językach naraz. Każdy zapis to commit na `dev`: zmiana trafia na stronę testową, nie na live (patrz Publikacja). Zdjęcia przy wgrywaniu są zmniejszane i zamieniane na WebP.
 
 - Online: „Sign In Using Access Token”. Użyj tokenu typu fine-grained z konta z prawem zapisu do repo (właściciel: `fredziarz`), ograniczonego tylko do tego repo, z jednym uprawnieniem Contents: Read and write i z datą wygaśnięcia. Okno logowania podaje link do wygenerowania tokenu.
+- Tłumaczenie PL → EN: przycisk tłumaczenia Sveltia z usługą Mistral AI; klucz API wpisuje się w Settings panelu i zostaje tylko w przeglądarce. Przycisk w nagłówku wersji EN wypełnia puste pola, przycisk przy polu nadpisuje jego treść.
 - Wersja Sveltia jest przypięta w `src/admin/index.html`; aktualizacja to zmiana numeru w adresie skryptu.
 - Lokalnie (`npm start`, potem `localhost:8080/admin/` w Chrome): „Work with Local Repository” i wskazanie folderu repo. Zmiany trafiają prosto do plików, bez commitów.
 
