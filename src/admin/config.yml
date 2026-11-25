@@ -41,6 +41,7 @@ collections:
     i18n: true
     identifier_field: title
     slug: "{{title}}"
+    preview_path: /projekty/{{slug}}/
     sortable_fields: [order, title]
     summary: "{{order}}. {{title}}"
     fields:
@@ -65,12 +66,14 @@ collections:
 
   - name: pages
     label: Strona
+    i18n: true
     files:
       - name: home
         label: Strona główna
         file: /src/_data/home.json
         format: json
         i18n: true
+        preview_path: /
         fields:
           - { name: metaTitle, label: Tytuł w Google, widget: string, i18n: true }
           - { name: metaDescription, label: Opis w Google, widget: text, i18n: true }

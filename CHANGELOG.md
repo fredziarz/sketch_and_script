@@ -2,6 +2,13 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/), wersje: [SemVer](https://semver.org/).
 
+## [2.0.1] – 2026-11-25
+
+### Fixes
+
+- Panel treści wczytuje istniejące teksty strony głównej w obu językach, więc można zmienić pojedyncze pole bez wypełniania całego formularza.
+- Panel ma link do podglądu strony głównej i stron projektów na żywo.
+
 ## [2.0.0] – 2026-11-24
 
 ### BREAKING CHANGES
