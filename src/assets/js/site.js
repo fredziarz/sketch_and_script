@@ -5,11 +5,18 @@
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');
 
-    toggle.addEventListener('click', () => {
-        const open = toggle.getAttribute('aria-expanded') !== 'true';
+    const compact = window.matchMedia('(max-width: 1100px)');
+    const setOpen = open => {
         toggle.setAttribute('aria-expanded', String(open));
         menu.classList.toggle('open', open);
+    };
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    document.querySelector('.brand').addEventListener('click', (e) => {
+        if (!compact.matches) return;
+        e.preventDefault();
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
     });
+    compact.addEventListener('change', () => { if (!compact.matches) setOpen(false); });
     menu.addEventListener('click', (e) => {
         if (e.target.closest('a')) {
             toggle.setAttribute('aria-expanded', 'false');

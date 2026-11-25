@@ -18,6 +18,20 @@ const loadProjects = () =>
     .sort((a, b) => (a.pl.order ?? 99) - (b.pl.order ?? 99));
 
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+const tieWords = (html, words) => {
+  const re = new RegExp(`(^|[\\s(])(${words})\\s+`, 'gi');
+  const tie = text => text.replace(re, (_, pre, word) => `${pre}${word}\u00A0`);
+  return html
+    .split(/(<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>)/i)
+    .map((part, i) => (i % 2 ? part : part.replace(/>([^<]+)</g, (_, text) => `>${tie(text)}<`)))
+    .join('');
+};
+const orphans = html => tieWords(
+  html,
+  /<html[^>]*\slang="pl"/i.test(html)
+    ? 'oraz|albo|lub|ani|niż|że|czy|[aiouwz]'
+    : 'and|but|nor|or|a'
+);
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'src/images': 'images', 'src/assets': 'assets', 'src/code': 'code', 'src/admin': 'admin' });
@@ -54,6 +68,10 @@ export default function (eleventyConfig) {
       .filter(p => p.trim())
       .map(p => `<p>${escapeHtml(p.trim())}</p>`)
       .join('\n')
+  );
+
+  eleventyConfig.addTransform('orphans', (content, outputPath) =>
+    outputPath && outputPath.endsWith('.html') ? orphans(content) : content
   );
 
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {

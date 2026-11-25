@@ -59,8 +59,10 @@ const enHome = read('/en/index.html');
 const frameCount = html => (html.match(/<figure class="slide[\s"]/g) || []).length;
 if (frameCount(home) !== 2) fail(`homepage slideshow: expected 2 frames, got ${frameCount(home)}`);
 if (frameCount(enHome) !== 2) fail('en homepage slideshow: expected 2 frames');
-if (!home.includes('Skrojone do Twoich potrzeb') || !enHome.includes('Shaped around what you need')) fail('homepage: missing package heading');
-if (!home.includes('To, co w Koncepcji, oraz') || !enHome.includes('Everything in Concept, plus')) fail('homepage: missing package shorthand');
+const nbsp = '\u00A0';
+if (!home.includes('Projekt skrojony do Twoich potrzeb') || !enHome.includes(`A${nbsp}project shaped around what you need`)) fail('homepage: missing package heading');
+if (!home.includes(`To, co w${nbsp}Koncepcji, oraz`) || !enHome.includes('Everything in Concept, plus')) fail('homepage: missing package shorthand');
+if (!home.includes(`z${nbsp}wizualizacjami`) || home.includes('z wizualizacjami')) fail('homepage: conjunction left at the end of a line');
 if (home.includes('Najbardziej opłacalny') || enHome.includes('Best value') || home.includes('Wszystko z pakietu')) fail('homepage: old package wording');
 if (!home.includes('/images/fav-icon.png')) fail('homepage: missing mark');
 
