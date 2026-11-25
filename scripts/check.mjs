@@ -59,8 +59,9 @@ const enHome = read('/en/index.html');
 const frameCount = html => (html.match(/<figure class="slide[\s"]/g) || []).length;
 if (frameCount(home) !== 2) fail(`homepage slideshow: expected 2 frames, got ${frameCount(home)}`);
 if (frameCount(enHome) !== 2) fail('en homepage slideshow: expected 2 frames');
-if (!home.includes('Najbardziej opłacalny') || !enHome.includes('Best value')) fail('homepage: missing highlighted package');
-if (home.includes('Wszystko z pakietu') || enHome.includes('Everything in')) fail('homepage: package rows repeat a whole package');
+if (!home.includes('Skrojone do Twoich potrzeb') || !enHome.includes('Shaped around what you need')) fail('homepage: missing package heading');
+if (!home.includes('To, co w Koncepcji, oraz') || !enHome.includes('Everything in Concept, plus')) fail('homepage: missing package shorthand');
+if (home.includes('Najbardziej opłacalny') || enHome.includes('Best value') || home.includes('Wszystko z pakietu')) fail('homepage: old package wording');
 if (!home.includes('/images/fav-icon.png')) fail('homepage: missing mark');
 
 for (const leak of ['_working_files', 'node_modules', 'agent-toolkit', '.agents']) {

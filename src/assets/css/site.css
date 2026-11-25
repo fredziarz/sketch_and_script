@@ -75,10 +75,11 @@ p + p { margin-top: 1em; }
 .card:hover .ph img { transform: scale(1.03); }
 
 /* Jak pracuję */
-.steps { list-style: none; counter-reset: s; display: grid; grid-template-columns: 1fr; max-width: 40em; gap: 56px; text-align: left; }
-.steps li { border-top: 1px solid var(--line); padding-top: 20px; }
-.steps li:not(.extra)::before { counter-increment: s; content: counter(s, decimal-leading-zero); display: block; font-size: 32px; color: var(--fg); margin-bottom: 8px; }
-.steps .extra::before { content: '+'; display: block; font-size: 32px; color: var(--fg); margin-bottom: 8px; }
+.process { max-width: 40em; margin-inline: auto; text-align: left; }
+.steps { list-style: none; counter-reset: s; display: grid; gap: 56px; }
+.steps li::before { display: grid; place-items: center; width: 36px; height: 36px; margin-bottom: 14px; border: 1px solid var(--muted); border-radius: 50%; font-size: 16px; line-height: 1; color: var(--fg); }
+.steps li:not(.extra)::before { counter-increment: s; content: counter(s); }
+.steps .extra::before { content: '+'; }
 .steps p { margin-top: 8px; }
 .duration { font-size: 14px; color: var(--muted); }
 
@@ -87,17 +88,18 @@ p + p { margin-top: 1em; }
 .services li { border-top: 1px solid var(--line); padding-top: 20px; }
 .scope-scroll { overflow-x: auto; text-align: left; }
 .scope { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15px; }
-.scope th, .scope td { border-bottom: 1px solid var(--line); padding: 12px 10px; font-weight: 300; }
-.scope thead th { font-weight: 400; text-align: center; vertical-align: bottom; }
-.scope tbody th { text-align: left; }
-.scope td { text-align: center; }
-.scope .best { background: rgba(26, 25, 22, .04); }
-.scope thead .best span { display: block; margin-top: 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+.scope th, .scope td { border-bottom: 1px solid var(--line); padding: 16px 18px 20px; font-weight: 300; vertical-align: top; }
+.scope thead th { font-weight: 400; text-align: center; }
+.scope td { text-align: left; width: 33%; }
+.scope ul { list-style: none; display: grid; gap: 10px; }
+.scope p { margin-bottom: 12px; }
 
 /* O mnie */
-.about { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: center; }
-.about.no-portrait { grid-template-columns: 1fr; max-width: 46em; text-align: left; }
-.portrait img { aspect-ratio: 4 / 5; width: 100%; object-fit: cover; }
+.about { display: grid; grid-template-columns: 280px 1fr; gap: 64px; align-items: start; max-width: 52em; margin-inline: auto; text-align: left; }
+.about .label, .about h2 { text-align: left; }
+.about h2 { margin-left: 0; margin-right: 0; }
+.portrait { aspect-ratio: 4 / 5; background: var(--line); }
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Kontakt */
 .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
@@ -142,6 +144,7 @@ p + p { margin-top: 1em; }
 @media (max-width: 900px) {
   .services { grid-template-columns: 1fr 1fr; }
   .contact, .about, .project-head { grid-template-columns: 1fr; gap: 40px; }
+  .portrait { max-width: 240px; }
 }
 @media (max-width: 760px) {
   .menu-toggle { display: block; }

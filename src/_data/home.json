@@ -119,13 +119,12 @@
     },
     "packages": {
       "label": "Pakiety",
-      "heading": "Trzy zakresy",
+      "heading": "Skrojone do Twoich potrzeb",
       "concept": "Koncepcja",
       "full": "Projekt kompleksowy",
       "premium": "Projekt premium",
-      "highlight": "Najbardziej opłacalny",
-      "yes": "tak",
-      "no": "nie",
+      "includesConcept": "To, co w Koncepcji, oraz",
+      "includesFull": "To, co w Projekcie kompleksowym, oraz",
       "rows": [
         { "label": "Inwentaryzacja pomiarowa (w cenie, do 50 km)", "concept": true, "full": true, "premium": true },
         { "label": "Analiza potrzeb i założeń", "concept": true, "full": true, "premium": true },
@@ -317,13 +316,12 @@
     },
     "packages": {
       "label": "Packages",
-      "heading": "Three scopes",
+      "heading": "Shaped around what you need",
       "concept": "Concept",
       "full": "Comprehensive design",
       "premium": "Premium design",
-      "highlight": "Best value",
-      "yes": "yes",
-      "no": "no",
+      "includesConcept": "Everything in Concept, plus",
+      "includesFull": "Everything in the comprehensive design, plus",
       "rows": [
         { "label": "Measured survey (included, within 50 km)", "concept": true, "full": true, "premium": true },
         { "label": "Brief and design assumptions", "concept": true, "full": true, "premium": true },

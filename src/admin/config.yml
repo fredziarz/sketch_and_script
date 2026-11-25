@@ -159,9 +159,8 @@ collections:
               - { name: concept, label: Kolumna Koncepcja, widget: string, i18n: true }
               - { name: full, label: Kolumna Projekt kompleksowy, widget: string, i18n: true }
               - { name: premium, label: Kolumna Projekt premium, widget: string, i18n: true }
-              - { name: highlight, label: Dopisek przy pakiecie kompleksowym, widget: string, i18n: true }
-              - { name: yes, label: Tak (dla czytników ekranu), widget: string, i18n: true }
-              - { name: no, label: Nie (dla czytników ekranu), widget: string, i18n: true }
+              - { name: includesConcept, label: Skrót w Projekcie kompleksowym, widget: string, i18n: true }
+              - { name: includesFull, label: Skrót w Projekcie premium, widget: string, i18n: true }
               - name: rows
                 label: Wiersze
                 label_singular: Wiersz

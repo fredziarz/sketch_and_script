@@ -47,6 +47,7 @@ eleventyComputed:
 <section class="section wrap rule" id="{{ t.nav[1].id }}">
   <p class="label">{{ t.process.label }}</p>
   <h2>{{ t.process.heading }}</h2>
+  <div class="process">
   <p class="muted lead">{{ t.process.text }}</p>
   <ol class="steps">
     {%- for s in t.process.steps %}
@@ -62,6 +63,7 @@ eleventyComputed:
       <p>{{ t.process.extra.text }}</p>
     </li>
   </ol>
+  </div>
 </section>
 
 <section class="section wrap rule" id="{{ t.nav[2].id }}">
@@ -82,31 +84,27 @@ eleventyComputed:
     <table class="scope">
       <thead>
         <tr>
-          <th></th>
           <th>{{ t.packages.concept }}</th>
-          <th class="best">{{ t.packages.full }}<span>{{ t.packages.highlight }}</span></th>
+          <th>{{ t.packages.full }}</th>
           <th>{{ t.packages.premium }}</th>
         </tr>
       </thead>
       <tbody>
-        {%- for row in t.packages.rows %}
         <tr>
-          <th scope="row">{{ row.label }}</th>
-          <td aria-label="{{ t.packages.yes if row.concept else t.packages.no }}">{% if row.concept %}✓{% endif %}</td>
-          <td class="best" aria-label="{{ t.packages.yes if row.full else t.packages.no }}">{% if row.full %}✓{% endif %}</td>
-          <td aria-label="{{ t.packages.yes if row.premium else t.packages.no }}">{% if row.premium %}✓{% endif %}</td>
+          <td><ul>{%- for row in t.packages.rows %}{% if row.concept %}<li>{{ row.label }}</li>{% endif %}{% endfor %}</ul></td>
+          <td><p>{{ t.packages.includesConcept }}</p><ul>{%- for row in t.packages.rows %}{% if row.full and not row.concept %}<li>{{ row.label }}</li>{% endif %}{% endfor %}</ul></td>
+          <td><p>{{ t.packages.includesFull }}</p><ul>{%- for row in t.packages.rows %}{% if row.premium and not row.full %}<li>{{ row.label }}</li>{% endif %}{% endfor %}</ul></td>
         </tr>
-        {%- endfor %}
       </tbody>
     </table>
   </div>
 </section>
 
 <section class="section wrap rule" id="{{ t.nav[4].id }}">
-  <div class="about{% if not t.about.portrait %} no-portrait{% endif %}">
-    {%- if t.about.portrait %}
-    <div class="portrait"><img src="{{ t.about.portrait }}" alt="{{ t.about.portraitAlt }}" sizes="(min-width: 800px) 40vw, 100vw"></div>
-    {%- endif %}
+  <div class="about">
+    <div class="portrait">
+      {%- if t.about.portrait %}<img src="{{ t.about.portrait }}" alt="{{ t.about.portraitAlt }}" sizes="280px">{% endif %}
+    </div>
     <div>
       <p class="label">{{ t.about.label }}</p>
       <h2>{{ t.about.heading }}</h2>
