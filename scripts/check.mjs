@@ -54,6 +54,15 @@ for (const [, url] of sitemap.matchAll(/<loc>https:\/\/www\.sketchandscript\.pl(
   if (url.startsWith('/code/') && !site.codingVisible) fail('sitemap: lists hidden /code/');
 }
 
+const home = read('/index.html');
+const enHome = read('/en/index.html');
+const frameCount = html => (html.match(/<figure class="slide[\s"]/g) || []).length;
+if (frameCount(home) !== 2) fail(`homepage slideshow: expected 2 frames, got ${frameCount(home)}`);
+if (frameCount(enHome) !== 2) fail('en homepage slideshow: expected 2 frames');
+if (!home.includes('Najbardziej opłacalny') || !enHome.includes('Best value')) fail('homepage: missing highlighted package');
+if (home.includes('Wszystko z pakietu') || enHome.includes('Everything in')) fail('homepage: package rows repeat a whole package');
+if (!home.includes('/images/fav-icon.png')) fail('homepage: missing mark');
+
 for (const leak of ['_working_files', 'node_modules', 'agent-toolkit', '.agents']) {
   if (files.some(f => f.includes(leak))) fail(`leaked into build: ${leak}`);
 }

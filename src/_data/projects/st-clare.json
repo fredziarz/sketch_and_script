@@ -9,7 +9,7 @@
     "description": "Duży zespół zabudowy wielofunkcyjnej w spokojnej dzielnicy Londynu.\n\nProjekt godzi nową, gęstszą zabudowę z charakterem okolicznych ulic.",
     "credits": "",
     "images": [
-      { "src": "/images/st-clare/st-clare-view-6.jpg", "alt": "St Clare, widok z lotu ptaka" },
+      { "src": "/images/st-clare/st-clare-view-6.jpg", "alt": "St Clare, widok z lotu ptaka", "slideshow": true },
       { "src": "/images/st-clare/st-clare-view-5.jpg", "alt": "St Clare, widok od ulicy" },
       { "src": "/images/st-clare/st-clare-view-4.jpg", "alt": "St Clare, dziedziniec" },
       { "src": "/images/st-clare/st-clare-view-3.jpg", "alt": "St Clare, detal elewacji" },
@@ -27,7 +27,7 @@
     "description": "A large mixed-use development in a quiet London neighbourhood.\n\nThe scheme balances new density with the character of the surrounding streets.",
     "credits": "",
     "images": [
-      { "src": "/images/st-clare/st-clare-view-6.jpg", "alt": "St Clare, aerial view" },
+      { "src": "/images/st-clare/st-clare-view-6.jpg", "alt": "St Clare, aerial view", "slideshow": true },
       { "src": "/images/st-clare/st-clare-view-5.jpg", "alt": "St Clare, street view" },
       { "src": "/images/st-clare/st-clare-view-4.jpg", "alt": "St Clare, courtyard" },
       { "src": "/images/st-clare/st-clare-view-3.jpg", "alt": "St Clare, facade detail" },

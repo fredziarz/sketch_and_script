@@ -120,40 +120,29 @@
     "packages": {
       "label": "Pakiety",
       "heading": "Trzy zakresy",
-      "items": [
-        {
-          "title": "Koncepcja",
-          "points": [
-            "Inwentaryzacja pomiarowa (w cenie, do 50 km)",
-            "Analiza potrzeb i założeń",
-            "Układ funkcjonalny: 3 warianty (rzuty 2D)",
-            "Moodboard",
-            "Kolorystyka i materiały",
-            "Wizualizacje 3D: 2 ujęcia na pomieszczenie"
-          ]
-        },
-        {
-          "title": "Projekt kompleksowy",
-          "points": [
-            "Wszystko z pakietu Koncepcja",
-            "Dokumentacja techniczna (rzuty, rozwinięcia ścian, posadzki i sufity)",
-            "Projekt oświetlenia",
-            "Plan punktów elektrycznych i hydraulicznych",
-            "Rysunki dla wykonawców",
-            "Podstawowy projekt zabudów meblowych",
-            "Zestawienie materiałów i wyposażenia"
-          ]
-        },
-        {
-          "title": "Projekt premium",
-          "points": [
-            "Wszystko z pakietu kompleksowego",
-            "Rozbudowany projekt zabudów meblowych",
-            "Pomoc w zakupach i wyborze materiałów",
-            "Koordynacja wybranych elementów",
-            "Nadzór autorski"
-          ]
-        }
+      "concept": "Koncepcja",
+      "full": "Projekt kompleksowy",
+      "premium": "Projekt premium",
+      "highlight": "Najbardziej opłacalny",
+      "yes": "tak",
+      "no": "nie",
+      "rows": [
+        { "label": "Inwentaryzacja pomiarowa (w cenie, do 50 km)", "concept": true, "full": true, "premium": true },
+        { "label": "Analiza potrzeb i założeń", "concept": true, "full": true, "premium": true },
+        { "label": "Układ funkcjonalny: 3 warianty (rzuty 2D)", "concept": true, "full": true, "premium": true },
+        { "label": "Moodboard", "concept": true, "full": true, "premium": true },
+        { "label": "Kolorystyka i materiały", "concept": true, "full": true, "premium": true },
+        { "label": "Wizualizacje 3D: 2 ujęcia na pomieszczenie", "concept": true, "full": true, "premium": true },
+        { "label": "Dokumentacja techniczna (rzuty, rozwinięcia ścian, posadzki i sufity)", "concept": false, "full": true, "premium": true },
+        { "label": "Projekt oświetlenia", "concept": false, "full": true, "premium": true },
+        { "label": "Plan punktów elektrycznych i hydraulicznych", "concept": false, "full": true, "premium": true },
+        { "label": "Rysunki dla wykonawców", "concept": false, "full": true, "premium": true },
+        { "label": "Podstawowy projekt zabudów meblowych", "concept": false, "full": true, "premium": true },
+        { "label": "Zestawienie materiałów i wyposażenia", "concept": false, "full": true, "premium": true },
+        { "label": "Rozbudowany projekt zabudów meblowych", "concept": false, "full": false, "premium": true },
+        { "label": "Pomoc w zakupach i wyborze materiałów", "concept": false, "full": false, "premium": true },
+        { "label": "Koordynacja wybranych elementów", "concept": false, "full": false, "premium": true },
+        { "label": "Nadzór autorski", "concept": false, "full": false, "premium": true }
       ]
     },
     "about": {
@@ -329,40 +318,29 @@
     "packages": {
       "label": "Packages",
       "heading": "Three scopes",
-      "items": [
-        {
-          "title": "Concept",
-          "points": [
-            "Measured survey (included, within 50 km)",
-            "Brief and design assumptions",
-            "Layout: 3 options (2D plans)",
-            "Moodboard",
-            "Colours and materials",
-            "3D visualisations: 2 views per room"
-          ]
-        },
-        {
-          "title": "Comprehensive design",
-          "points": [
-            "Everything in Concept",
-            "Technical drawings (plans, wall elevations, floors and ceilings)",
-            "Lighting design",
-            "Electrical and plumbing point layouts",
-            "Drawings for contractors",
-            "Basic joinery design",
-            "Materials and furnishings schedule"
-          ]
-        },
-        {
-          "title": "Premium design",
-          "points": [
-            "Everything in the comprehensive package",
-            "Detailed joinery design",
-            "Help with purchasing and choosing materials",
-            "Coordination of selected elements",
-            "Design supervision"
-          ]
-        }
+      "concept": "Concept",
+      "full": "Comprehensive design",
+      "premium": "Premium design",
+      "highlight": "Best value",
+      "yes": "yes",
+      "no": "no",
+      "rows": [
+        { "label": "Measured survey (included, within 50 km)", "concept": true, "full": true, "premium": true },
+        { "label": "Brief and design assumptions", "concept": true, "full": true, "premium": true },
+        { "label": "Layout: 3 options (2D plans)", "concept": true, "full": true, "premium": true },
+        { "label": "Moodboard", "concept": true, "full": true, "premium": true },
+        { "label": "Colours and materials", "concept": true, "full": true, "premium": true },
+        { "label": "3D visualisations: 2 views per room", "concept": true, "full": true, "premium": true },
+        { "label": "Technical drawings (plans, wall elevations, floors and ceilings)", "concept": false, "full": true, "premium": true },
+        { "label": "Lighting design", "concept": false, "full": true, "premium": true },
+        { "label": "Electrical and plumbing point layouts", "concept": false, "full": true, "premium": true },
+        { "label": "Drawings for contractors", "concept": false, "full": true, "premium": true },
+        { "label": "Basic joinery design", "concept": false, "full": true, "premium": true },
+        { "label": "Materials and furnishings schedule", "concept": false, "full": true, "premium": true },
+        { "label": "Detailed joinery design", "concept": false, "full": false, "premium": true },
+        { "label": "Help with purchasing and choosing materials", "concept": false, "full": false, "premium": true },
+        { "label": "Coordination of selected elements", "concept": false, "full": false, "premium": true },
+        { "label": "Design supervision", "concept": false, "full": false, "premium": true }
       ]
     },
     "about": {

@@ -11,12 +11,12 @@ eleventyComputed:
 ---
 {%- set t = home[lang] -%}
 <section class="slides" aria-roledescription="carousel" aria-label="{{ t.portfolio.heading }}">
-  {%- for p in projectList %}
-  {%- set pr = p[lang] %}
+  {%- set frames = projectList | slideshow(lang) %}
+  {%- for f in frames %}
   <figure class="slide{% if loop.first %} on{% endif %}" aria-roledescription="slide" aria-label="{{ t.ui.slide }} {{ loop.index }} / {{ loop.length }}">
-    <img src="{{ pr.images[0].src }}" alt="{{ pr.images[0].alt }}" {% if loop.first %}loading="eager" fetchpriority="high"{% endif %}>
+    <img src="{{ f.img.src }}" alt="{{ f.img.alt }}" {% if loop.first %}loading="eager" fetchpriority="high"{% endif %}>
     <figcaption>
-      <a href="{{ p.slug | projectUrl(lang) }}"><span class="slide-title">{{ pr.title }}</span><span>{{ pr.location }} · {{ t.ui.seeProject }} →</span></a>
+      <a href="{{ f.slug | projectUrl(lang) }}"><span class="slide-title">{{ f.title }}</span><span>{{ f.location }} · {{ t.ui.seeProject }} →</span></a>
     </figcaption>
   </figure>
   {%- endfor %}
@@ -78,16 +78,28 @@ eleventyComputed:
 <section class="section wrap rule" id="{{ t.nav[3].id }}">
   <p class="label">{{ t.packages.label }}</p>
   <h2>{{ t.packages.heading }}</h2>
-  <ul class="packages">
-    {%- for item in t.packages.items %}
-    <li>
-      <h3>{{ item.title }}</h3>
-      <ul>
-        {%- for point in item.points %}<li>{{ point }}</li>{% endfor %}
-      </ul>
-    </li>
-    {%- endfor %}
-  </ul>
+  <div class="scope-scroll">
+    <table class="scope">
+      <thead>
+        <tr>
+          <th></th>
+          <th>{{ t.packages.concept }}</th>
+          <th class="best">{{ t.packages.full }}<span>{{ t.packages.highlight }}</span></th>
+          <th>{{ t.packages.premium }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for row in t.packages.rows %}
+        <tr>
+          <th scope="row">{{ row.label }}</th>
+          <td aria-label="{{ t.packages.yes if row.concept else t.packages.no }}">{% if row.concept %}✓{% endif %}</td>
+          <td class="best" aria-label="{{ t.packages.yes if row.full else t.packages.no }}">{% if row.full %}✓{% endif %}</td>
+          <td aria-label="{{ t.packages.yes if row.premium else t.packages.no }}">{% if row.premium %}✓{% endif %}</td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <section class="section wrap rule" id="{{ t.nav[4].id }}">

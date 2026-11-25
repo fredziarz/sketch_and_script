@@ -38,6 +38,16 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter('homeUrl', homeUrl);
   eleventyConfig.addFilter('projectUrl', projectUrl);
   eleventyConfig.addFilter('otherLang', lang => (lang === 'pl' ? 'en' : 'pl'));
+  eleventyConfig.addFilter('slideshow', (projects, lang) =>
+    projects.flatMap(p => {
+      const pr = p[lang];
+      const images = pr.images || [];
+      const marked = images.filter(img => img.slideshow);
+      return (marked.length ? marked : images.slice(0, 1)).map(img => ({
+        slug: p.slug, title: pr.title, location: pr.location, img,
+      }));
+    })
+  );
   eleventyConfig.addFilter('paragraphs', text =>
     String(text || '')
       .split(/\n\s*\n/)
