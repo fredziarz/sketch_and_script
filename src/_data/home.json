@@ -5,24 +5,24 @@
     "tagline": "projektowanie architektury i wnętrz",
     "nav": [
       {
-        "id": "portfolio",
-        "label": "Portfolio"
+        "label": "Portfolio",
+        "id": "portfolio"
       },
       {
-        "id": "jak-pracuje",
-        "label": "Jak pracuję"
+        "label": "Jak pracuję",
+        "id": "jak-pracuje"
       },
       {
-        "id": "oferta",
-        "label": "Oferta"
+        "label": "Oferta",
+        "id": "oferta"
       },
       {
-        "id": "o-mnie",
-        "label": "O mnie"
+        "label": "O mnie",
+        "id": "o-mnie"
       },
       {
-        "id": "kontakt",
-        "label": "Kontakt"
+        "label": "Kontakt",
+        "id": "kontakt"
       }
     ],
     "intro": {
@@ -166,29 +166,29 @@
     }
   },
   "en": {
-    "metaTitle": "Michał Wicherek – architecture and interior design",
+    "metaTitle": "Michał Wicherek – architecture",
     "metaDescription": "Interior design for homes, apartments and commercial spaces, single-family house concepts, 3D visualisations and design supervision. Based near Łódź, working across Poland.",
     "tagline": "architecture and interior design",
     "nav": [
       {
-        "id": "portfolio",
-        "label": "Portfolio"
+        "label": "Portfolio",
+        "id": "portfolio"
       },
       {
-        "id": "process",
-        "label": "Process"
+        "label": "Process",
+        "id": "process"
       },
       {
-        "id": "services",
-        "label": "Services"
+        "label": "Services",
+        "id": "services"
       },
       {
-        "id": "about",
-        "label": "About"
+        "label": "About",
+        "id": "about"
       },
       {
-        "id": "contact",
-        "label": "Contact"
+        "label": "Contact",
+        "id": "contact"
       }
     ],
     "intro": {
