@@ -1,0 +1,7 @@
+// Staging site built from the dev branch; production stays on GitHub Pages.
+{
+  "name": "sketch-and-script",
+  "compatibility_date": "2026-11-23",
+  "assets": { "directory": "_site" },
+  "preview_urls": false
+}

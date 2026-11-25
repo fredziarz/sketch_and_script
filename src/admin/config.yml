@@ -3,7 +3,7 @@
 backend:
   name: github
   repo: fredziarz/sketch_and_script
-  branch: main
+  branch: dev
   auth_methods: [token]
   commit_messages:
     create: "content: add {{collection}} {{slug}}"
@@ -12,7 +12,7 @@ backend:
     uploadMedia: "content: upload {{path}}"
     deleteMedia: "content: delete {{path}}"
 
-site_url: https://www.sketchandscript.pl
+site_url: https://sketch-and-script.michalwicherek.workers.dev
 slug:
   encoding: ascii
   clean_accents: true

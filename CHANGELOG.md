@@ -2,6 +2,12 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/), wersje: [SemVer](https://semver.org/).
 
+## [2.1.0] – 2026-11-25
+
+### Features
+
+- Środowisko testowe: panel treści zapisuje na gałąź `dev`, zmiany widać na https://sketch-and-script.michalwicherek.workers.dev (bez indeksowania), a link podglądu w panelu prowadzi właśnie tam. Strona live zmienia się dopiero po scaleniu pull requestu `dev` → `main`.
+
 ## [2.0.1] – 2026-11-25
 
 ### Fixes

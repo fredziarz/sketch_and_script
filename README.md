@@ -23,10 +23,11 @@ npm test      # sprawdza zbudowaną stronę (linki, kotwice, PL/EN, ukryte /code
 - `src/assets/` – CSS, JS, fonty.
 - `src/code/` – część o kodowaniu (po angielsku, `noindex`, bez linku w menu, dopóki `codingVisible` jest `false`).
 - `src/_data/redirects.json` – przekierowania ze starych adresów.
+- `wrangler.jsonc`, `src/_headers` – strona testowa na Cloudflare (Worker `sketch-and-script`, buduje gałąź `dev`, `noindex`).
 
 ## Panel treści (CMS)
 
-`/admin/` – Sveltia CMS, konfiguracja w `src/admin/config.yml`. Edytuje te same pliki JSON co wyżej, w obu językach naraz. Każdy zapis to commit na `main`, czyli publikacja (strona odświeża się po około minucie). Zdjęcia przy wgrywaniu są zmniejszane i zamieniane na WebP.
+`/admin/` – Sveltia CMS, konfiguracja w `src/admin/config.yml`. Edytuje te same pliki JSON co wyżej, w obu językach naraz. Każdy zapis to commit na `dev`: zmiana trafia na stronę testową, nie na live (patrz Publikacja). Zdjęcia przy wgrywaniu są zmniejszane i zamieniane na WebP.
 
 - Online: „Sign In Using Access Token”. Użyj tokenu typu fine-grained z konta z prawem zapisu do repo (właściciel: `fredziarz`), ograniczonego tylko do tego repo, z jednym uprawnieniem Contents: Read and write i z datą wygaśnięcia. Okno logowania podaje link do wygenerowania tokenu.
 - Wersja Sveltia jest przypięta w `src/admin/index.html`; aktualizacja to zmiana numeru w adresie skryptu.
@@ -34,9 +35,12 @@ npm test      # sprawdza zbudowaną stronę (linki, kotwice, PL/EN, ukryte /code
 
 ## Publikacja
 
-Push na `main` (z panelu albo z `dev`) uruchamia workflow `.github/workflows/deploy.yml`: build, `npm test`, publikacja na GitHub Pages. Jeśli build albo test padnie, strona zostaje bez zmian.
+Dwa środowiska:
 
-Zmiany w kodzie i designie: praca na `dev`, a przed jej rozpoczęciem `git pull origin main` (panel commituje na `main`). Gotowe zmiany: `git push origin dev`, potem `git push origin dev:main`.
+- **dev** – gałąź `dev`, strona testowa https://sketch-and-script.michalwicherek.workers.dev (Cloudflare, `noindex`). Trafiają tu zapisy z panelu i push z kodem; przed pracą `git pull origin dev`.
+- **produkcja** – gałąź `main`, www.sketchandscript.pl (GitHub Pages). Zmienia się tylko przez pull request `dev` → `main`: [otwórz PR](https://github.com/fredziarz/sketch_and_script/compare/main...dev?expand=1), poczekaj na zielony check `build` (build + `npm test`), kliknij „Merge”. Workflow `.github/workflows/deploy.yml` publikuje stronę po około minucie.
+
+Gałąź `main` jest chroniona: bez PR i zielonego `build` nie da się na nią nic wypchnąć.
 
 Punkt powrotu do starej strony: gałąź `legacy-site` (tag `pre-redesign`).
 
