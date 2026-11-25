@@ -46,7 +46,7 @@ collections:
     summary: "{{order}}. {{title}}"
     fields:
       - { name: title, label: Nazwa, widget: string, i18n: duplicate_if_empty }
-      - { name: order, label: Kolejność, widget: number, value_type: int, i18n: duplicate, hint: "1 = pierwszy na liście i w pokazie zdjęć" }
+      - { name: order, label: Kolejność, widget: number, value_type: int, i18n: duplicate, hint: "1 = pierwszy na liście projektów; pokaz zbiera zaznaczone kadry w tej kolejności" }
       - { name: category, label: Typ, widget: string, i18n: true }
       - { name: location, label: Lokalizacja, widget: string, i18n: true }
       - { name: year, label: Rok, widget: string, i18n: duplicate, required: false }
@@ -59,10 +59,11 @@ collections:
         widget: list
         i18n: true
         min: 1
-        hint: "Pierwsze zdjęcie jest główne i trafia do pokazu na stronie startowej"
+        hint: "Pierwsze zdjęcie jest na karcie i na stronie projektu. Zaznaczone kadry wchodzą do pokazu na stronie startowej; gdy żaden nie jest zaznaczony, pokaz bierze pierwsze."
         fields:
           - { name: src, label: Plik, widget: image, i18n: duplicate }
           - { name: alt, label: Opis zdjęcia (dla niewidomych i Google), widget: string, i18n: true }
+          - { name: slideshow, label: W pokazie na stronie startowej, widget: boolean, i18n: duplicate, required: false }
 
   - name: pages
     label: Strona
@@ -148,6 +149,29 @@ collections:
                   - { name: title, label: Nazwa, widget: string, i18n: true }
                   - { name: text, label: Opis, widget: text, i18n: true }
               - { name: area, label: Obszar działania, widget: text, i18n: true }
+          - name: packages
+            label: Pakiety
+            widget: object
+            i18n: true
+            fields:
+              - { name: label, label: Etykieta, widget: string, i18n: true }
+              - { name: heading, label: Nagłówek, widget: string, i18n: true }
+              - { name: concept, label: Kolumna Koncepcja, widget: string, i18n: true }
+              - { name: full, label: Kolumna Projekt kompleksowy, widget: string, i18n: true }
+              - { name: premium, label: Kolumna Projekt premium, widget: string, i18n: true }
+              - { name: includesConcept, label: Skrót w Projekcie kompleksowym, widget: string, i18n: true }
+              - { name: includesFull, label: Skrót w Projekcie premium, widget: string, i18n: true }
+              - name: rows
+                label: Wiersze
+                label_singular: Wiersz
+                widget: list
+                i18n: true
+                summary: "{{label}}"
+                fields:
+                  - { name: label, label: Czynność, widget: string, i18n: true }
+                  - { name: concept, label: Koncepcja, widget: boolean, i18n: duplicate }
+                  - { name: full, label: Projekt kompleksowy, widget: boolean, i18n: duplicate }
+                  - { name: premium, label: Projekt premium, widget: boolean, i18n: duplicate }
           - name: about
             label: O mnie
             widget: object

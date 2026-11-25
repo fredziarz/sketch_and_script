@@ -1,0 +1,12 @@
+---
+description: Gałąź dev, zakaz publikacji, styl commitów
+alwaysApply: true
+---
+
+# Git
+
+Po skończonym etapie (zadanie z tej rozmowy zrobione, a przy zmianie kodu `npm run build && npm test` przechodzi) zrób jeden commit na `dev` i `git push` na `origin/dev`. Nie pytaj o to drugi raz. Nie commituj w trakcie roboty ani plików z `_working_files/`.
+
+Nie pushuj na `main`, nie otwieraj ani nie scalaj pull requestu `dev` → `main` i nie zmieniaj ustawień repo, dopóki ta wiadomość wprost o to nie prosi. Nawet wtedy nie scalaj: właściciel klika Merge.
+
+Commit w Conventional Commits. Wersję w `package.json` i wpis w `CHANGELOG.md` zmieniaj tylko przy wydaniu, o które właściciel prosi. W commitach, kodzie i opisach PR nie wspominaj o narzędziach, które to pisały.

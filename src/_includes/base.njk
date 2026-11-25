@@ -19,15 +19,24 @@
   <meta property="og:locale" content="{{ 'pl_PL' if lang == 'pl' else 'en_GB' }}">
   <link rel="icon" type="image/png" href="/images/fav-icon.png">
   <link rel="preload" href="/assets/fonts/work-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
+  <script>if(navigator.userAgentData&&navigator.userAgentData.brands.some(function(b){return b.brand==='Chromium'}))document.documentElement.classList.add('refract')</script>
   {%- if site.cloudflareAnalyticsToken %}
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ site.cloudflareAnalyticsToken }}"}'></script>
   {%- endif %}
 </head>
 <body class="{{ bodyClass }}">
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <filter id="glass-bar" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feImage href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAABACAIAAACyWkFTAAAAQ0lEQVR4nO3HIQ2AAAAAwY/+Y0OgcEg0ngIkoAEVyID7EQHB78zjK/7554szGBwNTgZng4vB1eBmcDd4GDwNXgZv8wCDhYgs3hRzEgAAAABJRU5ErkJggg==" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map"/>
+      <feDisplacementMap in="SourceGraphic" in2="map" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
   <a href="#main" class="skip">{{ t.ui.skip }}</a>
   <header class="header" id="header">
-    <a class="brand" href="{{ lang | homeUrl }}">{{ site.name }}<small>{{ t.tagline }}</small></a>
+    <a class="brand" href="{{ lang | homeUrl }}"><img src="/images/fav-icon.png" alt="" width="44" height="44"><span>{{ site.name }}<small>{{ t.tagline }}</small></span></a>
     <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="menu">{{ t.ui.menu }}</button>
     <nav class="menu" id="menu" aria-label="{{ t.ui.menu }}">
       {%- for item in t.nav %}
@@ -45,12 +54,10 @@
   </main>
 
   <footer class="footer">
-    <span>© {{ year }} {{ site.company }} · {{ site.address }} · NIP {{ site.nip }}</span>
+    <span class="footer-id"><img src="/images/fav-icon.png" alt="" width="28" height="28">© {{ year }} {{ site.company }} · {{ site.address }} · NIP {{ site.nip }}</span>
     <span>
-      {%- if site.phone %}<a href="tel:{{ site.phone | replace(' ', '') }}">{{ site.phone }}</a> · {% endif %}
-      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
-      {%- if site.linkedin %} · <a href="{{ site.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>{% endif %}
-      {%- if site.instagram %} · <a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
+      {%- if site.linkedin %}<a href="{{ site.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>{% endif %}
+      {%- if site.instagram %}{% if site.linkedin %} · {% endif %}<a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
     </span>
   </footer>
   <script src="/assets/js/site.js" defer></script>

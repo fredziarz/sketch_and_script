@@ -11,12 +11,12 @@ eleventyComputed:
 ---
 {%- set t = home[lang] -%}
 <section class="slides" aria-roledescription="carousel" aria-label="{{ t.portfolio.heading }}">
-  {%- for p in projectList %}
-  {%- set pr = p[lang] %}
+  {%- set frames = projectList | slideshow(lang) %}
+  {%- for f in frames %}
   <figure class="slide{% if loop.first %} on{% endif %}" aria-roledescription="slide" aria-label="{{ t.ui.slide }} {{ loop.index }} / {{ loop.length }}">
-    <img src="{{ pr.images[0].src }}" alt="{{ pr.images[0].alt }}" {% if loop.first %}loading="eager" fetchpriority="high"{% endif %}>
+    <img src="{{ f.img.src }}" alt="{{ f.img.alt }}" {% if loop.first %}loading="eager" fetchpriority="high"{% endif %}>
     <figcaption>
-      <a href="{{ p.slug | projectUrl(lang) }}"><span class="slide-title">{{ pr.title }}</span><span>{{ pr.location }} · {{ t.ui.seeProject }} →</span></a>
+      <a href="{{ f.slug | projectUrl(lang) }}"><span class="slide-title">{{ f.title }}</span><span>{{ f.location }} · {{ t.ui.seeProject }} →</span></a>
     </figcaption>
   </figure>
   {%- endfor %}
@@ -26,7 +26,7 @@ eleventyComputed:
 <section class="section wrap intro">
   <h1>{{ t.intro.heading }}</h1>
   <p class="muted">{{ t.intro.text }}</p>
-  <a class="btn" href="#{{ t.nav[4].id }}">{{ t.intro.cta }}</a>
+  <a class="btn" href="#{{ t.nav[5].id }}">{{ t.intro.cta }}</a>
 </section>
 
 <section class="section wrap" id="{{ t.nav[0].id }}">
@@ -47,6 +47,7 @@ eleventyComputed:
 <section class="section wrap rule" id="{{ t.nav[1].id }}">
   <p class="label">{{ t.process.label }}</p>
   <h2>{{ t.process.heading }}</h2>
+  <div class="process">
   <p class="muted lead">{{ t.process.text }}</p>
   <ol class="steps">
     {%- for s in t.process.steps %}
@@ -62,6 +63,7 @@ eleventyComputed:
       <p>{{ t.process.extra.text }}</p>
     </li>
   </ol>
+  </div>
 </section>
 
 <section class="section wrap rule" id="{{ t.nav[2].id }}">
@@ -76,10 +78,53 @@ eleventyComputed:
 </section>
 
 <section class="section wrap rule" id="{{ t.nav[3].id }}">
-  <div class="about{% if not t.about.portrait %} no-portrait{% endif %}">
-    {%- if t.about.portrait %}
-    <div class="portrait"><img src="{{ t.about.portrait }}" alt="{{ t.about.portraitAlt }}" sizes="(min-width: 800px) 40vw, 100vw"></div>
-    {%- endif %}
+  <p class="label">{{ t.packages.label }}</p>
+  <h2>{{ t.packages.heading }}</h2>
+  <div class="scope-scroll">
+    <table class="scope">
+      <thead>
+        <tr>
+          <th scope="col">{{ t.packages.concept }}</th>
+          <th scope="col">{{ t.packages.full }}</th>
+          <th scope="col">{{ t.packages.premium }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <ul>
+              {%- for row in t.packages.rows %}{% if row.concept %}
+              <li>{{ row.label }}</li>
+              {% endif %}{% endfor %}
+            </ul>
+          </td>
+          <td>
+            <p>{{ t.packages.includesConcept }}</p>
+            <ul>
+              {%- for row in t.packages.rows %}{% if row.full and not row.concept %}
+              <li>{{ row.label }}</li>
+              {% endif %}{% endfor %}
+            </ul>
+          </td>
+          <td>
+            <p>{{ t.packages.includesFull }}</p>
+            <ul>
+              {%- for row in t.packages.rows %}{% if row.premium and not row.full %}
+              <li>{{ row.label }}</li>
+              {% endif %}{% endfor %}
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section wrap rule" id="{{ t.nav[4].id }}">
+  <div class="about">
+    <div class="portrait">
+      {%- if t.about.portrait %}<img src="{{ t.about.portrait }}" alt="{{ t.about.portraitAlt }}" sizes="280px">{% endif %}
+    </div>
     <div>
       <p class="label">{{ t.about.label }}</p>
       <h2>{{ t.about.heading }}</h2>
@@ -88,7 +133,7 @@ eleventyComputed:
   </div>
 </section>
 
-<section class="section wrap rule" id="{{ t.nav[4].id }}">
+<section class="section wrap rule" id="{{ t.nav[5].id }}">
   <div class="contact">
     <div>
       <p class="label">{{ t.contact.label }}</p>

@@ -17,6 +17,10 @@
         "id": "oferta"
       },
       {
+        "label": "Pakiety",
+        "id": "pakiety"
+      },
+      {
         "label": "O mnie",
         "id": "o-mnie"
       },
@@ -113,6 +117,33 @@
       ],
       "area": "Pracuję w całej Polsce. W regionie łódzkim (Wrząca, Łódź i okolice) jestem na miejscu."
     },
+    "packages": {
+      "label": "Pakiety",
+      "heading": "Projekt skrojony do Twoich potrzeb",
+      "concept": "Koncepcja",
+      "full": "Projekt kompleksowy",
+      "premium": "Projekt premium",
+      "includesConcept": "To, co w Koncepcji, oraz",
+      "includesFull": "To, co w Projekcie kompleksowym, oraz",
+      "rows": [
+        { "label": "Inwentaryzacja pomiarowa (w cenie, do 50 km)", "concept": true, "full": true, "premium": true },
+        { "label": "Analiza potrzeb i założeń", "concept": true, "full": true, "premium": true },
+        { "label": "Układ funkcjonalny: 3 warianty (rzuty 2D)", "concept": true, "full": true, "premium": true },
+        { "label": "Moodboard", "concept": true, "full": true, "premium": true },
+        { "label": "Kolorystyka i materiały", "concept": true, "full": true, "premium": true },
+        { "label": "Wizualizacje 3D: 2 ujęcia na pomieszczenie", "concept": true, "full": true, "premium": true },
+        { "label": "Dokumentacja techniczna (rzuty, rozwinięcia ścian, posadzki i sufity)", "concept": false, "full": true, "premium": true },
+        { "label": "Projekt oświetlenia", "concept": false, "full": true, "premium": true },
+        { "label": "Plan punktów elektrycznych i hydraulicznych", "concept": false, "full": true, "premium": true },
+        { "label": "Rysunki dla wykonawców", "concept": false, "full": true, "premium": true },
+        { "label": "Podstawowy projekt zabudów meblowych", "concept": false, "full": true, "premium": true },
+        { "label": "Zestawienie materiałów i wyposażenia", "concept": false, "full": true, "premium": true },
+        { "label": "Rozbudowany projekt zabudów meblowych", "concept": false, "full": false, "premium": true },
+        { "label": "Pomoc w zakupach i wyborze materiałów", "concept": false, "full": false, "premium": true },
+        { "label": "Koordynacja wybranych elementów", "concept": false, "full": false, "premium": true },
+        { "label": "Nadzór autorski", "concept": false, "full": false, "premium": true }
+      ]
+    },
     "about": {
       "label": "O mnie",
       "heading": "Architekt z wykształcenia, projektant z wyboru",
@@ -181,6 +212,10 @@
       {
         "label": "Services",
         "id": "services"
+      },
+      {
+        "label": "Packages",
+        "id": "packages"
       },
       {
         "label": "About",
@@ -278,6 +313,33 @@
         }
       ],
       "area": "I work across Poland. In the Łódź region (Wrząca, Łódź and around) I can be on site."
+    },
+    "packages": {
+      "label": "Packages",
+      "heading": "A project shaped around what you need",
+      "concept": "Concept",
+      "full": "Comprehensive design",
+      "premium": "Premium design",
+      "includesConcept": "Everything in Concept, plus",
+      "includesFull": "Everything in the comprehensive design, plus",
+      "rows": [
+        { "label": "Measured survey (included, within 50 km)", "concept": true, "full": true, "premium": true },
+        { "label": "Brief and design assumptions", "concept": true, "full": true, "premium": true },
+        { "label": "Layout: 3 options (2D plans)", "concept": true, "full": true, "premium": true },
+        { "label": "Moodboard", "concept": true, "full": true, "premium": true },
+        { "label": "Colours and materials", "concept": true, "full": true, "premium": true },
+        { "label": "3D visualisations: 2 views per room", "concept": true, "full": true, "premium": true },
+        { "label": "Technical drawings (plans, wall elevations, floors and ceilings)", "concept": false, "full": true, "premium": true },
+        { "label": "Lighting design", "concept": false, "full": true, "premium": true },
+        { "label": "Electrical and plumbing point layouts", "concept": false, "full": true, "premium": true },
+        { "label": "Drawings for contractors", "concept": false, "full": true, "premium": true },
+        { "label": "Basic joinery design", "concept": false, "full": true, "premium": true },
+        { "label": "Materials and furnishings schedule", "concept": false, "full": true, "premium": true },
+        { "label": "Detailed joinery design", "concept": false, "full": false, "premium": true },
+        { "label": "Help with purchasing and choosing materials", "concept": false, "full": false, "premium": true },
+        { "label": "Coordination of selected elements", "concept": false, "full": false, "premium": true },
+        { "label": "Design supervision", "concept": false, "full": false, "premium": true }
+      ]
     },
     "about": {
       "label": "About",
