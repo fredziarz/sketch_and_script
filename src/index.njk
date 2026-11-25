@@ -26,7 +26,7 @@ eleventyComputed:
 <section class="section wrap intro">
   <h1>{{ t.intro.heading }}</h1>
   <p class="muted">{{ t.intro.text }}</p>
-  <a class="btn" href="#{{ t.nav[4].id }}">{{ t.intro.cta }}</a>
+  <a class="btn" href="#{{ t.nav[5].id }}">{{ t.intro.cta }}</a>
 </section>
 
 <section class="section wrap" id="{{ t.nav[0].id }}">
@@ -76,6 +76,21 @@ eleventyComputed:
 </section>
 
 <section class="section wrap rule" id="{{ t.nav[3].id }}">
+  <p class="label">{{ t.packages.label }}</p>
+  <h2>{{ t.packages.heading }}</h2>
+  <ul class="packages">
+    {%- for item in t.packages.items %}
+    <li>
+      <h3>{{ item.title }}</h3>
+      <ul>
+        {%- for point in item.points %}<li>{{ point }}</li>{% endfor %}
+      </ul>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+
+<section class="section wrap rule" id="{{ t.nav[4].id }}">
   <div class="about{% if not t.about.portrait %} no-portrait{% endif %}">
     {%- if t.about.portrait %}
     <div class="portrait"><img src="{{ t.about.portrait }}" alt="{{ t.about.portraitAlt }}" sizes="(min-width: 800px) 40vw, 100vw"></div>
@@ -88,7 +103,7 @@ eleventyComputed:
   </div>
 </section>
 
-<section class="section wrap rule" id="{{ t.nav[4].id }}">
+<section class="section wrap rule" id="{{ t.nav[5].id }}">
   <div class="contact">
     <div>
       <p class="label">{{ t.contact.label }}</p>

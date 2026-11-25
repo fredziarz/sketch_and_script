@@ -148,6 +148,22 @@ collections:
                   - { name: title, label: Nazwa, widget: string, i18n: true }
                   - { name: text, label: Opis, widget: text, i18n: true }
               - { name: area, label: Obszar działania, widget: text, i18n: true }
+          - name: packages
+            label: Pakiety
+            widget: object
+            i18n: true
+            fields:
+              - { name: label, label: Etykieta, widget: string, i18n: true }
+              - { name: heading, label: Nagłówek, widget: string, i18n: true }
+              - name: items
+                label: Pakiety
+                label_singular: Pakiet
+                widget: list
+                i18n: true
+                summary: "{{title}}"
+                fields:
+                  - { name: title, label: Nazwa, widget: string, i18n: true }
+                  - { name: points, label: Zakres, widget: list, i18n: true }
           - name: about
             label: O mnie
             widget: object

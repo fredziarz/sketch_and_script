@@ -17,6 +17,10 @@
         "id": "oferta"
       },
       {
+        "label": "Pakiety",
+        "id": "pakiety"
+      },
+      {
         "label": "O mnie",
         "id": "o-mnie"
       },
@@ -113,6 +117,45 @@
       ],
       "area": "Pracuję w całej Polsce. W regionie łódzkim (Wrząca, Łódź i okolice) jestem na miejscu."
     },
+    "packages": {
+      "label": "Pakiety",
+      "heading": "Trzy zakresy",
+      "items": [
+        {
+          "title": "Koncepcja",
+          "points": [
+            "Inwentaryzacja pomiarowa (w cenie, do 50 km)",
+            "Analiza potrzeb i założeń",
+            "Układ funkcjonalny: 3 warianty (rzuty 2D)",
+            "Moodboard",
+            "Kolorystyka i materiały",
+            "Wizualizacje 3D: 2 ujęcia na pomieszczenie"
+          ]
+        },
+        {
+          "title": "Projekt kompleksowy",
+          "points": [
+            "Wszystko z pakietu Koncepcja",
+            "Dokumentacja techniczna (rzuty, rozwinięcia ścian, posadzki i sufity)",
+            "Projekt oświetlenia",
+            "Plan punktów elektrycznych i hydraulicznych",
+            "Rysunki dla wykonawców",
+            "Podstawowy projekt zabudów meblowych",
+            "Zestawienie materiałów i wyposażenia"
+          ]
+        },
+        {
+          "title": "Projekt premium",
+          "points": [
+            "Wszystko z pakietu kompleksowego",
+            "Rozbudowany projekt zabudów meblowych",
+            "Pomoc w zakupach i wyborze materiałów",
+            "Koordynacja wybranych elementów",
+            "Nadzór autorski"
+          ]
+        }
+      ]
+    },
     "about": {
       "label": "O mnie",
       "heading": "Architekt z wykształcenia, projektant z wyboru",
@@ -181,6 +224,10 @@
       {
         "label": "Services",
         "id": "services"
+      },
+      {
+        "label": "Packages",
+        "id": "packages"
       },
       {
         "label": "About",
@@ -278,6 +325,45 @@
         }
       ],
       "area": "I work across Poland. In the Łódź region (Wrząca, Łódź and around) I can be on site."
+    },
+    "packages": {
+      "label": "Packages",
+      "heading": "Three scopes",
+      "items": [
+        {
+          "title": "Concept",
+          "points": [
+            "Measured survey (included, within 50 km)",
+            "Brief and design assumptions",
+            "Layout: 3 options (2D plans)",
+            "Moodboard",
+            "Colours and materials",
+            "3D visualisations: 2 views per room"
+          ]
+        },
+        {
+          "title": "Comprehensive design",
+          "points": [
+            "Everything in Concept",
+            "Technical drawings (plans, wall elevations, floors and ceilings)",
+            "Lighting design",
+            "Electrical and plumbing point layouts",
+            "Drawings for contractors",
+            "Basic joinery design",
+            "Materials and furnishings schedule"
+          ]
+        },
+        {
+          "title": "Premium design",
+          "points": [
+            "Everything in the comprehensive package",
+            "Detailed joinery design",
+            "Help with purchasing and choosing materials",
+            "Coordination of selected elements",
+            "Design supervision"
+          ]
+        }
+      ]
     },
     "about": {
       "label": "About",

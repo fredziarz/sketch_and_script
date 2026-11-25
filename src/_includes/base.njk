@@ -48,10 +48,8 @@
   <footer class="footer">
     <span>© {{ year }} {{ site.company }} · {{ site.address }} · NIP {{ site.nip }}</span>
     <span>
-      {%- if site.phone %}<a href="tel:{{ site.phone | replace(' ', '') }}">{{ site.phone }}</a> · {% endif %}
-      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
-      {%- if site.linkedin %} · <a href="{{ site.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>{% endif %}
-      {%- if site.instagram %} · <a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
+      {%- if site.linkedin %}<a href="{{ site.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>{% endif %}
+      {%- if site.instagram %}{% if site.linkedin %} · {% endif %}<a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
     </span>
   </footer>
   <script src="/assets/js/site.js" defer></script>
