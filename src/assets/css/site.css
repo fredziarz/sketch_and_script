@@ -201,6 +201,3 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
   .section { padding-top: 88px; padding-bottom: 88px; }
   .project-hero img { height: 60vh; }
 }
-@media (max-width: 340px) {
-  .brand span { display: none; }
-}
