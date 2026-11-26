@@ -80,6 +80,8 @@ eleventyComputed:
 <section class="section wrap rule" id="{{ t.nav[3].id }}">
   <p class="label">{{ t.packages.label }}</p>
   <h2>{{ t.packages.heading }}</h2>
+  <div class="scope-frame">
+  <button type="button" class="scope-edge prev" hidden></button>
   <div class="scope-scroll">
     <article>
       <h3>{{ t.packages.concept }}</h3>
@@ -108,6 +110,8 @@ eleventyComputed:
         {% endif %}{% endfor %}
       </ul>
     </article>
+  </div>
+  <button type="button" class="scope-edge next" hidden></button>
   </div>
 </section>
 

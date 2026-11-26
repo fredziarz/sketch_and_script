@@ -20,18 +20,64 @@
     });
 
     const packages = document.querySelector('.scope-scroll');
-    if (packages && packages.children.length > 2) {
-        const mid = packages.children[1];
-        const place = () => {
-            if (packages.scrollWidth <= packages.clientWidth + 1) return;
+    const edgePrev = document.querySelector('.scope-edge.prev');
+    const edgeNext = document.querySelector('.scope-edge.next');
+    if (packages && edgePrev && edgeNext && packages.children.length > 2) {
+        const items = [...packages.children];
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const overflowing = () => packages.scrollWidth > packages.clientWidth + 1;
+        let parked = true;
+        const index = () => {
             const box = packages.getBoundingClientRect();
-            const item = mid.getBoundingClientRect();
-            const delta = item.left - box.left - (box.width - item.width) / 2;
-            if (Math.abs(delta) > 1) packages.scrollLeft += delta;
+            const mid = box.left + box.width / 2;
+            let best = 0;
+            let dist = Infinity;
+            items.forEach((item, i) => {
+                const r = item.getBoundingClientRect();
+                const d = Math.abs(r.left + r.width / 2 - mid);
+                if (d < dist) { dist = d; best = i; }
+            });
+            return best;
         };
-        place();
-        document.fonts.ready.then(place);
-        window.addEventListener('resize', place);
+        const center = (item, smooth) => {
+            if (!item || !overflowing()) return;
+            const box = packages.getBoundingClientRect();
+            const r = item.getBoundingClientRect();
+            const delta = r.left - box.left - (box.width - r.width) / 2;
+            if (Math.abs(delta) <= 1) return;
+            const left = packages.scrollLeft + delta;
+            if (smooth) packages.scrollTo({ left, behavior: 'smooth' });
+            else packages.scrollLeft = left;
+        };
+        const label = (button, item) => {
+            button.hidden = !item;
+            if (item) button.textContent = item.querySelector('h3').textContent;
+        };
+        const edges = () => {
+            const i = overflowing() ? index() : -1;
+            label(edgePrev, i < 0 ? null : items[i - 1]);
+            label(edgeNext, i < 0 ? null : items[i + 1]);
+        };
+        const settle = () => {
+            center(items[parked ? 1 : index()], false);
+            edges();
+        };
+        edgePrev.addEventListener('click', () => { parked = false; center(items[index() - 1], !reduce.matches); });
+        edgeNext.addEventListener('click', () => { parked = false; center(items[index() + 1], !reduce.matches); });
+        packages.addEventListener('pointerdown', () => { if (overflowing()) parked = false; });
+        packages.addEventListener('scrollend', () => {
+            if (parked) center(items[1], false);
+            edges();
+        });
+        settle();
+        document.fonts.ready.then(settle);
+        let was = overflowing();
+        window.addEventListener('resize', () => {
+            const now = overflowing();
+            if (now && !was) parked = true;
+            was = now;
+            settle();
+        });
     }
 
     const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);

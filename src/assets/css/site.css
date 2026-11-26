@@ -103,6 +103,7 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
 /* Oferta */
 .services { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 48px; margin-bottom: 48px; text-align: left; }
 .services li { border-top: 1px solid var(--line); padding-top: 20px; }
+.scope-edge { display: none; }
 .scope-scroll { display: grid; grid-template-columns: repeat(3, minmax(14em, 22em)); width: max-content; max-width: 100%; margin-inline: auto; font-size: 15px; scroll-behavior: auto; }
 .scope-scroll article { display: grid; grid-template-rows: subgrid; grid-row: span 3; border-bottom: 1px solid var(--line); }
 .scope-scroll article + article { border-left: 1px solid var(--line); }
@@ -163,8 +164,14 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
   .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 4px; padding: 16px var(--pad) 24px; background: var(--bg); color: var(--fg); box-shadow: 0 1px 0 var(--line); white-space: normal; }
   .menu.open { display: flex; }
   .menu .lang { margin-left: 0; }
-  .scope-scroll { display: flex; width: auto; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; }
-  .scope-scroll article { display: block; flex: 0 0 84%; scroll-snap-align: center; border-left: 0; }
+  .scope-frame { position: relative; }
+  .scope-edge { display: grid; place-items: center; position: absolute; z-index: 2; top: 50%; translate: 0 -50%; margin: 0; padding-block: 10px; border: 0; background: transparent; color: var(--muted); opacity: .45; font: 500 13px/1.2 'Manrope', system-ui, sans-serif; white-space: nowrap; writing-mode: vertical-rl; text-orientation: sideways; cursor: pointer; }
+  .scope-edge[hidden] { display: none; }
+  .scope-edge.prev { left: 0; }
+  .scope-edge.next { right: 0; rotate: 180deg; }
+  .scope-edge:hover, .scope-edge:focus-visible { opacity: .85; }
+  .scope-scroll { display: flex; width: auto; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding-inline: 8%; }
+  .scope-scroll article { display: block; flex: 0 0 100%; scroll-snap-align: center; border-left: 0; }
   .scope-scroll article + article { border-left: 0; }
   .scope-scroll .includes:empty { display: none; }
   .footer { flex-direction: column; align-items: center; text-align: center; }
