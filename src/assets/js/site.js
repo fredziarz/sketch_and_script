@@ -1,23 +1,86 @@
 (function () {
     'use strict';
 
+    function loopSlot(index, count) {
+        if (index <= 0) return count;
+        if (index > count) return 1;
+        return index;
+    }
+
     const header = document.getElementById('header');
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');
+    const backdrop = document.getElementById('menu-backdrop');
+    const main = document.getElementById('main');
+    const footer = document.querySelector('.footer');
 
     const compact = window.matchMedia('(max-width: 1100px)');
     const setOpen = open => {
-        toggle.setAttribute('aria-expanded', String(open));
-        menu.classList.toggle('open', open);
+        const on = open && compact.matches;
+        toggle.setAttribute('aria-expanded', String(on));
+        toggle.setAttribute('aria-label', on ? toggle.dataset.labelClose : toggle.dataset.labelOpen);
+        menu.classList.toggle('open', on);
+        document.body.classList.toggle('menu-open', on);
+        backdrop.hidden = !on;
+        main.inert = on;
+        footer.inert = on;
     };
     toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
     compact.addEventListener('change', () => { if (!compact.matches) setOpen(false); });
-    menu.addEventListener('click', (e) => {
-        if (e.target.closest('a')) {
-            toggle.setAttribute('aria-expanded', 'false');
-            menu.classList.remove('open');
-        }
+    backdrop.addEventListener('click', () => setOpen(false));
+    header.addEventListener('pointerdown', (e) => {
+        if (toggle.getAttribute('aria-expanded') !== 'true') return;
+        if (e.target.closest('#menu') || e.target.closest('#menu-toggle')) return;
+        setOpen(false);
     });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') setOpen(false);
+    });
+    menu.addEventListener('click', (e) => {
+        if (e.target.closest('a')) setOpen(false);
+    });
+
+    const track = document.querySelector('.cards');
+    if (track && track.children.length > 1) {
+        const originals = [...track.children];
+        const count = originals.length;
+        let clones = [];
+        let slot = 1;
+        const step = () => track.clientWidth;
+        const arm = () => {
+            if (!compact.matches || clones.length) return;
+            const last = originals[count - 1].cloneNode(true);
+            const first = originals[0].cloneNode(true);
+            for (const node of [last, first]) {
+                node.setAttribute('aria-hidden', 'true');
+                node.inert = true;
+            }
+            track.prepend(last);
+            track.append(first);
+            clones = [last, first];
+            slot = 1;
+            track.scrollLeft = step();
+        };
+        const disarm = () => {
+            for (const node of clones) node.remove();
+            clones = [];
+            track.scrollLeft = 0;
+        };
+        // Jedna kopia na końcach. Szybkie machnięcie przez wiele projektów może raz szarpnąć na szwie.
+        const place = () => {
+            if (!clones.length) return;
+            const w = step();
+            if (w < 1) return;
+            const index = Math.round(track.scrollLeft / w);
+            slot = loopSlot(index, count);
+            if (slot !== index) track.scrollLeft = slot * w;
+        };
+        track.addEventListener('scrollend', place);
+        window.addEventListener('resize', () => { if (clones.length) track.scrollLeft = slot * step(); });
+        const syncCards = () => (compact.matches ? arm() : disarm());
+        compact.addEventListener('change', syncCards);
+        syncCards();
+    }
 
     const packages = document.querySelector('.scope-scroll');
     const edgePrev = document.querySelector('.scope-edge.prev');

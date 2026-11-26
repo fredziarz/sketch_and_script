@@ -49,10 +49,10 @@ eleventyComputed:
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="{{ p.title }}">
   <button class="lightbox-close" id="lightbox-close" aria-label="{{ t.ui.close }}">×</button>
+  <button class="lightbox-nav prev" id="lightbox-prev" aria-label="{{ t.ui.prev }}"><span>‹</span></button>
+  <button class="lightbox-nav next" id="lightbox-next" aria-label="{{ t.ui.next }}"><span>›</span></button>
   <div class="lightbox-stage">
-    <button class="lightbox-nav prev" id="lightbox-prev" aria-label="{{ t.ui.prev }}">‹</button>
     <img class="lightbox-image" id="lightbox-image" src="data:," alt="" eleventy:ignore>
-    <button class="lightbox-nav next" id="lightbox-next" aria-label="{{ t.ui.next }}">›</button>
     <div class="lightbox-counter" id="lightbox-counter"></div>
   </div>
 </div>
