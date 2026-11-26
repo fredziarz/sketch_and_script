@@ -1,7 +1,9 @@
-@font-face { font-family: 'Manrope'; font-weight: 400 600; font-display: swap; src: url(/assets/fonts/manrope-latin-ext.woff2) format('woff2');
+@font-face { font-family: 'Manrope'; font-weight: 400 700; font-display: swap; src: url(/assets/fonts/manrope-latin-ext.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Manrope'; font-weight: 400 600; font-display: swap; src: url(/assets/fonts/manrope-latin.woff2) format('woff2');
+@font-face { font-family: 'Manrope'; font-weight: 400 700; font-display: swap; src: url(/assets/fonts/manrope-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Clash Grotesk'; font-weight: 500; font-style: normal; font-display: swap; src: url(/assets/fonts/clash-grotesk-500.woff2) format('woff2'); }
+@font-face { font-family: 'Clash Grotesk'; font-weight: 600; font-style: normal; font-display: swap; src: url(/assets/fonts/clash-grotesk-600.woff2) format('woff2'); }
 
 :root { --bg: #f4f3f0; --fg: #1a1916; --muted: #5e584f; --line: #e3e0d8; --pad: clamp(28px, 7vw, 120px); }
 
@@ -14,6 +16,7 @@ picture { display: contents; }
 a { color: inherit; text-decoration: none; }
 a:focus-visible, button:focus-visible, img[tabindex]:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
 h1, h2, h3 { font-weight: 500; line-height: 1.2; }
+h1, h2 { font-family: 'Clash Grotesk', 'Manrope', system-ui, sans-serif; font-weight: 600; }
 h2 { font-size: clamp(28px, 3.4vw, 42px); margin: 10px auto 24px; max-width: 22em; }
 h3 { font-size: 20px; margin-bottom: 6px; }
 p + p { margin-top: 1em; }
@@ -24,7 +27,8 @@ p + p { margin-top: 1em; }
 .muted { color: var(--muted); }
 .lead { max-width: 40em; margin-bottom: 40px; }
 .label, h2 { text-align: center; }
-.label { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.label { font-family: 'Clash Grotesk', 'Manrope', system-ui, sans-serif; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.intro .muted, .process .lead, .contact .muted { font-family: 'Clash Grotesk', 'Manrope', system-ui, sans-serif; font-weight: 500; }
 .btn { display: inline-block; border: 1px solid currentColor; padding: 12px 28px; font: inherit; font-size: 15px; letter-spacing: .05em; background: none; color: inherit; cursor: pointer; transition: background .2s, color .2s; }
 .btn:hover { background: var(--fg); color: var(--bg); }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--fg); color: var(--bg); padding: 8px 16px; z-index: 100; }
@@ -36,12 +40,23 @@ p + p { margin-top: 1em; }
 html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backdrop-filter: url(#glass-bar) blur(3px) saturate(1.5); backdrop-filter: url(#glass-bar) blur(3px) saturate(1.5); }
 .home .header.scrolled, .home .header:has(.menu.open), html.refract .home .header.scrolled, html.refract .home .header:has(.menu.open) { background: var(--bg); color: var(--fg); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: 0 1px 0 var(--line); }
 .brand { display: flex; align-items: center; gap: 12px; flex: none; font-size: clamp(24px, 2.6vw, 36px); font-weight: 600; line-height: 1.1; text-align: left; }
-.brand img { width: 44px; height: 44px; flex: none; }
-.brand > span { display: flex; flex-direction: column; align-items: flex-start; width: min-content; }
-.brand-name { white-space: nowrap; }
-.brand small { font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; opacity: .75; line-height: 1.35; }
-.brand small:first-child { margin-bottom: 4px; }
-.brand small:last-child { margin-top: 4px; }
+.brand img { width: 44px; height: 44px; flex: none; transition: transform .5s ease; }
+.brand > span { display: flex; flex-direction: column; align-items: flex-start; }
+.brand-name { font-weight: 700; white-space: nowrap; transition: letter-spacing .5s ease, opacity .5s ease; }
+.brand:hover .brand-name, .brand:active .brand-name, .brand:focus-visible .brand-name { letter-spacing: 0.02em; opacity: 0.85; }
+.brand:hover img, .brand:active img, .brand:focus-visible img { transform: rotate(3deg); }
+.brand small { font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; opacity: .75; line-height: 1.15; white-space: nowrap; }
+.brand small:first-child { margin-bottom: 1px; }
+.brand small:last-child { margin-top: 1px; }
+.tagline-short { display: none; }
+@media (max-width: 480px) {
+  .tagline-full { display: none; }
+  .tagline-short { display: inline; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand:hover .brand-name, .brand:active .brand-name, .brand:focus-visible .brand-name { letter-spacing: 0; opacity: 1; }
+  .brand:hover img, .brand:active img, .brand:focus-visible img { transform: none; }
+}
 .menu { display: flex; gap: 28px; font-size: 15px; font-weight: 500; white-space: nowrap; }
 .menu a { padding: 4px 0; border-bottom: 1px solid transparent; }
 .menu a:hover { border-color: currentColor; }

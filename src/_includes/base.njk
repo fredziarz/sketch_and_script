@@ -35,7 +35,7 @@
   </svg>
   <a href="#main" class="skip">{{ t.ui.skip }}</a>
   <header class="header" id="header">
-    <a class="brand" href="{{ lang | homeUrl }}"><img src="/images/fav-icon.png" alt="" width="44" height="44"><span><small>Sketch and Script</small><span class="brand-name">{{ site.name }}</span><small>{{ t.tagline }}</small></span></a>
+    <a class="brand" href="{{ lang | homeUrl }}"><img src="/images/fav-icon.png" alt="" width="44" height="44"><span><small>Sketch and Script</small><span class="brand-name">{{ site.name }}</span><small class="brand-tagline"><span class="tagline-full">{{ t.tagline }}</span><span class="tagline-short">{{ t.taglineShort }}</span></small></span></a>
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="{{ t.ui.menu }}"><span></span><span></span><span></span></button>
     <nav class="menu" id="menu" aria-label="{{ t.ui.menu }}">
       {%- for item in t.nav %}

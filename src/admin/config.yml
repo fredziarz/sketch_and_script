@@ -79,6 +79,7 @@ collections:
           - { name: metaTitle, label: Tytuł w Google, widget: string, i18n: true }
           - { name: metaDescription, label: Opis w Google, widget: text, i18n: true }
           - { name: tagline, label: Podpis pod nazwiskiem, widget: string, i18n: true }
+          - { name: taglineShort, label: Krótki podpis w wąskim nagłówku, widget: string, i18n: true }
           - name: nav
             label: Menu
             widget: list
