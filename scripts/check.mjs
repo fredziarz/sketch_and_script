@@ -1,6 +1,12 @@
 // Post-build check of _site: internal links and anchors, PL/EN pairs, hidden /code/, no leaked work files.
+import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { photo } from '../eleventy.config.js';
+
+assert.deepEqual(photo('/images/a.webp'), { src: '/images/a.webp', position: '50% 50%' });
+assert.deepEqual(photo({ src: '/images/a.webp', x: 140, y: -4 }), { src: '/images/a.webp', position: '100% 0%' });
+assert.deepEqual(photo({ src: '/images/a.webp', x: '50%;color:red', y: null }), { src: '/images/a.webp', position: '50% 50%' });
 
 const root = '_site';
 const site = JSON.parse(readFileSync('src/_data/site.json', 'utf8'));
@@ -66,6 +72,11 @@ if (!home.includes(`z${nbsp}wizualizacjami`) || home.includes('z wizualizacjami'
 if (home.includes('Najbardziej opłacalny') || enHome.includes('Best value') || home.includes('Wszystko z pakietu')) fail('homepage: old package wording');
 if (home.includes('✓') || enHome.includes('✓')) fail('homepage: package checkmarks');
 if (!home.includes('id="glass-bar"') || home.includes('id="glass-chip"')) fail('homepage: missing glass');
+const portrait = html => html.match(/class="portrait"[\s\S]*?<\/div>/);
+for (const [name, page] of [['homepage', home], ['en homepage', enHome]]) {
+  const box = portrait(page);
+  if (!box || !box[0].includes('object-position: 50% 50%')) fail(`${name}: portrait is not centered`);
+}
 if (!home.includes('/images/fav-icon.png')) fail('homepage: missing mark');
 
 for (const leak of ['_working_files', 'node_modules', 'agent-toolkit', '.agents']) {

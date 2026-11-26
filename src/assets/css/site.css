@@ -84,8 +84,8 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
 
 /* Portfolio */
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 72px 48px; margin-top: 16px; }
-.card .ph { aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 16px; }
-.card .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+.card .ph { position: relative; aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 16px; }
+.card .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
 .card:hover .ph img { transform: scale(1.03); }
 
 /* Jak pracuję */
@@ -116,8 +116,8 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
 .about { display: grid; grid-template-columns: 280px 1fr; gap: 64px; align-items: start; max-width: 52em; margin-inline: auto; text-align: left; }
 .about .label, .about h2 { text-align: left; }
 .about h2 { margin-left: 0; margin-right: 0; }
-.portrait { aspect-ratio: 4 / 5; background: var(--line); }
-.portrait img { width: 100%; height: 100%; object-fit: cover; }
+.portrait { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--line); }
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
 /* Kontakt */
 .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }

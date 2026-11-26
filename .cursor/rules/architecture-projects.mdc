@@ -13,7 +13,7 @@ Projects are data, not HTML. One JSON file per project generates both language v
 - Data: `src/_data/projects/[slug].json` (kebab-case slug = file name). URLs: `/projekty/[slug]/` and `/en/projects/[slug]/`.
 - Images: `src/images/[slug]/` for hand-added projects (paths start with `/images/[slug]/`); images uploaded in the CMS land flat in `src/images/` as WebP.
 - CMS: `src/admin/config.yml` mirrors these fields; change both together.
-- Shape: `{ "pl": {...}, "en": {...} }`, both with `title`, `order`, `category`, `location`, `year`, `summary`, `description` (paragraphs separated by a blank line), `credits`, `images: [{ src, alt, slideshow }]`. Missing `en` fields fall back to `pl`. `slideshow: true` puts that frame on the homepage show.
+- Shape: `{ "pl": {...}, "en": {...} }`, both with `title`, `order`, `category`, `location`, `year`, `summary`, `description` (paragraphs separated by a blank line), `credits`, `images: [{ src, alt, slideshow }]`. `src` is a path, or `{ src, x, y }` when the crop point is not the center (`x` and `y` are 0–100). Missing `en` fields fall back to `pl`. `slideshow: true` puts that frame on the homepage show.
 
 ## Rendering
 
