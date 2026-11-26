@@ -14,7 +14,8 @@ eleventyComputed:
   {%- set frames = projectList | slideshow(lang) %}
   {%- for f in frames %}
   <figure class="slide{% if loop.first %} on{% endif %}" aria-roledescription="slide" aria-label="{{ t.ui.slide }} {{ loop.index }} / {{ loop.length }}">
-    <img src="{{ f.img.src }}" alt="{{ f.img.alt }}" {% if loop.first %}loading="eager" fetchpriority="high"{% endif %}>
+    {%- set pic = f.img.src | photo %}
+    <img src="{{ pic.src }}" alt="{{ f.img.alt }}" style="object-position: {{ pic.position }}" {% if loop.first %}loading="eager" fetchpriority="high"{% endif %}>
     <figcaption>
       <a href="{{ f.slug | projectUrl(lang) }}"><span class="slide-title">{{ f.title }}</span><span>{{ f.location }} · {{ t.ui.seeProject }} →</span></a>
     </figcaption>
@@ -36,7 +37,8 @@ eleventyComputed:
     {%- for p in projectList %}
     {%- set pr = p[lang] %}
     <a class="card" href="{{ p.slug | projectUrl(lang) }}">
-      <div class="ph"><img src="{{ pr.images[0].src }}" alt="{{ pr.images[0].alt }}" sizes="(min-width: 800px) 50vw, 100vw"></div>
+      {%- set pic = pr.images[0].src | photo %}
+      <div class="ph"><img src="{{ pic.src }}" alt="{{ pr.images[0].alt }}" style="object-position: {{ pic.position }}" sizes="(min-width: 800px) 50vw, 100vw"></div>
       <h3>{{ pr.title }}</h3>
       <p class="muted">{{ pr.location }}{% if pr.year %}, {{ pr.year }}{% endif %}</p>
     </a>
@@ -80,50 +82,46 @@ eleventyComputed:
 <section class="section wrap rule" id="{{ t.nav[3].id }}">
   <p class="label">{{ t.packages.label }}</p>
   <h2>{{ t.packages.heading }}</h2>
+  <div class="scope-frame">
+  <button type="button" class="scope-edge prev" hidden></button>
   <div class="scope-scroll">
-    <table class="scope">
-      <thead>
-        <tr>
-          <th scope="col">{{ t.packages.concept }}</th>
-          <th scope="col">{{ t.packages.full }}</th>
-          <th scope="col">{{ t.packages.premium }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <ul>
-              {%- for row in t.packages.rows %}{% if row.concept %}
-              <li>{{ row.label }}</li>
-              {% endif %}{% endfor %}
-            </ul>
-          </td>
-          <td>
-            <p>{{ t.packages.includesConcept }}</p>
-            <ul>
-              {%- for row in t.packages.rows %}{% if row.full and not row.concept %}
-              <li>{{ row.label }}</li>
-              {% endif %}{% endfor %}
-            </ul>
-          </td>
-          <td>
-            <p>{{ t.packages.includesFull }}</p>
-            <ul>
-              {%- for row in t.packages.rows %}{% if row.premium and not row.full %}
-              <li>{{ row.label }}</li>
-              {% endif %}{% endfor %}
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <article>
+      <h3>{{ t.packages.concept }}</h3>
+      <p class="includes"></p>
+      <ul>
+        {%- for row in t.packages.rows %}{% if row.concept %}
+        <li>{{ row.label }}</li>
+        {% endif %}{% endfor %}
+      </ul>
+    </article>
+    <article>
+      <h3>{{ t.packages.full }}</h3>
+      <p class="includes">{{ t.packages.includesConcept }}</p>
+      <ul>
+        {%- for row in t.packages.rows %}{% if row.full and not row.concept %}
+        <li>{{ row.label }}</li>
+        {% endif %}{% endfor %}
+      </ul>
+    </article>
+    <article>
+      <h3>{{ t.packages.premium }}</h3>
+      <p class="includes">{{ t.packages.includesFull }}</p>
+      <ul>
+        {%- for row in t.packages.rows %}{% if row.premium and not row.full %}
+        <li>{{ row.label }}</li>
+        {% endif %}{% endfor %}
+      </ul>
+    </article>
+  </div>
+  <button type="button" class="scope-edge next" hidden></button>
   </div>
 </section>
 
 <section class="section wrap rule" id="{{ t.nav[4].id }}">
   <div class="about">
     <div class="portrait">
-      {%- if t.about.portrait %}<img src="{{ t.about.portrait }}" alt="{{ t.about.portraitAlt }}" sizes="280px">{% endif %}
+      {%- set pic = t.about.portrait | photo %}
+      {%- if pic.src %}<img src="{{ pic.src }}" alt="{{ t.about.portraitAlt }}" style="object-position: {{ pic.position }}" sizes="280px">{% endif %}
     </div>
     <div>
       <p class="label">{{ t.about.label }}</p>

@@ -126,29 +126,109 @@
       "includesConcept": "To, co w Koncepcji, oraz",
       "includesFull": "To, co w Projekcie kompleksowym, oraz",
       "rows": [
-        { "label": "Inwentaryzacja pomiarowa (w cenie, do 50 km)", "concept": true, "full": true, "premium": true },
-        { "label": "Analiza potrzeb i założeń", "concept": true, "full": true, "premium": true },
-        { "label": "Układ funkcjonalny: 3 warianty (rzuty 2D)", "concept": true, "full": true, "premium": true },
-        { "label": "Moodboard", "concept": true, "full": true, "premium": true },
-        { "label": "Kolorystyka i materiały", "concept": true, "full": true, "premium": true },
-        { "label": "Wizualizacje 3D: 2 ujęcia na pomieszczenie", "concept": true, "full": true, "premium": true },
-        { "label": "Dokumentacja techniczna (rzuty, rozwinięcia ścian, posadzki i sufity)", "concept": false, "full": true, "premium": true },
-        { "label": "Projekt oświetlenia", "concept": false, "full": true, "premium": true },
-        { "label": "Plan punktów elektrycznych i hydraulicznych", "concept": false, "full": true, "premium": true },
-        { "label": "Rysunki dla wykonawców", "concept": false, "full": true, "premium": true },
-        { "label": "Podstawowy projekt zabudów meblowych", "concept": false, "full": true, "premium": true },
-        { "label": "Zestawienie materiałów i wyposażenia", "concept": false, "full": true, "premium": true },
-        { "label": "Rozbudowany projekt zabudów meblowych", "concept": false, "full": false, "premium": true },
-        { "label": "Pomoc w zakupach i wyborze materiałów", "concept": false, "full": false, "premium": true },
-        { "label": "Koordynacja wybranych elementów", "concept": false, "full": false, "premium": true },
-        { "label": "Nadzór autorski", "concept": false, "full": false, "premium": true }
+        {
+          "label": "Inwentaryzacja pomiarowa (w cenie, do 50 km)",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Analiza potrzeb i założeń",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Układ funkcjonalny: 3 warianty (rzuty 2D)",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Moodboard",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Kolorystyka i materiały",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Wizualizacje 3D: 2 ujęcia na pomieszczenie",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Dokumentacja techniczna (rzuty, rozwinięcia ścian, posadzki i sufity)",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Projekt oświetlenia",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Plan punktów elektrycznych i hydraulicznych",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Rysunki dla wykonawców",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Podstawowy projekt zabudów meblowych",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Zestawienie materiałów i wyposażenia",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Rozbudowany projekt zabudów meblowych",
+          "concept": false,
+          "full": false,
+          "premium": true
+        },
+        {
+          "label": "Pomoc w zakupach i wyborze materiałów",
+          "concept": false,
+          "full": false,
+          "premium": true
+        },
+        {
+          "label": "Koordynacja wybranych elementów",
+          "concept": false,
+          "full": false,
+          "premium": true
+        },
+        {
+          "label": "Nadzór autorski",
+          "concept": false,
+          "full": false,
+          "premium": true
+        }
       ]
     },
     "about": {
       "label": "O mnie",
       "heading": "Architekt z wykształcenia, projektant z wyboru",
       "text": "Studiowałem architekturę i projektowałem w pracowniach przy realizacjach w Polsce, Wielkiej Brytanii i Niemczech.\n\nNa co dzień zajmuję się też jakością oprogramowania. Obie dziedziny sprowadzają się do tego samego: zrozumieć, jak ktoś będzie z czegoś korzystał, i dopilnować, żeby to działało.",
-      "portrait": "",
+      "portrait": "/images/459117262_10210821006277362_820627662947858530_n.webp",
       "portraitAlt": "Michał Wicherek"
     },
     "contact": {
@@ -194,7 +274,8 @@
       "slide": "Zdjęcie",
       "pause": "Zatrzymaj pokaz zdjęć",
       "langSwitch": "English version"
-    }
+    },
+    "taglineShort": "Architektura i wnętrza"
   },
   "en": {
     "metaTitle": "Michał Wicherek – Architecture and interior design",
@@ -323,29 +404,109 @@
       "includesConcept": "Everything in Concept, plus",
       "includesFull": "Everything in the comprehensive design, plus",
       "rows": [
-        { "label": "Measured survey (included, within 50 km)", "concept": true, "full": true, "premium": true },
-        { "label": "Brief and design assumptions", "concept": true, "full": true, "premium": true },
-        { "label": "Layout: 3 options (2D plans)", "concept": true, "full": true, "premium": true },
-        { "label": "Moodboard", "concept": true, "full": true, "premium": true },
-        { "label": "Colours and materials", "concept": true, "full": true, "premium": true },
-        { "label": "3D visualisations: 2 views per room", "concept": true, "full": true, "premium": true },
-        { "label": "Technical drawings (plans, wall elevations, floors and ceilings)", "concept": false, "full": true, "premium": true },
-        { "label": "Lighting design", "concept": false, "full": true, "premium": true },
-        { "label": "Electrical and plumbing point layouts", "concept": false, "full": true, "premium": true },
-        { "label": "Drawings for contractors", "concept": false, "full": true, "premium": true },
-        { "label": "Basic joinery design", "concept": false, "full": true, "premium": true },
-        { "label": "Materials and furnishings schedule", "concept": false, "full": true, "premium": true },
-        { "label": "Detailed joinery design", "concept": false, "full": false, "premium": true },
-        { "label": "Help with purchasing and choosing materials", "concept": false, "full": false, "premium": true },
-        { "label": "Coordination of selected elements", "concept": false, "full": false, "premium": true },
-        { "label": "Design supervision", "concept": false, "full": false, "premium": true }
+        {
+          "label": "Measured survey (included, within 50 km)",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Brief and design assumptions",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Layout: 3 options (2D plans)",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Moodboard",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Colours and materials",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "3D visualisations: 2 views per room",
+          "concept": true,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Technical drawings (plans, wall elevations, floors and ceilings)",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Lighting design",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Electrical and plumbing point layouts",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Drawings for contractors",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Basic joinery design",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Materials and furnishings schedule",
+          "concept": false,
+          "full": true,
+          "premium": true
+        },
+        {
+          "label": "Detailed joinery design",
+          "concept": false,
+          "full": false,
+          "premium": true
+        },
+        {
+          "label": "Help with purchasing and choosing materials",
+          "concept": false,
+          "full": false,
+          "premium": true
+        },
+        {
+          "label": "Coordination of selected elements",
+          "concept": false,
+          "full": false,
+          "premium": true
+        },
+        {
+          "label": "Design supervision",
+          "concept": false,
+          "full": false,
+          "premium": true
+        }
       ]
     },
     "about": {
       "label": "About",
       "heading": "Architect by training, designer by choice",
       "text": "I studied architecture and have worked in design studios on projects in Poland, the United Kingdom and Germany.\n\nI also work in software quality assurance. Both come down to the same thing: understanding how someone will use something, and making sure it holds up.",
-      "portrait": "",
+      "portrait": "/images/459117262_10210821006277362_820627662947858530_n.webp",
       "portraitAlt": "Michał Wicherek"
     },
     "contact": {
@@ -391,6 +552,7 @@
       "slide": "Image",
       "pause": "Pause the slideshow",
       "langSwitch": "Wersja polska"
-    }
+    },
+    "taglineShort": "Architecture and interiors"
   }
 }

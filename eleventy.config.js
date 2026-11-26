@@ -17,6 +17,17 @@ const loadProjects = () =>
     })
     .sort((a, b) => (a.pl.order ?? 99) - (b.pl.order ?? 99));
 
+const axis = v => {
+  if (v == null || v === '') return 50;
+  const n = Math.round(Number(v));
+  return Number.isFinite(n) ? Math.min(100, Math.max(0, n)) : 50;
+};
+export const photo = value => {
+  if (typeof value === 'string') return { src: value, position: '50% 50%' };
+  const src = value && typeof value.src === 'string' ? value.src : '';
+  return { src, position: `${axis(value && value.x)}% ${axis(value && value.y)}%` };
+};
+
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
 const tieWords = (html, words) => {
   const re = new RegExp(`(^|[\\s(])(${words})\\s+`, 'gi');
@@ -62,6 +73,7 @@ export default function (eleventyConfig) {
       }));
     })
   );
+  eleventyConfig.addFilter('photo', photo);
   eleventyConfig.addFilter('paragraphs', text =>
     String(text || '')
       .split(/\n\s*\n/)

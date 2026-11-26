@@ -6,10 +6,22 @@ Eleventy + GitHub Actions + GitHub Pages. Bez frameworków JS po stronie przegl�
 
 ## Serwisy
 
-- [GitHub](https://github.com/fredziarz/sketch_and_script) – repozytorium, akcje (check `build`) i GitHub Pages (produkcja, www.sketchandscript.pl).
-- [Cloudflare](https://dash.cloudflare.com/) – Worker `sketch-and-script` (strona testowa) i Web Analytics.
-- [Google Cloud](https://console.cloud.google.com/home/dashboard?project=sketchandscript-cms) – projekt `sketchandscript-cms`, tłumaczenia PL → EN w panelu (Cloud Translation).
-- [Web3Forms](https://web3forms.com/) – formularz kontaktowy.
+Nasze adresy:
+
+- Produkcja: https://www.sketchandscript.pl i https://www.sketchandscript.pl/en/
+- Panel na produkcji: https://www.sketchandscript.pl/admin/
+- Strona testowa: https://sketch-and-script.michalwicherek.workers.dev
+- Panel na stronie testowej: https://sketch-and-script.michalwicherek.workers.dev/admin/
+- Podgląd lokalny: http://localhost:8080 i http://localhost:8080/admin/
+
+Zewnętrzne (adres nie daje dostępu do ustawień; logowanie zostaje na koncie właściciela):
+
+- [GitHub](https://github.com/fredziarz/sketch_and_script) – repozytorium. [Actions](https://github.com/fredziarz/sketch_and_script/actions) (check `build`), [Pages](https://github.com/fredziarz/sketch_and_script/settings/pages) (produkcja).
+- [Cloudflare](https://dash.cloudflare.com/) – Worker `sketch-and-script` (strona testowa) i Web Analytics. Skrypt pomiaru: https://static.cloudflareinsights.com/beacon.min.js
+- [Google Cloud](https://console.cloud.google.com/home/dashboard?project=sketchandscript-cms) – projekt `sketchandscript-cms`, tłumaczenia PL → EN w panelu (Cloud Translation, https://translation.googleapis.com).
+- [Web3Forms](https://web3forms.com/) – formularz kontaktowy, wysyłka na https://api.web3forms.com/submit
+- [unpkg](https://unpkg.com/@sveltia/cms@0.271.3/dist/sveltia-cms.js) – skrypt panelu Sveltia, wersja przypięta w `src/admin/index.html`.
+- [npm](https://registry.npmjs.org) – zależności przy `npm ci` lokalnie i w Actions.
 
 ## Praca lokalna
 
@@ -34,7 +46,7 @@ npm test      # sprawdza zbudowaną stronę (linki, kotwice, PL/EN, ukryte /code
 
 ## Panel treści (CMS)
 
-`/admin/` – Sveltia CMS, konfiguracja w `src/admin/config.yml`. Edytuje te same pliki JSON co wyżej, w obu językach naraz. Każdy zapis to commit na `dev`: zmiana trafia na stronę testową, nie na live (patrz Publikacja). Zdjęcia przy wgrywaniu są zmniejszane i zamieniane na WebP.
+Sveltia CMS, konfiguracja w `src/admin/config.yml`. Adresy: https://www.sketchandscript.pl/admin/ (produkcja), https://sketch-and-script.michalwicherek.workers.dev/admin/ (strona testowa), http://localhost:8080/admin/ (lokalnie). Edytuje te same pliki JSON co wyżej, w obu językach naraz. Każdy zapis to commit na `dev`: zmiana trafia na stronę testową, nie na live (patrz Publikacja). Zdjęcia przy wgrywaniu są zmniejszane i zamieniane na WebP.
 
 - Online: „Sign In Using Access Token”. Użyj tokenu typu fine-grained z konta z prawem zapisu do repo (właściciel: `fredziarz`), ograniczonego tylko do tego repo, z jednym uprawnieniem Contents: Read and write i z datą wygaśnięcia. Okno logowania podaje link do wygenerowania tokenu.
 - Tłumaczenie PL → EN: przycisk tłumaczenia Sveltia z usługą Google Cloud Translation (projekt `sketchandscript-cms`). Klucz API wpisuje się w Ustawieniach panelu, zakładka Internacjonalizacja, i zostaje tylko w przeglądarce; klucz jest ograniczony do domen panelu i Cloud Translation API, a limit 15 000 znaków dziennie trzyma użycie w darmowym progu. Przycisk w nagłówku wersji EN wypełnia puste pola, przycisk przy polu nadpisuje jego treść.

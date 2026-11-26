@@ -15,12 +15,11 @@
   <meta property="og:title" content="{{ pageTitle or t.metaTitle }}">
   <meta property="og:description" content="{{ pageDescription or t.metaDescription }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:image" content="{{ site.url }}{{ ogImage or projectList[0].pl.images[0].src }}">
+  <meta property="og:image" content="{{ site.url }}{{ ogImage or (projectList[0].pl.images[0].src | photo).src }}">
   <meta property="og:locale" content="{{ 'pl_PL' if lang == 'pl' else 'en_GB' }}">
   <link rel="icon" type="image/png" href="/images/fav-icon.png">
-  <link rel="preload" href="/assets/fonts/work-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/manrope-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
   <script>if(navigator.userAgentData&&navigator.userAgentData.brands.some(function(b){return b.brand==='Chromium'}))document.documentElement.classList.add('refract')</script>
   {%- if site.cloudflareAnalyticsToken %}
@@ -36,8 +35,8 @@
   </svg>
   <a href="#main" class="skip">{{ t.ui.skip }}</a>
   <header class="header" id="header">
-    <a class="brand" href="{{ lang | homeUrl }}"><img src="/images/fav-icon.png" alt="" width="44" height="44"><span>{{ site.name }}<small>{{ t.tagline }}</small></span></a>
-    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="menu">{{ t.ui.menu }}</button>
+    <a class="brand" href="{{ lang | homeUrl }}"><img src="/images/fav-icon.png" alt="" width="44" height="44"><span><small>Sketch and Script</small><span class="brand-name">{{ site.name }}</span><small class="brand-tagline"><span class="tagline-full">{{ t.tagline }}</span><span class="tagline-short">{{ t.taglineShort }}</span></small></span></a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="{{ t.ui.menu }}"><span></span><span></span><span></span></button>
     <nav class="menu" id="menu" aria-label="{{ t.ui.menu }}">
       {%- for item in t.nav %}
       <a href="{{ lang | homeUrl }}#{{ item.id }}">{{ item.label }}</a>
@@ -54,8 +53,8 @@
   </main>
 
   <footer class="footer">
-    <span class="footer-id"><img src="/images/fav-icon.png" alt="" width="28" height="28">© {{ year }} {{ site.company }} · {{ site.address }} · NIP {{ site.nip }}</span>
-    <span>
+    <span class="footer-id"><img src="/images/fav-icon.png" alt="" width="28" height="28"><span>© {{ year }} {{ site.company }} · {{ site.address }} · NIP {{ site.nip }}</span></span>
+    <span class="footer-social">
       {%- if site.linkedin %}<a href="{{ site.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>{% endif %}
       {%- if site.instagram %}{% if site.linkedin %} · {% endif %}<a href="{{ site.instagram }}" rel="noopener" target="_blank">Instagram</a>{% endif %}
     </span>

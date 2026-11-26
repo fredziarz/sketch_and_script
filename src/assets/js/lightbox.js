@@ -26,12 +26,20 @@
 
     lightbox.setAttribute('aria-hidden', 'true');
 
+    const narrow = window.matchMedia('(max-width: 1100px)');
+    function fit() {
+        const wide = lightboxImage.naturalWidth > lightboxImage.naturalHeight;
+        const screenWide = window.innerWidth > window.innerHeight;
+        lightbox.classList.toggle('turned', narrow.matches && wide !== screenWide);
+    }
+
     function updateLightbox(index) {
         currentIndex = index;
         const img = allImages[currentIndex];
         lightboxImage.src = img.currentSrc || img.src;
         lightboxImage.alt = img.alt;
         lightboxCounter.textContent = `${currentIndex + 1} / ${allImages.length}`;
+        if (lightboxImage.complete) fit();
     }
 
     function openLightbox(index) {
@@ -40,7 +48,7 @@
         lightbox.classList.add('active');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-        lightboxPrev.focus();
+        (lightboxPrev.offsetParent ? lightboxPrev : lightboxClose).focus();
     }
 
     function closeLightbox() {
@@ -114,12 +122,15 @@
             e.preventDefault();
             prevImage();
         } else if (e.key === 'Tab') {
-            const focusable = [lightboxClose, lightboxPrev, lightboxNext];
+            const focusable = [lightboxClose, lightboxPrev, lightboxNext].filter((el) => el.offsetParent);
             const i = focusable.indexOf(document.activeElement);
             e.preventDefault();
             focusable[(i + (e.shiftKey ? focusable.length - 1 : 1)) % focusable.length].focus();
         }
     });
+
+    lightboxImage.addEventListener('load', fit);
+    window.addEventListener('resize', () => { if (lightbox.classList.contains('active')) fit(); });
 
     lightbox.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;

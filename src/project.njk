@@ -11,12 +11,13 @@ eleventyComputed:
   altUrl: "{{ item.slug | projectUrl(item.lang | otherLang) }}"
   pageTitle: "{{ item.project.title | safe }} – {{ site.name | safe }}"
   pageDescription: "{{ item.project.summary | safe }}"
-  ogImage: "{{ item.project.images[0].src | safe }}"
+  ogImage: "{{ (item.project.images[0].src | photo).src | safe }}"
 ---
 {%- set t = home[lang] -%}
 {%- set p = item.project -%}
 {%- set rest = p.images.slice(1) -%}
-<div class="project-hero"><img src="{{ p.images[0].src }}" alt="{{ p.images[0].alt }}" loading="eager" fetchpriority="high"></div>
+{%- set hero = p.images[0].src | photo %}
+<div class="project-hero"><img src="{{ hero.src }}" alt="{{ p.images[0].alt }}" style="object-position: {{ hero.position }}" loading="eager" fetchpriority="high"></div>
 <div class="wrap">
   <div class="project-head">
     <div>
@@ -33,13 +34,13 @@ eleventyComputed:
   <div class="gallery">
     {%- set start = 0 %}
     {%- if rest.length % 2 == 1 %}
-    <img src="{{ rest[0].src }}" alt="{{ rest[0].alt }}">
+    <img src="{{ (rest[0].src | photo).src }}" alt="{{ rest[0].alt }}">
     {%- set start = 1 %}
     {%- endif %}
     {%- for i in range(start, rest.length, 2) %}
     <div class="pair">
-      <img src="{{ rest[i].src }}" alt="{{ rest[i].alt }}" sizes="(min-width: 800px) 50vw, 100vw">
-      <img src="{{ rest[i + 1].src }}" alt="{{ rest[i + 1].alt }}" sizes="(min-width: 800px) 50vw, 100vw">
+      <img src="{{ (rest[i].src | photo).src }}" alt="{{ rest[i].alt }}" sizes="(min-width: 800px) 50vw, 100vw">
+      <img src="{{ (rest[i + 1].src | photo).src }}" alt="{{ rest[i + 1].alt }}" sizes="(min-width: 800px) 50vw, 100vw">
     </div>
     {%- endfor %}
   </div>
@@ -48,8 +49,10 @@ eleventyComputed:
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="{{ p.title }}">
   <button class="lightbox-close" id="lightbox-close" aria-label="{{ t.ui.close }}">×</button>
-  <button class="lightbox-nav prev" id="lightbox-prev" aria-label="{{ t.ui.prev }}">‹</button>
-  <img class="lightbox-image" id="lightbox-image" src="data:," alt="" eleventy:ignore>
-  <button class="lightbox-nav next" id="lightbox-next" aria-label="{{ t.ui.next }}">›</button>
-  <div class="lightbox-counter" id="lightbox-counter"></div>
+  <div class="lightbox-stage">
+    <button class="lightbox-nav prev" id="lightbox-prev" aria-label="{{ t.ui.prev }}">‹</button>
+    <img class="lightbox-image" id="lightbox-image" src="data:," alt="" eleventy:ignore>
+    <button class="lightbox-nav next" id="lightbox-next" aria-label="{{ t.ui.next }}">›</button>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
 </div>
