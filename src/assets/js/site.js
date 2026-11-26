@@ -11,11 +11,6 @@
         menu.classList.toggle('open', open);
     };
     toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
-    document.querySelector('.brand').addEventListener('click', (e) => {
-        if (!compact.matches) return;
-        e.preventDefault();
-        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-    });
     compact.addEventListener('change', () => { if (!compact.matches) setOpen(false); });
     menu.addEventListener('click', (e) => {
         if (e.target.closest('a')) {
@@ -23,6 +18,21 @@
             menu.classList.remove('open');
         }
     });
+
+    const packages = document.querySelector('.scope-scroll');
+    if (packages && packages.children.length > 2) {
+        const mid = packages.children[1];
+        const place = () => {
+            if (packages.scrollWidth <= packages.clientWidth + 1) return;
+            const box = packages.getBoundingClientRect();
+            const item = mid.getBoundingClientRect();
+            const delta = item.left - box.left - (box.width - item.width) / 2;
+            if (Math.abs(delta) > 1) packages.scrollLeft += delta;
+        };
+        place();
+        document.fonts.ready.then(place);
+        window.addEventListener('resize', place);
+    }
 
     const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });

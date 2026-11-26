@@ -81,42 +81,33 @@ eleventyComputed:
   <p class="label">{{ t.packages.label }}</p>
   <h2>{{ t.packages.heading }}</h2>
   <div class="scope-scroll">
-    <table class="scope">
-      <thead>
-        <tr>
-          <th scope="col">{{ t.packages.concept }}</th>
-          <th scope="col">{{ t.packages.full }}</th>
-          <th scope="col">{{ t.packages.premium }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <ul>
-              {%- for row in t.packages.rows %}{% if row.concept %}
-              <li>{{ row.label }}</li>
-              {% endif %}{% endfor %}
-            </ul>
-          </td>
-          <td>
-            <p>{{ t.packages.includesConcept }}</p>
-            <ul>
-              {%- for row in t.packages.rows %}{% if row.full and not row.concept %}
-              <li>{{ row.label }}</li>
-              {% endif %}{% endfor %}
-            </ul>
-          </td>
-          <td>
-            <p>{{ t.packages.includesFull }}</p>
-            <ul>
-              {%- for row in t.packages.rows %}{% if row.premium and not row.full %}
-              <li>{{ row.label }}</li>
-              {% endif %}{% endfor %}
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <article>
+      <h3>{{ t.packages.concept }}</h3>
+      <p class="includes"></p>
+      <ul>
+        {%- for row in t.packages.rows %}{% if row.concept %}
+        <li>{{ row.label }}</li>
+        {% endif %}{% endfor %}
+      </ul>
+    </article>
+    <article>
+      <h3>{{ t.packages.full }}</h3>
+      <p class="includes">{{ t.packages.includesConcept }}</p>
+      <ul>
+        {%- for row in t.packages.rows %}{% if row.full and not row.concept %}
+        <li>{{ row.label }}</li>
+        {% endif %}{% endfor %}
+      </ul>
+    </article>
+    <article>
+      <h3>{{ t.packages.premium }}</h3>
+      <p class="includes">{{ t.packages.includesFull }}</p>
+      <ul>
+        {%- for row in t.packages.rows %}{% if row.premium and not row.full %}
+        <li>{{ row.label }}</li>
+        {% endif %}{% endfor %}
+      </ul>
+    </article>
   </div>
 </section>
 
