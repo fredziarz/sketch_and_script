@@ -154,7 +154,7 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
 .lightbox-nav.prev { left: 12px; top: 50%; transform: translateY(-50%); }
 .lightbox-nav.next { right: 12px; top: 50%; transform: translateY(-50%); }
 .lightbox-counter { position: absolute; bottom: 20px; font-size: 14px; color: var(--muted); }
-@keyframes lightbox-pulse { 50% { opacity: .35; } }
+@keyframes lightbox-pulse { 50% { opacity: .2; transform: scale(1.15); } }
 
 /* Stopka */
 .footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px 32px; padding: 40px var(--pad); border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); text-align: left; }
@@ -178,10 +178,12 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
   .scope-scroll .includes:empty { display: none; }
   .footer { flex-direction: column; align-items: center; text-align: center; }
   .footer-id { flex-direction: column; align-items: center; text-align: center; }
-  .lightbox { overflow: hidden; background: var(--bg); }
+  .lightbox { overflow: hidden; background: rgba(244, 243, 240, .55); -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -1px 0 rgba(255, 255, 255, .35); }
+  html.refract .lightbox { background: rgba(244, 243, 240, .42); -webkit-backdrop-filter: url(#glass-bar) blur(3px) saturate(1.5); backdrop-filter: url(#glass-bar) blur(3px) saturate(1.5); }
   .lightbox-nav, .lightbox-counter { display: none; }
-  .lightbox .lightbox-close { top: 8px; right: 8px; width: 44px; height: 44px; padding: 0; font-size: 16px; animation: lightbox-pulse 1.6s ease-in-out infinite; }
-  .lightbox-image { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; box-shadow: none; }
+  .lightbox .lightbox-close { top: 8px; right: 8px; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; font-size: 28px; transition: top .45s ease; animation: lightbox-pulse 1.6s ease-in-out infinite; }
+  .lightbox.turned .lightbox-close { top: calc(100% - 52px); }
+  .lightbox-image { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; box-shadow: none; }
   .lightbox.turned .lightbox-stage { inset: auto; top: 0; left: 100dvw; width: 100dvh; height: 100dvw; transform: rotate(90deg); transform-origin: top left; }
 }
 @media (max-width: 1100px) and (prefers-reduced-motion: reduce) {
