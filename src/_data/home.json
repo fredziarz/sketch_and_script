@@ -229,11 +229,7 @@
       "label": "O mnie",
       "heading": "Architekt z wykształcenia, projektant z wyboru",
       "text": "Studiowałem architekturę i projektowałem w pracowniach przy realizacjach w Polsce, Wielkiej Brytanii i Niemczech.\n\nNa co dzień zajmuję się też jakością oprogramowania. Obie dziedziny sprowadzają się do tego samego: zrozumieć, jak ktoś będzie z czegoś korzystał, i dopilnować, żeby to działało.",
-      "portrait": {
-        "src": "/images/459117262_10210821006277362_820627662947858530_n.webp",
-        "x": 55,
-        "y": 45
-      },
+      "portrait": "/images/459117262_10210821006277362_820627662947858530_n.webp",
       "portraitAlt": "Michał Wicherek"
     },
     "contact": {
@@ -511,11 +507,7 @@
       "label": "About",
       "heading": "Architect by training, designer by choice",
       "text": "I studied architecture and have worked in design studios on projects in Poland, the United Kingdom and Germany.\n\nI also work in software quality assurance. Both come down to the same thing: understanding how someone will use something, and making sure it holds up.",
-      "portrait": {
-        "src": "/images/459117262_10210821006277362_820627662947858530_n.webp",
-        "x": 55,
-        "y": 45
-      },
+      "portrait": "/images/459117262_10210821006277362_820627662947858530_n.webp",
       "portraitAlt": "Michał Wicherek"
     },
     "contact": {

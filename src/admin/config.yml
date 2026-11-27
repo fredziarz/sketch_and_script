@@ -181,7 +181,7 @@ collections:
               - { name: label, label: Etykieta, widget: string, i18n: true }
               - { name: heading, label: Nagłówek, widget: string, i18n: true }
               - { name: text, label: Tekst, widget: text, i18n: true, hint: "Akapity oddziel pustą linią" }
-              - { name: portrait, label: Zdjęcie, widget: focus, i18n: duplicate, required: false, hint: "Kliknij podgląd, żeby wskazać punkt kadrowania. Środek zostaje, dopóki go nie przesuniesz." }
+              - { name: portrait, label: Zdjęcie, widget: image, i18n: duplicate, required: false }
               - { name: portraitAlt, label: Opis zdjęcia, widget: string, i18n: true, required: false }
           - name: contact
             label: Kontakt
