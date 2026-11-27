@@ -2,7 +2,15 @@
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { runInNewContext } from 'node:vm';
 import { photo } from '../eleventy.config.js';
+
+const slotSrc = readFileSync('src/assets/js/site.js', 'utf8').match(/function loopSlot\(index, count\) \{[^}]+\}/);
+assert.ok(slotSrc, 'loopSlot missing');
+const loopSlot = runInNewContext(`${slotSrc[0]}; loopSlot`);
+assert.equal(loopSlot(0, 3), 3);
+assert.equal(loopSlot(4, 3), 1);
+assert.equal(loopSlot(2, 3), 2);
 
 assert.deepEqual(photo('/images/a.webp'), { src: '/images/a.webp', position: '50% 50%' });
 assert.deepEqual(photo({ src: '/images/a.webp', x: 140, y: -4 }), { src: '/images/a.webp', position: '100% 0%' });

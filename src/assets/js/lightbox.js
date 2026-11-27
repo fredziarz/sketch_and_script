@@ -19,6 +19,11 @@
         return;
     }
 
+    if (allImages.length < 2) {
+        lightboxPrev.hidden = true;
+        lightboxNext.hidden = true;
+    }
+
     let currentIndex = 0;
     let lastFocus = null;
     let touchStartX = 0;
