@@ -3,6 +3,7 @@
     "metaTitle": "Michał Wicherek – Architektura i projektowanie wnętrz",
     "metaDescription": "Projekty wnętrz mieszkań, domów i lokali, koncepcje domów jednorodzinnych, wizualizacje 3D i nadzór autorski. Wrząca, region łódzki i cała Polska.",
     "tagline": "Architektura i projektowanie wnętrz",
+    "taglineShort": "Architektura i wnętrza",
     "nav": [
       {
         "label": "Portfolio",
@@ -228,7 +229,11 @@
       "label": "O mnie",
       "heading": "Architekt z wykształcenia, projektant z wyboru",
       "text": "Studiowałem architekturę i projektowałem w pracowniach przy realizacjach w Polsce, Wielkiej Brytanii i Niemczech.\n\nNa co dzień zajmuję się też jakością oprogramowania. Obie dziedziny sprowadzają się do tego samego: zrozumieć, jak ktoś będzie z czegoś korzystał, i dopilnować, żeby to działało.",
-      "portrait": "/images/459117262_10210821006277362_820627662947858530_n.webp",
+      "portrait": {
+        "src": "/images/459117262_10210821006277362_820627662947858530_n.webp",
+        "x": 55,
+        "y": 45
+      },
       "portraitAlt": "Michał Wicherek"
     },
     "contact": {
@@ -274,13 +279,13 @@
       "slide": "Zdjęcie",
       "pause": "Zatrzymaj pokaz zdjęć",
       "langSwitch": "English version"
-    },
-    "taglineShort": "Architektura i wnętrza"
+    }
   },
   "en": {
     "metaTitle": "Michał Wicherek – Architecture and interior design",
     "metaDescription": "Interior design for homes, apartments and commercial spaces, single-family house concepts, 3D visualisations and design supervision. Based near Łódź, working across Poland.",
     "tagline": "Architecture and interior design",
+    "taglineShort": "Architecture and interiors",
     "nav": [
       {
         "label": "Portfolio",
@@ -506,7 +511,11 @@
       "label": "About",
       "heading": "Architect by training, designer by choice",
       "text": "I studied architecture and have worked in design studios on projects in Poland, the United Kingdom and Germany.\n\nI also work in software quality assurance. Both come down to the same thing: understanding how someone will use something, and making sure it holds up.",
-      "portrait": "/images/459117262_10210821006277362_820627662947858530_n.webp",
+      "portrait": {
+        "src": "/images/459117262_10210821006277362_820627662947858530_n.webp",
+        "x": 55,
+        "y": 45
+      },
       "portraitAlt": "Michał Wicherek"
     },
     "contact": {
@@ -552,7 +561,6 @@
       "slide": "Image",
       "pause": "Pause the slideshow",
       "langSwitch": "Wersja polska"
-    },
-    "taglineShort": "Architecture and interiors"
+    }
   }
 }
