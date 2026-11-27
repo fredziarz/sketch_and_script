@@ -30,6 +30,7 @@ npm ci        # instalacja
 npm start     # podgląd na http://localhost:8080 z przeładowaniem
 npm run build # wynik w _site/
 npm test      # sprawdza zbudowaną stronę (linki, kotwice, PL/EN, ukryte /code/)
+npm run test:e2e # Playwright (Chromium): menu, pokaz, lightbox, formularz, axe. Wymaga wcześniejszego buildu i raz `npx playwright install chromium`
 ```
 
 ## Gdzie co jest
@@ -58,7 +59,7 @@ Sveltia CMS, konfiguracja w `src/admin/config.yml`. Adresy: https://www.sketchan
 Dwa środowiska:
 
 - **dev** – gałąź `dev`, strona testowa https://sketch-and-script.michalwicherek.workers.dev (Cloudflare, `noindex`). Trafiają tu zapisy z panelu i push z kodem; przed pracą `git pull origin dev`.
-- **produkcja** – gałąź `main`, www.sketchandscript.pl (GitHub Pages). Zmienia się tylko przez pull request `dev` → `main`: [otwórz PR](https://github.com/fredziarz/sketch_and_script/compare/main...dev?expand=1), poczekaj na zielony check `build` (build + `npm test`), kliknij „Merge”. Workflow `.github/workflows/deploy.yml` publikuje stronę po około minucie.
+- **produkcja** – gałąź `main`, www.sketchandscript.pl (GitHub Pages). Zmienia się tylko przez pull request `dev` → `main`: [otwórz PR](https://github.com/fredziarz/sketch_and_script/compare/main...dev?expand=1), poczekaj na zielony check `build` (build, `npm test` i testy Playwright), kliknij „Merge”. Workflow `.github/workflows/deploy.yml` publikuje stronę po około minucie.
 
 Gałąź `main` jest chroniona: bez PR i zielonego `build` nie da się na nią nic wypchnąć.
 
