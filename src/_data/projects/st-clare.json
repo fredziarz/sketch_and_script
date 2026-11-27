@@ -15,7 +15,11 @@
         "slideshow": false
       },
       {
-        "src": "/images/st-clare/st-clare-view-5.jpg",
+        "src": {
+          "src": "/images/st-clare/st-clare-view-5.jpg",
+          "x": 53,
+          "y": 78
+        },
         "alt": "St Clare, widok od ulicy",
         "slideshow": false
       },
@@ -30,7 +34,11 @@
         "slideshow": false
       },
       {
-        "src": "/images/st-clare/st-clare-view-2.jpg",
+        "src": {
+          "src": "/images/st-clare/st-clare-view-2.jpg",
+          "x": 49,
+          "y": 60
+        },
         "alt": "St Clare, wnętrze",
         "slideshow": true
       },
@@ -57,7 +65,11 @@
         "slideshow": false
       },
       {
-        "src": "/images/st-clare/st-clare-view-5.jpg",
+        "src": {
+          "src": "/images/st-clare/st-clare-view-5.jpg",
+          "x": 53,
+          "y": 78
+        },
         "alt": "St Clare, street view",
         "slideshow": false
       },
@@ -72,7 +84,11 @@
         "slideshow": false
       },
       {
-        "src": "/images/st-clare/st-clare-view-2.jpg",
+        "src": {
+          "src": "/images/st-clare/st-clare-view-2.jpg",
+          "x": 49,
+          "y": 60
+        },
         "alt": "St Clare, interior",
         "slideshow": true
       },

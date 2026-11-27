@@ -28,6 +28,32 @@ export const photo = value => {
   return { src, position: `${axis(value && value.x)}% ${axis(value && value.y)}%` };
 };
 
+const GRADE = {
+  saturation: 0.88,
+  linear: [0.94, 10],
+  recomb: [
+    [1.04, 0.02, 0],
+    [0, 0.98, 0],
+    [0, 0.02, 0.95],
+  ],
+};
+const clampPercent = value => {
+  const n = Number(value);
+  return Number.isFinite(n) ? Math.min(100, Math.max(0, n)) : 0;
+};
+export const gradeAmount = value => (value == null || value === '' ? 40 : Math.round(clampPercent(value)));
+export const gradeMix = percent => {
+  const t = clampPercent(percent) / 100;
+  if (t === 0) return null;
+  const lerp = (a, b) => a + (b - a) * t;
+  const id = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  return {
+    saturation: lerp(1, GRADE.saturation),
+    linear: [lerp(1, GRADE.linear[0]), lerp(0, GRADE.linear[1])],
+    recomb: GRADE.recomb.map((row, y) => row.map((n, x) => lerp(id[y][x], n))),
+  };
+};
+
 const escapeHtml = s => String(s).replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
 const tieWords = (html, words) => {
   const re = new RegExp(`(^|[\\s(])(${words})\\s+`, 'gi');
@@ -86,9 +112,13 @@ export default function (eleventyConfig) {
     outputPath && outputPath.endsWith('.html') ? orphans(content) : content
   );
 
+  const gradeLevel = gradeAmount(JSON.parse(readFileSync('src/_data/site.json', 'utf8')).photoGrade);
+  const grade = gradeMix(gradeLevel);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     formats: ['avif', 'webp', 'jpeg'],
     widths: [640, 1280, 1920],
+    manualCacheKey: `grade-${gradeLevel}`,
+    ...(grade ? { transform: pipeline => pipeline.modulate({ saturation: grade.saturation }).recomb(grade.recomb).linear(...grade.linear) } : {}),
     htmlOptions: {
       imgAttributes: { loading: 'lazy', decoding: 'async', sizes: '100vw' },
     },

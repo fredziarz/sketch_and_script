@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { runInNewContext } from 'node:vm';
-import { photo } from '../eleventy.config.js';
+import { photo, gradeAmount, gradeMix } from '../eleventy.config.js';
 
 const slotSrc = readFileSync('src/assets/js/site.js', 'utf8').match(/function loopSlot\(index, count\) \{[^}]+\}/);
 assert.ok(slotSrc, 'loopSlot missing');
@@ -15,6 +15,23 @@ assert.equal(loopSlot(2, 3), 2);
 assert.deepEqual(photo('/images/a.webp'), { src: '/images/a.webp', position: '50% 50%' });
 assert.deepEqual(photo({ src: '/images/a.webp', x: 140, y: -4 }), { src: '/images/a.webp', position: '100% 0%' });
 assert.deepEqual(photo({ src: '/images/a.webp', x: '50%;color:red', y: null }), { src: '/images/a.webp', position: '50% 50%' });
+
+assert.equal(gradeAmount(undefined), 40);
+assert.equal(gradeAmount(''), 40);
+assert.equal(gradeAmount('nope'), 0);
+assert.equal(gradeAmount(150), 100);
+assert.equal(gradeMix(0), null);
+assert.equal(gradeMix(-10), null);
+assert.equal(gradeMix('nope'), null);
+const full = gradeMix(100);
+const mid = gradeMix(50);
+assert.ok(full.saturation < 1 && full.linear[0] < 1 && full.linear[1] > 0);
+assert.ok(full.recomb[0][0] > 1 && full.recomb[2][2] < 1);
+assert.ok(Math.abs(mid.saturation - (1 + full.saturation) / 2) < 1e-9);
+assert.ok(Math.abs(mid.linear[0] - (1 + full.linear[0]) / 2) < 1e-9);
+assert.ok(Math.abs(mid.linear[1] - full.linear[1] / 2) < 1e-9);
+assert.ok(Math.abs(mid.recomb[0][0] - (1 + full.recomb[0][0]) / 2) < 1e-9);
+assert.deepEqual(gradeMix(150).recomb, full.recomb);
 
 const root = '_site';
 const site = JSON.parse(readFileSync('src/_data/site.json', 'utf8'));

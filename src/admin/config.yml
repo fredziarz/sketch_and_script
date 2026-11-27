@@ -181,7 +181,7 @@ collections:
               - { name: label, label: Etykieta, widget: string, i18n: true }
               - { name: heading, label: Nagłówek, widget: string, i18n: true }
               - { name: text, label: Tekst, widget: text, i18n: true, hint: "Akapity oddziel pustą linią" }
-              - { name: portrait, label: Zdjęcie, widget: focus, i18n: duplicate, required: false, hint: "Kliknij podgląd, żeby wskazać punkt kadrowania. Środek zostaje, dopóki go nie przesuniesz." }
+              - { name: portrait, label: Zdjęcie, widget: image, i18n: duplicate, required: false }
               - { name: portraitAlt, label: Opis zdjęcia, widget: string, i18n: true, required: false }
           - name: contact
             label: Kontakt
@@ -247,3 +247,9 @@ collections:
           - { name: linkedin, label: LinkedIn, widget: string, required: false }
           - { name: instagram, label: Instagram, widget: string, required: false }
           - { name: cloudflareAnalyticsToken, label: Token Cloudflare Web Analytics, widget: string, required: false }
+          - name: photoGrade
+            label: Siła filtra zdjęć
+            widget: grade
+            required: false
+            default: 40
+            hint: "0 = jak wgrane, 100 = pełna krzywa. Jedna wartość dla wszystkich zdjęć. Efekt widać na stronie po buildzie; podgląd w panelu zostaje surowy."

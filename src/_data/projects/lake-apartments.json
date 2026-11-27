@@ -10,22 +10,38 @@
     "credits": "",
     "images": [
       {
-        "src": "/images/lake-apartments/lake-apartments-aerial-view.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-aerial-view.jpg",
+          "x": 46,
+          "y": 68
+        },
         "alt": "Lake Apartments, widok z lotu ptaka",
         "slideshow": false
       },
       {
-        "src": "/images/lake-apartments/lake-apartments-living-room.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-living-room.jpg",
+          "x": 44,
+          "y": 46
+        },
         "alt": "Lake Apartments, salon",
         "slideshow": false
       },
       {
-        "src": "/images/lake-apartments/lake-apartments-bedroom.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-bedroom.jpg",
+          "x": 65,
+          "y": 47
+        },
         "alt": "Lake Apartments, sypialnia",
         "slideshow": true
       },
       {
-        "src": "/images/lake-apartments/lake-apartments-rear-view.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-rear-view.jpg",
+          "x": 34,
+          "y": 54
+        },
         "alt": "Lake Apartments, elewacja tylna",
         "slideshow": false
       }
@@ -42,22 +58,38 @@
     "credits": "",
     "images": [
       {
-        "src": "/images/lake-apartments/lake-apartments-aerial-view.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-aerial-view.jpg",
+          "x": 46,
+          "y": 68
+        },
         "alt": "Lake Apartments, aerial view",
         "slideshow": false
       },
       {
-        "src": "/images/lake-apartments/lake-apartments-living-room.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-living-room.jpg",
+          "x": 44,
+          "y": 46
+        },
         "alt": "Lake Apartments, living room",
         "slideshow": false
       },
       {
-        "src": "/images/lake-apartments/lake-apartments-bedroom.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-bedroom.jpg",
+          "x": 65,
+          "y": 47
+        },
         "alt": "Lake Apartments, bedroom",
         "slideshow": true
       },
       {
-        "src": "/images/lake-apartments/lake-apartments-rear-view.jpg",
+        "src": {
+          "src": "/images/lake-apartments/lake-apartments-rear-view.jpg",
+          "x": 34,
+          "y": 54
+        },
         "alt": "Lake Apartments, rear elevation",
         "slideshow": false
       }
