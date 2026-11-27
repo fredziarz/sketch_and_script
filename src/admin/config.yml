@@ -247,3 +247,9 @@ collections:
           - { name: linkedin, label: LinkedIn, widget: string, required: false }
           - { name: instagram, label: Instagram, widget: string, required: false }
           - { name: cloudflareAnalyticsToken, label: Token Cloudflare Web Analytics, widget: string, required: false }
+          - name: photoGrade
+            label: Siła filtra zdjęć
+            widget: grade
+            required: false
+            default: 40
+            hint: "0 = jak wgrane, 100 = pełna krzywa. Jedna wartość dla wszystkich zdjęć. Efekt widać na stronie po buildzie; podgląd w panelu zostaje surowy."

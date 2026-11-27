@@ -33,6 +33,8 @@ eleventyComputed:
 <section class="section wrap" id="{{ t.nav[0].id }}">
   <p class="label">{{ t.portfolio.label }}</p>
   <h2>{{ t.portfolio.heading }}</h2>
+  <div class="cards-frame">
+  <button type="button" class="cards-edge prev" hidden></button>
   <div class="cards">
     {%- for p in projectList %}
     {%- set pr = p[lang] %}
@@ -43,6 +45,8 @@ eleventyComputed:
       <p class="muted">{{ pr.location }}{% if pr.year %}, {{ pr.year }}{% endif %}</p>
     </a>
     {%- endfor %}
+  </div>
+  <button type="button" class="cards-edge next" hidden></button>
   </div>
 </section>
 

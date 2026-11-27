@@ -41,12 +41,29 @@
     });
 
     const track = document.querySelector('.cards');
+    const cardPrev = document.querySelector('.cards-edge.prev');
+    const cardNext = document.querySelector('.cards-edge.next');
     if (track && track.children.length > 1) {
         const originals = [...track.children];
         const count = originals.length;
+        const titles = originals.map(card => card.querySelector('h3').textContent);
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
         let clones = [];
         let slot = 1;
         const step = () => track.clientWidth;
+        const labelCards = () => {
+            const on = compact.matches && clones.length > 0;
+            if (cardPrev) cardPrev.hidden = !on;
+            if (cardNext) cardNext.hidden = !on;
+            if (!on) return;
+            cardPrev.textContent = titles[(slot - 2 + count) % count];
+            cardNext.textContent = titles[slot % count];
+        };
+        const go = dir => {
+            const left = track.scrollLeft + dir * step();
+            if (reduce.matches) track.scrollLeft = left;
+            else track.scrollTo({ left, behavior: 'smooth' });
+        };
         const arm = () => {
             if (!compact.matches || clones.length) return;
             const last = originals[count - 1].cloneNode(true);
@@ -60,11 +77,13 @@
             clones = [last, first];
             slot = 1;
             track.scrollLeft = step();
+            labelCards();
         };
         const disarm = () => {
             for (const node of clones) node.remove();
             clones = [];
             track.scrollLeft = 0;
+            labelCards();
         };
         // Jedna kopia na końcach. Szybkie machnięcie przez wiele projektów może raz szarpnąć na szwie.
         const place = () => {
@@ -74,7 +93,10 @@
             const index = Math.round(track.scrollLeft / w);
             slot = loopSlot(index, count);
             if (slot !== index) track.scrollLeft = slot * w;
+            labelCards();
         };
+        if (cardPrev) cardPrev.addEventListener('click', () => go(-1));
+        if (cardNext) cardNext.addEventListener('click', () => go(1));
         track.addEventListener('scrollend', place);
         window.addEventListener('resize', () => { if (clones.length) track.scrollLeft = slot * step(); });
         const syncCards = () => (compact.matches ? arm() : disarm());

@@ -101,6 +101,7 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
 .steps li > * { grid-column: 2; }
 .steps li::before { grid-column: 1; grid-row: 1 / -1; align-self: start; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--muted); border-radius: 50%; background: var(--bg); font-size: 16px; font-weight: 500; line-height: 1; color: var(--fg); position: relative; z-index: 1; }
 .steps li:not(:last-child)::after { content: ''; position: absolute; left: 18px; top: 0; bottom: -48px; width: 1px; transform: translateX(-50%); background: var(--line); }
+.steps li:has(+ .extra)::after { background: repeating-linear-gradient(to bottom, var(--line) 0 3px, transparent 3px 7px); }
 .steps li:not(.extra)::before { counter-increment: s; content: counter(s); }
 .steps .extra::before { content: '+'; }
 .steps p { margin-top: 8px; }
@@ -109,7 +110,7 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
 /* Oferta */
 .services { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 48px; margin-bottom: 48px; text-align: left; }
 .services li { border-top: 1px solid var(--line); padding-top: 20px; }
-.scope-edge { display: none; }
+.scope-edge, .cards-edge { display: none; }
 .scope-scroll { display: grid; grid-template-columns: repeat(3, minmax(14em, 22em)); width: max-content; max-width: 100%; margin-inline: auto; font-size: 15px; scroll-behavior: auto; }
 .scope-scroll article { display: grid; grid-template-rows: subgrid; grid-row: span 3; border-bottom: 1px solid var(--line); }
 .scope-scroll article + article { border-left: 1px solid var(--line); }
@@ -175,15 +176,17 @@ html.refract .home .header { background: rgba(244, 243, 240, .42); -webkit-backd
   .menu.open { display: flex; }
   .menu .lang { margin-left: 0; }
   body.menu-open { overflow: hidden; }
+  .cards-frame { position: relative; container-type: inline-size; padding-inline: 32px; }
   .cards { display: flex; gap: 0; margin-top: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
   .cards::-webkit-scrollbar { display: none; }
   .cards .card { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; }
   .scope-frame { position: relative; }
-  .scope-edge { display: grid; place-items: center; position: absolute; z-index: 2; top: 50%; translate: 0 -50%; margin: 0; padding-block: 10px; border: 0; background: transparent; color: var(--muted); opacity: .45; font: 500 13px/1.2 'Manrope', system-ui, sans-serif; white-space: nowrap; writing-mode: vertical-rl; text-orientation: sideways; cursor: pointer; }
-  .scope-edge[hidden] { display: none; }
-  .scope-edge.prev { left: 0; }
-  .scope-edge.next { right: 0; rotate: 180deg; }
-  .scope-edge:hover, .scope-edge:focus-visible { opacity: .85; }
+  .scope-edge, .cards-edge { display: grid; place-items: center; position: absolute; z-index: 2; top: 50%; translate: 0 -50%; margin: 0; padding-block: 10px; border: 0; background: transparent; color: var(--muted); opacity: .45; font: 500 13px/1.2 'Manrope', system-ui, sans-serif; white-space: nowrap; writing-mode: vertical-rl; text-orientation: sideways; cursor: pointer; }
+  .scope-edge[hidden], .cards-edge[hidden] { display: none; }
+  .scope-edge.prev, .cards-edge.prev { left: 0; }
+  .scope-edge.next, .cards-edge.next { right: 0; rotate: 180deg; }
+  .scope-edge:hover, .scope-edge:focus-visible, .cards-edge:hover, .cards-edge:focus-visible { opacity: .85; }
+  .cards-edge { padding-block: 0; max-height: calc(100cqi * 3 / 4); overflow: hidden; }
   .scope-scroll { display: flex; width: auto; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding-inline: 8%; }
   .scope-scroll article { display: block; flex: 0 0 100%; scroll-snap-align: center; border-left: 0; }
   .scope-scroll article + article { border-left: 0; }
