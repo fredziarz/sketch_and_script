@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Git
 
-Po skończonym etapie (zadanie z tej rozmowy zrobione, a przy zmianie kodu `npm run build && npm test` przechodzi) zrób jeden commit na `dev` i `git push` na `origin/dev`. Nie pytaj o to drugi raz. Nie commituj w trakcie roboty ani plików z `_working_files/`.
+Po skończonym etapie (zadanie z tej rozmowy zrobione, a przy zmianie kodu `npm run build && npm test` przechodzi) zrób jeden commit na `dev` i `git push` na `origin/dev`. Nie pytaj o to drugi raz. Nie commituj w trakcie roboty ani plików z `_working_files/`. Zanim ten commit, `main` ma być przodkiem `dev` (po publikacji zapisuje to workflow; jeśli nie zdążył, a drzewo `main` jest drzewem któregoś commita na `dev`, zrób `git merge -s ours origin/main`).
 
 Nie pushuj na `main`, nie otwieraj ani nie scalaj pull requestu `dev` → `main` i nie zmieniaj ustawień repo, dopóki ta wiadomość wprost o to nie prosi. Nawet wtedy nie scalaj: właściciel klika Merge.
 

@@ -1,0 +1,33 @@
+name: Sync dev
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: dev
+          fetch-depth: 0
+      - name: Record main on dev
+        run: |
+          git fetch origin main
+          if git merge-base --is-ancestor origin/main HEAD; then
+            exit 0
+          fi
+          main_tree=$(git rev-parse 'origin/main^{tree}')
+          if git log HEAD --format='%T' | grep -qx "$main_tree"; then
+            git config user.name "$(git log -1 --format='%an' origin/main)"
+            git config user.email "$(git log -1 --format='%ae' origin/main)"
+            git merge -s ours origin/main -m "chore: merge main into dev"
+            git push origin HEAD:dev
+          else
+            echo "main is not a published snapshot of dev"
+            exit 1
+          fi
